@@ -24,4 +24,10 @@ public class Film {
 		this.genere = genere;
 		this.topFilm = topFilm;
 	}	
+	
+	public String getCodice() {
+		return codice;
+	}
+	
+	
 }

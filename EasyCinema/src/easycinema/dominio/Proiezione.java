@@ -13,8 +13,7 @@ public class Proiezione {
 	private boolean _3D;
 	private double tariffa;
 	
-	
-	
+		
 	public Proiezione(String codice, Film film, Sala sala, LocalDate data, LocalTime ora, boolean _3D, double tariffaBase) {
 		this.codice = codice;
 		this.film = film;
@@ -37,10 +36,16 @@ public class Proiezione {
 		return tariffa;
 	}
 	
+	public String getCodice() {
+		return codice;
+	}
+	
 	// La tariffa della proiezione è funzione della tariffa base, del tipo di proiezione (2d/3d), se il film a cui fa riferimento è un topFilm e dal tipo di sala. 
 	public void calcolaTariffa() {		
+		// da implementare
 		tariffa *=1;
 	}
+	
 	
 	
 	

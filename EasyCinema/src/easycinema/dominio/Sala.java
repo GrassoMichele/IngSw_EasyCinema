@@ -11,11 +11,11 @@ public class Sala {
 	private Map<Integer, PostoSala> postiSala;
 	
 	
-	public Sala(String nome, int numPostiTotali, boolean _2d, boolean _3d) {
+	public Sala(String nome, int numPostiTotali, boolean _2D, boolean _3D) {
 		this.nome = nome;
 		this.numPostiTotali = numPostiTotali;
-		_2D = _2d;
-		_3D = _3d;
+		this._2D = _2D;
+		this._3D = _3D;
 		
 		this.postiSala = new HashMap<Integer, PostoSala>();
 		creaPostiSala();
