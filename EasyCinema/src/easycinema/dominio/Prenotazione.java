@@ -7,6 +7,7 @@ public class Prenotazione {
 	private String codice;
 	private Cliente cliente;
 	private Proiezione proiezione;
+	private double totale; 
 	private List<Biglietto> biglietti;
 	
 	public Prenotazione(Cliente cliente, Proiezione proiezione) {
@@ -28,8 +29,8 @@ public class Prenotazione {
 		List<Integer> postiOccupatiPrenotazione = new LinkedList<Integer>();
 		if(this.proiezione == proiezione) {
 			int numeroPosto;
-			for (int i=0; i< biglietti.size(); i++) {
-				numeroPosto = biglietti.get(i).otteniPostoSala();
+			for (Biglietto b : biglietti) {
+				numeroPosto = b.otteniPostoSala();
 				postiOccupatiPrenotazione.add(numeroPosto);
 			}
 		}
@@ -50,6 +51,14 @@ public class Prenotazione {
 		double tariffaProiezione = proiezione.getTariffa();
 		double totale = tariffaProiezione * biglietti.size();
 		return totale;
+	}
+
+	public double getTotale() {
+		return totale;
+	}
+
+	public String getCodice() {
+		return codice;
 	}
 	
 }

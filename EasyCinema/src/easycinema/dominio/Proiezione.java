@@ -22,6 +22,7 @@ public class Proiezione {
 		this.ora = ora;
 		this._3D = _3D;
 		tariffa = tariffaBase;
+		calcolaTariffa();
 	}
 	
 	public int getNumPostiSala() {
@@ -40,16 +41,32 @@ public class Proiezione {
 		return codice;
 	}
 	
-	// La tariffa della proiezione è funzione della tariffa base, del tipo di proiezione (2d/3d), se il film a cui fa riferimento è un topFilm e dal tipo di sala. 
-	public void calcolaTariffa() {		
-		// da implementare
-		tariffa *=1;
+	public LocalDate getData() {
+		return data;
+	}
+
+	public LocalTime getOra() {
+		return ora;
 	}
 	
+	public Sala getSala() {
+		return sala;
+	}
 	
+	public int getDurataFilm() {
+		return film.getDurata();
+	}
 	
-	
-	
-	
+	// La tariffa della proiezione è funzione della tariffa base, del tipo di proiezione (2d/3d), se il film a cui fa riferimento è un topFilm e dal tipo di sala. 
+	private void calcolaTariffa() {	
+		if (_3D == true) {
+			tariffa *= 1.15;		// Una proiezione 3D costa il 15% in più rispetto ad una 2D.
+		}
+		if (film.isTopFilm() == true) {
+			tariffa *= 1.15;		// Un film Top Film ha una maggiorazione del prezzo del 15%.
+		}
+		
+		// resta da considerare la tipologia di sala
+	}	
 
 }

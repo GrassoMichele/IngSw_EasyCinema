@@ -28,6 +28,13 @@ public class Film {
 	public String getCodice() {
 		return codice;
 	}
-	
+
+	public int getDurata() {
+		return durata;
+	}
+
+	public boolean isTopFilm() {
+		return topFilm;
+	}	
 	
 }

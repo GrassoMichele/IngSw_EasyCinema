@@ -6,9 +6,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+
 
 public class EasyCinema {
 	private List<Prenotazione> prenotazioni;
@@ -26,24 +29,46 @@ public class EasyCinema {
 		caricaSale();
 	}
 	
-	public Prenotazione nuovaPrenotazione(String codiceProiezione) {
-		Proiezione proiezione = catalogo.getProiezione(codiceProiezione);
-		
-		Cliente clienteCorrente;
-		
-		// da rimuovere una volta aggiunto il login
-		this.utenteCorrente = new Cliente();
-		
-		if (this.utenteCorrente instanceof Cliente) {
-			clienteCorrente = (Cliente) utenteCorrente;
+	public void nuovaProiezione(String codice, String codiceFilm, String nomeSala, LocalDate data, LocalTime ora, boolean _3D, double tariffaBase) throws EccezioneDominio {
+		Sala s = sale.get(nomeSala);
+		if(s != null) {
+			boolean esito = controlloTecnologiaSala(s, _3D);
+			if (esito == true) {
+				catalogo.nuovaProiezione(codice, codiceFilm, s, data, ora, _3D, tariffaBase);
+			}
+			else {
+				throw new EccezioneDominio("La sala scelta per la proiezione non supporta la tipologia di proiezione (2D/3D) indicata.");
+			}
 		}
 		else {
-			return null;
+			throw new EccezioneDominio("Il nome della sala scelta per la proiezione non esiste.");
 		}
-				
-		this.prenotazioneCorrente = new Prenotazione(clienteCorrente, proiezione);	
+	}
+	
+	private boolean controlloTecnologiaSala(Sala sala, boolean _3D) {
+		if ((_3D == true && !sala.is_3D()) || (_3D == false && !sala.is_2D())) {
+			return false;
+		}
+		return true;
+	}
+	
+	public String nuovaPrenotazione(String codiceProiezione) throws EccezioneDominio {
+		Proiezione pr = catalogo.getProiezione(codiceProiezione);
 		
-		return prenotazioneCorrente;
+		if (pr != null) {
+			Cliente clienteCorrente;
+			
+			// da rimuovere una volta aggiunto il login
+			this.utenteCorrente = new Cliente();
+			
+			clienteCorrente = (Cliente) utenteCorrente;								
+			this.prenotazioneCorrente = new Prenotazione(clienteCorrente, pr);				
+			return prenotazioneCorrente.getCodice();
+		}
+		else {
+			throw new EccezioneDominio("Il codice della proiezione non è valido.");
+		}
+		
 	}
 	
 	public List<Integer> ottieniPostiDisponibili() {
@@ -51,8 +76,8 @@ public class EasyCinema {
 		int numPostiSala = pr.getNumPostiSala();
 		
 		Set<Integer> postiOccupati = new HashSet<Integer>();
-		for (int i=0; i<prenotazioni.size(); i++) {
-			LinkedList<Integer> postiOccupatiPrenotazione = (LinkedList<Integer>) prenotazioni.get(i).ottieniPostiBiglietti(pr);
+		for (Prenotazione p : prenotazioni) {
+			LinkedList<Integer> postiOccupatiPrenotazione = (LinkedList<Integer>) p.ottieniPostiBiglietti(pr);
 			postiOccupati.addAll(postiOccupatiPrenotazione);			
 		}
 				
@@ -82,6 +107,11 @@ public class EasyCinema {
 	
 	public void confermaPrenotazione() {
 		prenotazioni.add(prenotazioneCorrente);
+		
+		double totale = prenotazioneCorrente.getTotale();
+		Cliente clienteCorrente = (Cliente) utenteCorrente;	
+		double credito = clienteCorrente.getCredito();
+		clienteCorrente.setCredito(credito - totale);
 	}
 	
 	private void caricaSale() {

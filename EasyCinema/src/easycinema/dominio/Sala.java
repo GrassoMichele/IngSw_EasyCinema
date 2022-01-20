@@ -40,5 +40,13 @@ public class Sala {
 	public PostoSala getPostoSala(int numPosto) {
 		return postiSala.get(numPosto);
 	}
+
+	public boolean is_2D() {
+		return _2D;
+	}
+
+	public boolean is_3D() {
+		return _3D;
+	}
 		
 }
