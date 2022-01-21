@@ -2,15 +2,16 @@ package easycinema.dominio;
 
 import java.util.List;
 import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 
 
 public class EasyCinema {
@@ -24,9 +25,8 @@ public class EasyCinema {
 	public EasyCinema() {
 		prenotazioni = new LinkedList<Prenotazione>();
 		sale = new HashMap<String, Sala>();
-		catalogo = new Catalogo();
-		
-		caricaSale();
+		caricaSale();		
+		catalogo = new Catalogo(sale);		
 	}
 	
 	public void nuovaProiezione(String codice, String codiceFilm, String nomeSala, LocalDate data, LocalTime ora, boolean _3D, double tariffaBase) throws EccezioneDominio {
@@ -52,18 +52,17 @@ public class EasyCinema {
 		return true;
 	}
 	
-	public String nuovaPrenotazione(String codiceProiezione) throws EccezioneDominio {
+	public void nuovaPrenotazione(String codiceProiezione) throws EccezioneDominio {
 		Proiezione pr = catalogo.getProiezione(codiceProiezione);
 		
 		if (pr != null) {
 			Cliente clienteCorrente;
 			
 			// da rimuovere una volta aggiunto il login
-			this.utenteCorrente = new Cliente();
+			this.utenteCorrente = new Cliente(10);
 			
 			clienteCorrente = (Cliente) utenteCorrente;								
 			this.prenotazioneCorrente = new Prenotazione(clienteCorrente, pr);				
-			return prenotazioneCorrente.getCodice();
 		}
 		else {
 			throw new EccezioneDominio("Il codice della proiezione non è valido.");
@@ -73,13 +72,15 @@ public class EasyCinema {
 	
 	public List<Integer> ottieniPostiDisponibili() {
 		Proiezione pr = prenotazioneCorrente.getProiezione();
-		int numPostiSala = pr.getNumPostiSala();
+		int numPostiSala = prenotazioneCorrente.getNumPostiSala();
 		
 		Set<Integer> postiOccupati = new HashSet<Integer>();
 		for (Prenotazione p : prenotazioni) {
 			LinkedList<Integer> postiOccupatiPrenotazione = (LinkedList<Integer>) p.ottieniPostiBiglietti(pr);
 			postiOccupati.addAll(postiOccupatiPrenotazione);			
 		}
+		LinkedList<Integer> postiOccupatiPrenotazioneCorrente = (LinkedList<Integer>) prenotazioneCorrente.ottieniPostiBiglietti(pr);
+		postiOccupati.addAll(postiOccupatiPrenotazioneCorrente);	
 				
 		// generazione dei numeri nel range 1 - numPostiSala (estremo superiore compreso)
 		List<Integer> postiTotali = IntStream.rangeClosed(1, numPostiSala).boxed().collect(Collectors.toList());
@@ -93,25 +94,38 @@ public class EasyCinema {
 		return postiDisponibili_sorted;
 	}
 	
-	public void aggiungiBiglietto(int numPosto) {
-		String nomeSala = prenotazioneCorrente.getNomeSalaProiezione();
-		Sala s = sale.get(nomeSala);
-		PostoSala postoSala = s.getPostoSala(numPosto);
-		prenotazioneCorrente.aggiungiBiglietto(postoSala);		
+	public void aggiungiBiglietto(int numPosto) throws EccezioneDominio {
+		// controllo se numPosto è tra quelli disponibili
+		List<Integer> postiDisponibili = ottieniPostiDisponibili();
+		if(postiDisponibili.contains(numPosto)) {
+			String nomeSala = prenotazioneCorrente.getNomeSalaProiezione();
+			Sala s = sale.get(nomeSala);
+			PostoSala postoSala = s.getPostoSala(numPosto);
+			prenotazioneCorrente.aggiungiBiglietto(postoSala);	
+		}
+		else {
+			throw new EccezioneDominio("Il posto selezionato non è tra quelli disponibili");
+		}
 	}
 	
-	public double calcolaTotalePrenotazione() {
+	public double calcolaTotalePrenotazione() throws EccezioneDominio {
 		double totalePrenotazione = prenotazioneCorrente.calcolaTotale();
+		
+		if (totalePrenotazione == 0) 	// nessun biglietto acquistato
+			throw new EccezioneDominio("Nessun biglietto acquistato!");
+		
 		return totalePrenotazione;
 	}
 	
-	public void confermaPrenotazione() {
-		prenotazioni.add(prenotazioneCorrente);
-		
+	public String confermaPrenotazione() throws EccezioneDominio {		
 		double totale = prenotazioneCorrente.getTotale();
 		Cliente clienteCorrente = (Cliente) utenteCorrente;	
-		double credito = clienteCorrente.getCredito();
+		double credito = clienteCorrente.getCredito();		
 		clienteCorrente.setCredito(credito - totale);
+		
+		prenotazioni.add(prenotazioneCorrente);
+		
+		return prenotazioneCorrente.getCodice();
 	}
 	
 	private void caricaSale() {
@@ -122,6 +136,22 @@ public class EasyCinema {
 		sale.put(s1.getNome(), s1);
 		sale.put(s2.getNome(), s2);
 		sale.put(s3.getNome(), s3);		
+	}
+
+	public Map<String, Sala> getSale() {
+		return sale;
+	}
+	
+	public Map<String, Film> getFilm() {
+		return catalogo.getFilm();
+	}
+	
+	public Map<String, Proiezione> getProiezioni() {
+		return catalogo.getProiezioni();
+	}
+
+	public List<Prenotazione> getPrenotazioni() {
+		return prenotazioni;
 	}
 	
 }

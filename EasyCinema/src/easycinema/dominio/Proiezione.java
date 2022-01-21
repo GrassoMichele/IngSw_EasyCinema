@@ -2,6 +2,9 @@ package easycinema.dominio;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+import easycinema.interfaccia.text.Parser;
 
 
 public class Proiezione {
@@ -14,17 +17,27 @@ public class Proiezione {
 	private double tariffa;
 	
 		
-	public Proiezione(String codice, Film film, Sala sala, LocalDate data, LocalTime ora, boolean _3D, double tariffaBase) {
+	public Proiezione(String codice, Film film, Sala sala, LocalDate data, LocalTime ora, boolean _3D, double tariffaBase) throws EccezioneDominio {
 		this.codice = codice;
 		this.film = film;
 		this.sala = sala;
 		this.data = data;
 		this.ora = ora;
 		this._3D = _3D;
-		tariffa = tariffaBase;
-		calcolaTariffa();
+		
+		setTariffa(tariffaBase);		
 	}
 	
+	private void setTariffa(double tariffaBase) throws EccezioneDominio {
+		if (tariffaBase > 0) {
+			tariffa = tariffaBase;
+			calcolaTariffa();	
+		}
+		else {
+			throw new EccezioneDominio("La tariffa deve essere maggiore di 0.");
+		}
+	}
+
 	public int getNumPostiSala() {
 		return sala.getNumPostiTotali(); 
 	}
@@ -65,8 +78,22 @@ public class Proiezione {
 		if (film.isTopFilm() == true) {
 			tariffa *= 1.15;		// Un film Top Film ha una maggiorazione del prezzo del 15%.
 		}
-		
 		// resta da considerare la tipologia di sala
+		
+		tariffa = (double) Math.round(tariffa * 100d) / 100d;		// 2 cifre decimali
 	}	
+	
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("- ");
+		result.append("Codice: " + codice);
+		result.append(", Film: (" + film.getCodice() + ") " + film.getTitolo());
+		result.append(", Sala: (" + sala.getNome() + ")");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		result.append(", Data e ora: " + data.format(formatter) + " " + ora.toString());
+		result.append(", 3D: " + _3D);
+		result.append(", tariffa: " + tariffa);
+		return result.toString();
+	}
 
 }

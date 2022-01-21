@@ -3,10 +3,12 @@ package easycinema.dominio;
 import java.util.HashMap;
 import java.util.Map;
 
+import easycinema.interfaccia.text.Parser;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 
 public class Catalogo {
@@ -14,37 +16,34 @@ public class Catalogo {
 	private Map<String, Film> film;
 	
 	
-	public Catalogo() {
+	public Catalogo(Map<String, Sala> sale) {
 		proiezioni = new HashMap<String, Proiezione>();
 		film = new HashMap<String, Film>();
 		
 		caricaFilm();
+		caricaProiezioni(sale);
 	}
 	
 	public void nuovaProiezione(String codice, String codiceFilm, Sala s, LocalDate data, LocalTime ora, boolean _3D, double tariffaBase) throws EccezioneDominio {
-		/* da copiare nell'interfaccia
-		String date = "20/01/2022";
-	    String time = "08:49";
-	        
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-	    //convert String to LocalDate
-	    LocalDate localDate = LocalDate.parse(date, formatter);
-	    
-	    formatter = DateTimeFormatter.ofPattern("H:mm");
-	    LocalTime localTime = LocalTime.parse(time, formatter);
-	 	*/
-		
-		boolean valida = controlloValidit‡TemporaleProiezione(data, ora, 0);
+		if (proiezioni.containsKey(codice)) {
+			throw new EccezioneDominio("Errore: Esiste gi‡ una proiezione con lo stesso codice.");
+		}
+		boolean valida = controlloValiditaTemporaleProiezione(data, ora, 0);
 		if (valida == true) {
 			Film f = film.get(codiceFilm);
-			int durataFilm = f.getDurata();			
-			boolean sovrapposizione = controlloSovrapposizioneProiezioni(s, data, ora, durataFilm);
-			if (sovrapposizione == false) {
-				Proiezione pr = new Proiezione(codice, f, s, data, ora, _3D, tariffaBase);
-				proiezioni.put(codice, pr);
+			if (f != null) {
+				int durataFilm = f.getDurata();			
+				boolean sovrapposizione = controlloSovrapposizioneProiezioni(s, data, ora, durataFilm);
+				if (sovrapposizione == false) {
+					Proiezione pr = new Proiezione(codice, f, s, data, ora, _3D, tariffaBase);
+					proiezioni.put(codice, pr);
+				}
+				else {
+					throw new EccezioneDominio("Errore: la nuova proiezione si sovrappone con (almeno) un'altra gi‡ esistente!");
+				}
 			}
 			else {
-				throw new EccezioneDominio("Errore: la nuova proiezione si sovrappone con (almeno) un'altra gi‡ esistente!");
+				throw new EccezioneDominio("Errore: Non esiste un film con il codice indicato!");
 			}
 		}
 		else {
@@ -52,7 +51,7 @@ public class Catalogo {
 		}
 	}
 
-	private boolean controlloValidit‡TemporaleProiezione(LocalDate data, LocalTime ora, int margine) {
+	private boolean controlloValiditaTemporaleProiezione(LocalDate data, LocalTime ora, int margine) {
 		LocalDateTime data_ora_proiezione = LocalDateTime.of(data,ora);
 	    LocalDateTime data_ora_proiezione_con_margine = data_ora_proiezione.plusMinutes(margine);
 		return data_ora_proiezione_con_margine.isAfter(LocalDateTime.now());
@@ -95,7 +94,7 @@ public class Catalogo {
 		Proiezione pr = proiezioni.get(codice);
 		if (pr != null) {
 			// La prenotazione ad una proiezione Ë possibile entro i 15 minuti successivi all'inizio della proiezione.
-			boolean valida = controlloValidit‡TemporaleProiezione(pr.getData(), pr.getOra(), 15); 
+			boolean valida = controlloValiditaTemporaleProiezione(pr.getData(), pr.getOra(), 15); 
 			if (valida == false) {
 				throw new EccezioneDominio("Non Ë pi˘ possibile effettuare una prenotazione per la proiezione richiesta");
 			}
@@ -117,5 +116,33 @@ public class Catalogo {
 		film.put(f2.getCodice(), f2);
 		film.put(f3.getCodice(), f3);
 	}
+
+	public Map<String, Film> getFilm() {
+		return film;
+	}
+	
+	private void caricaProiezioni(Map<String, Sala> sale) {
+		try {
+			DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("d/MM/yyyy");
+			DateTimeFormatter formatterH = DateTimeFormatter.ofPattern("H:mm");
+		
+			LocalDate data = LocalDate.parse("17/03/2022", formatterD);		
+			LocalTime ora = LocalTime.parse("10:10", formatterH);
+			Proiezione pr1 = new Proiezione("pr1", film.get("12345"), sale.get("Indaco"), data, ora, false, 4.00);
+			data = LocalDate.parse("07/12/2021", formatterD);		
+			ora = LocalTime.parse("01:59", formatterH);
+			Proiezione pr2 = new Proiezione("pr2", film.get("54321"), sale.get("Solidago"), data, ora, true, 5.00);
+		
+			proiezioni.put("pr1", pr1);
+			proiezioni.put("pr2", pr2);
+		}
+		catch(Exception e) {}
+		
+	}
+	
+	public Map<String, Proiezione> getProiezioni() {
+		return proiezioni;
+	}
+	
 	
 }

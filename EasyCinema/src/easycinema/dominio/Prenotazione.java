@@ -1,5 +1,6 @@
 package easycinema.dominio;
 
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,10 +12,10 @@ public class Prenotazione {
 	private List<Biglietto> biglietti;
 	
 	public Prenotazione(Cliente cliente, Proiezione proiezione) {
-		setCodice();
 		this.cliente = cliente;
 		this.proiezione = proiezione;
 		this.biglietti = new LinkedList<Biglietto>();
+		setCodice();
 	}
 	
 	private void setCodice() {
@@ -23,6 +24,10 @@ public class Prenotazione {
 	
 	public Proiezione getProiezione() {
 		return proiezione;
+	}
+	
+	public int getNumPostiSala() {
+		return proiezione.getNumPostiSala();
 	}
 	
 	public List<Integer> ottieniPostiBiglietti(Proiezione proiezione) {
@@ -50,6 +55,7 @@ public class Prenotazione {
 	public double calcolaTotale() {
 		double tariffaProiezione = proiezione.getTariffa();
 		double totale = tariffaProiezione * biglietti.size();
+		this.totale = totale;
 		return totale;
 	}
 
@@ -59,6 +65,21 @@ public class Prenotazione {
 
 	public String getCodice() {
 		return codice;
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("- ");
+		result.append("Codice: " + codice);
+		result.append(", Cliente: " + cliente);
+		result.append(", Proiezione: " + proiezione.getCodice());
+		result.append(", Totale: " + totale);
+		result.append(", Biglietti: ");
+		for (Biglietto biglietto : biglietti) {
+			result.append("(id: " + biglietto.getId() + ", posto: " + biglietto.otteniPostoSala() + ") ");
+		}		
+		return result.toString();
 	}
 	
 }

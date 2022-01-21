@@ -35,6 +35,28 @@ public class Film {
 
 	public boolean isTopFilm() {
 		return topFilm;
+	}
+	
+	public String getTitolo() {
+		return titolo;
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append(" - ");
+		result.append("Codice: " + codice);
+		result.append(", Titolo: " + titolo);
+		result.append(", Regia: " + regia);
+		result.append(", Cast: " + cast);
+		result.append(", Durata: " + durata);
+		result.append(", Anno: " + anno);
+		result.append(", Trama: " + trama);
+		result.append(", Genere: " + genere);
+		result.append(", Top Film: " + topFilm);
+		return result.toString();
 	}	
+	
+	
 	
 }

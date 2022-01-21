@@ -14,6 +14,8 @@ public class Biglietto {
 		return postoSala.getNumero();
 	}
 	
-	
+	public String getId() {
+		return id;
+	}
 	
 }

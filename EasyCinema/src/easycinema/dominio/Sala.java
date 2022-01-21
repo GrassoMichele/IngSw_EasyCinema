@@ -48,5 +48,15 @@ public class Sala {
 	public boolean is_3D() {
 		return _3D;
 	}
+	
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append(" - ");
+		result.append("Nome: " + this.nome);
+		result.append(", numero posti: " + this.numPostiTotali);
+		result.append(", 2D: " + this._2D);
+		result.append(", 3D: " + this._3D);
+		return result.toString();
+	}
 		
 }
