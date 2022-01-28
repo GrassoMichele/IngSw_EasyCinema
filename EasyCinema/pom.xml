@@ -22,6 +22,20 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>2.22.2</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>easycinema.MainAppText</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -38,6 +52,19 @@
 			<version>5.7.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-inline</artifactId>
+			<version>3.12.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>3.3.3</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 </project>

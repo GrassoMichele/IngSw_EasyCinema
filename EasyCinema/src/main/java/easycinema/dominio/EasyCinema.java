@@ -129,13 +129,17 @@ public class EasyCinema {
 	}
 	
 	private void caricaSale() {
-		Sala s1 = new Sala("Eliotropo", 50, true, false);
-		Sala s2 = new Sala("Solidago", 100, false, true);
-		Sala s3 = new Sala("Indaco", 75, true, true);
+		try {
+			Sala s1 = new Sala("Eliotropo", 50, true, false);
+			Sala s2 = new Sala("Solidago", 100, false, true);
+			Sala s3 = new Sala("Indaco", 75, true, true);
+			
+			sale.put(s1.getNome(), s1);
+			sale.put(s2.getNome(), s2);
+			sale.put(s3.getNome(), s3);		
+		}
+		catch (EccezioneDominio e) {}
 		
-		sale.put(s1.getNome(), s1);
-		sale.put(s2.getNome(), s2);
-		sale.put(s3.getNome(), s3);		
 	}
 
 	public Map<String, Sala> getSale() {

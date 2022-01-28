@@ -51,7 +51,7 @@ public class Catalogo {
 		}
 	}
 
-	private boolean controlloValiditaTemporaleProiezione(LocalDate data, LocalTime ora, int margine) {
+	static boolean controlloValiditaTemporaleProiezione(LocalDate data, LocalTime ora, int margine) {
 		LocalDateTime data_ora_proiezione = LocalDateTime.of(data,ora);
 	    LocalDateTime data_ora_proiezione_con_margine = data_ora_proiezione.plusMinutes(margine);
 		return data_ora_proiezione_con_margine.isAfter(LocalDateTime.now());
@@ -67,7 +67,7 @@ public class Catalogo {
 		return false;
 	}
 	
-	private boolean controlloSovrapposizioneProiezione(LocalDate data, LocalTime ora, int durataFilm, Proiezione proiezioneEsistente) {
+	static boolean controlloSovrapposizioneProiezione(LocalDate data, LocalTime ora, int durataFilm, Proiezione proiezioneEsistente) {
 		LocalDateTime nuovaProiezioneInizio = LocalDateTime.of(data,ora);
 		LocalDateTime nuovaProiezioneFine = nuovaProiezioneInizio.plusMinutes(15 + durataFilm);		// 15 minuti di pubblicità ad inizio proiezione
 		

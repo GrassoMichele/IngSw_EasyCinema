@@ -12,11 +12,11 @@ public class Cliente extends Utente {
 	}
 
 	public void setCredito(double credito) throws EccezioneDominio {
-		if (credito < 0) {
-			throw new EccezioneDominio("Credito non sufficiente!");
+		if (credito >= 0) {
+			this.credito = credito;
 		}
 		else {
-			this.credito = credito;
+			throw new EccezioneDominio("Credito non sufficiente!");
 		}		
 	}
 	

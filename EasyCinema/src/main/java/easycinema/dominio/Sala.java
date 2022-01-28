@@ -11,9 +11,9 @@ public class Sala {
 	private Map<Integer, PostoSala> postiSala;
 	
 	
-	public Sala(String nome, int numPostiTotali, boolean _2D, boolean _3D) {
+	public Sala(String nome, int numPostiTotali, boolean _2D, boolean _3D) throws EccezioneDominio {
 		this.nome = nome;
-		this.numPostiTotali = numPostiTotali;
+		setNumPostiTotali(numPostiTotali);
 		this._2D = _2D;
 		this._3D = _3D;
 		
@@ -47,6 +47,21 @@ public class Sala {
 
 	public boolean is_3D() {
 		return _3D;
+	}
+	
+	int getSizePostiSala() {
+		return postiSala.size();
+	}
+	
+	
+	private void setNumPostiTotali(int numPostiTotali) throws EccezioneDominio {
+		if (numPostiTotali > 0) {
+			this.numPostiTotali = numPostiTotali;
+		}
+		else {
+			throw new EccezioneDominio("Deve essere presente almeno un posto in sala!");
+		}		
+		
 	}
 	
 	public String toString() {
