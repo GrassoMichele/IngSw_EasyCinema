@@ -45,7 +45,7 @@ public class EasyCinema {
 		}
 	}
 	
-	private boolean controlloTecnologiaSala(Sala sala, boolean _3D) {
+	boolean controlloTecnologiaSala(Sala sala, boolean _3D) {
 		if ((_3D == true && !sala.is_3D()) || (_3D == false && !sala.is_2D())) {
 			return false;
 		}
@@ -117,15 +117,20 @@ public class EasyCinema {
 		return totalePrenotazione;
 	}
 	
-	public String confermaPrenotazione() throws EccezioneDominio {		
-		double totale = prenotazioneCorrente.getTotale();
-		Cliente clienteCorrente = (Cliente) utenteCorrente;	
-		double credito = clienteCorrente.getCredito();		
-		clienteCorrente.setCredito(credito - totale);
-		
-		prenotazioni.add(prenotazioneCorrente);
-		
-		return prenotazioneCorrente.getCodice();
+	public String confermaPrenotazione() throws EccezioneDominio {	
+		if (prenotazioneCorrente != null) {
+			double totale = prenotazioneCorrente.getTotale();
+			Cliente clienteCorrente = (Cliente) utenteCorrente;	
+			double credito = clienteCorrente.getCredito();		
+			clienteCorrente.setCredito(credito - totale);
+			
+			prenotazioni.add(prenotazioneCorrente);
+			
+			return prenotazioneCorrente.getCodice();
+		}
+		else {
+			throw new EccezioneDominio("Nessuna prenotazione in corso!");
+		}		
 	}
 	
 	private void caricaSale() {

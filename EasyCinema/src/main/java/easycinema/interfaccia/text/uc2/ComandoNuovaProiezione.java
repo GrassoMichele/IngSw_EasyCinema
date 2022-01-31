@@ -65,6 +65,7 @@ public class ComandoNuovaProiezione extends Comando {
 			double tariffaBase = Double.parseDouble(Parser.getInstance().read());
 			
 			easyCinema.nuovaProiezione(codiceProiezione, codiceFilm, nomeSala, data, ora, _3D, tariffaBase);
+			System.out.println("Proiezione creata con successo!");
 		}
 		catch (DateTimeParseException e) {
 			System.out.println("Formato della data o dell'ora non corretto.");
