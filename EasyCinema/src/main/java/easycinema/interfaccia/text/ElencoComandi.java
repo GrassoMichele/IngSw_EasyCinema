@@ -7,6 +7,8 @@ import easycinema.interfaccia.text.uc11.ComandoElencoPrenotazioni;
 import easycinema.interfaccia.text.uc11.ComandoNuovaPrenotazione;
 import easycinema.interfaccia.text.uc2.ComandoElencoProiezioni;
 import easycinema.interfaccia.text.uc2.ComandoNuovaProiezione;
+import easycinema.interfaccia.text.uc3_4.ComandoGetPrenotazioniProiezione;
+import easycinema.interfaccia.text.uc3_4.ComandoGetProiezioniPerData;
 
 public class ElencoComandi {
 	public static final int HOME = 0;
@@ -20,6 +22,8 @@ public class ElencoComandi {
 		{ComandoNuovaPrenotazione.codiceComando,ComandoNuovaPrenotazione.descrizioneComando},
 		{ComandoElencoProiezioni.codiceComando,ComandoElencoProiezioni.descrizioneComando},
 		{ComandoElencoPrenotazioni.codiceComando,ComandoElencoPrenotazioni.descrizioneComando},
+		{ComandoGetPrenotazioniProiezione.codiceComando,ComandoGetPrenotazioniProiezione.descrizioneComando},
+		{ComandoGetProiezioniPerData.codiceComando,ComandoGetProiezioniPerData.descrizioneComando},
 		{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
     };
     

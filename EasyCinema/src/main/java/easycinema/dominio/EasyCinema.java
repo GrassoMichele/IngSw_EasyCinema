@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collections;
 
 
@@ -56,6 +57,12 @@ public class EasyCinema {
 		Proiezione pr = catalogo.getProiezione(codiceProiezione);
 		
 		if (pr != null) {
+			// La prenotazione ad una proiezione è possibile entro i 15 minuti successivi all'inizio della proiezione.
+			boolean valida = Catalogo.controlloValiditaTemporaleProiezione(pr.getData(), pr.getOra(), 15); 
+			if (valida == false) {
+				throw new EccezioneDominio("Non è più possibile effettuare una prenotazione per la proiezione richiesta");
+			}
+	
 			Cliente clienteCorrente;
 			
 			// da rimuovere una volta aggiunto il login
@@ -69,29 +76,42 @@ public class EasyCinema {
 		}
 		
 	}
-	
-	public List<Integer> ottieniPostiDisponibili() {
-		Proiezione pr = prenotazioneCorrente.getProiezione();
-		int numPostiSala = prenotazioneCorrente.getNumPostiSala();
-		
+	private Map<String, LinkedList<Integer>> ottieniSuddivisionePostiProiezione(Proiezione pr, int numPostiSala, boolean prenotazioneInCorso) {
 		Set<Integer> postiOccupati = new HashSet<Integer>();
 		for (Prenotazione p : prenotazioni) {
 			LinkedList<Integer> postiOccupatiPrenotazione = (LinkedList<Integer>) p.ottieniPostiBiglietti(pr);
 			postiOccupati.addAll(postiOccupatiPrenotazione);			
 		}
-		LinkedList<Integer> postiOccupatiPrenotazioneCorrente = (LinkedList<Integer>) prenotazioneCorrente.ottieniPostiBiglietti(pr);
-		postiOccupati.addAll(postiOccupatiPrenotazioneCorrente);	
-				
+		
+		if (prenotazioneInCorso) {
+			LinkedList<Integer> postiOccupatiPrenotazioneCorrente = (LinkedList<Integer>) prenotazioneCorrente.ottieniPostiBiglietti(pr);
+			postiOccupati.addAll(postiOccupatiPrenotazioneCorrente);
+		}
+		
 		// generazione dei numeri nel range 1 - numPostiSala (estremo superiore compreso)
 		List<Integer> postiTotali = IntStream.rangeClosed(1, numPostiSala).boxed().collect(Collectors.toList());
-		
+
 		Set<Integer> postiDisponibili = new HashSet<Integer>(postiTotali);
 		postiDisponibili.removeAll(postiOccupati);
+
+		LinkedList<Integer> postiOccupati_sorted = new LinkedList<Integer>(postiOccupati);
+		Collections.sort(postiOccupati_sorted);
 		
 		LinkedList<Integer> postiDisponibili_sorted = new LinkedList<Integer>(postiDisponibili);
 		Collections.sort(postiDisponibili_sorted);
+		
+		Map<String, LinkedList<Integer>> map = Map.of("Disponibili", postiDisponibili_sorted, "Occupati", postiOccupati_sorted);
+		return map;
+	}
+	
+	
+	public List<Integer> ottieniPostiDisponibili() {
+		Proiezione pr = prenotazioneCorrente.getProiezione();
+		int numPostiSala = prenotazioneCorrente.getNumPostiSala();
+		
+		Map<String, LinkedList<Integer>> suddivisionePosti = ottieniSuddivisionePostiProiezione(pr, numPostiSala, true);
 				
-		return postiDisponibili_sorted;
+		return suddivisionePosti.get("Disponibili");
 	}
 	
 	public void aggiungiBiglietto(int numPosto) throws EccezioneDominio {
@@ -132,6 +152,41 @@ public class EasyCinema {
 			throw new EccezioneDominio("Nessuna prenotazione in corso!");
 		}		
 	}
+	
+	public List<Prenotazione> getPrenotazioniProiezione(String codiceProiezione) throws EccezioneDominio {
+		List<Prenotazione> prenotazioniProiezione = new ArrayList<Prenotazione>();
+		Proiezione pr = catalogo.getProiezione(codiceProiezione);
+		if (pr != null) {
+			for (Prenotazione p : prenotazioni) {
+				if (p.getProiezione() == pr)
+					prenotazioniProiezione.add(p);
+			}
+			return prenotazioniProiezione;
+		}
+		else {
+			throw new EccezioneDominio("Proiezione non esistente.");
+		}
+		
+	}
+	
+	public Map<String, LinkedList<Integer>> getStatoSalaProiezione(String codiceProiezione) throws EccezioneDominio {
+		Proiezione pr = catalogo.getProiezione(codiceProiezione);
+		if (pr != null) {
+			String nomeSala = catalogo.getNomeSalaProiezione(pr);
+			Sala s = sale.get(nomeSala);
+			int numPostiSala = s.getNumPostiTotali();
+			
+			return ottieniSuddivisionePostiProiezione(pr, numPostiSala, false);
+		}
+		else {
+			throw new EccezioneDominio("Proiezione non esistente.");
+		}
+	}
+	
+	public List<Proiezione> getProiezioniPerData(LocalDate data) {
+		return catalogo.getProiezioniPerData(data);
+	}
+	
 	
 	private void caricaSale() {
 		try {

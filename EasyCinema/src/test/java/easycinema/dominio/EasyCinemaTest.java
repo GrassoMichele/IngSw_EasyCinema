@@ -2,8 +2,10 @@ package easycinema.dominio;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mockConstruction;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.MockedConstruction;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
@@ -73,13 +76,18 @@ class EasyCinemaTest {
 					(mock, context) -> {
 						when(mock.getProiezione("codiceProiezione")).thenReturn(pr);
 					})) {
-				ec = new EasyCinema();
-				assertDoesNotThrow(() -> ec.nuovaPrenotazione("codiceProiezione"));	
+				try (MockedStatic<Catalogo> mockedCa_staticMethod = mockStatic(Catalogo.class)) {
+					mockedCa_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(any(),any(),anyInt()))
+						.thenReturn(true);
+					
+					ec = new EasyCinema();
+					assertDoesNotThrow(() -> ec.nuovaPrenotazione("codiceProiezione"));	
+				}
 			}
 		}
 		
 		@Test
-		void testNuovaPrenotazioneProiezioneNonValida() {		// in caso si può saltare
+		void testNuovaPrenotazioneProiezioneNonValida_Codice() {		
 			try (MockedConstruction<Catalogo> mocked = mockConstruction(Catalogo.class,
 					(mock, context) -> {
 						when(mock.getProiezione(anyString())).thenReturn(null);
@@ -87,6 +95,23 @@ class EasyCinemaTest {
 				ec = new EasyCinema();
 				Throwable exception = assertThrows(EccezioneDominio.class, () -> ec.nuovaPrenotazione("codiceProiezione"));
 			    assertEquals("Il codice della proiezione non è valido.", exception.getMessage());
+			}
+		}
+		
+		@Test
+		void testNuovaPrenotazioneProiezioneNonValida_DataOra() {		
+			try (MockedConstruction<Catalogo> mocked = mockConstruction(Catalogo.class,
+					(mock, context) -> {
+						when(mock.getProiezione(anyString())).thenReturn(pr);
+					})) {
+				try (MockedStatic<Catalogo> mockedCa_staticMethod = mockStatic(Catalogo.class)) {
+					mockedCa_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(any(),any(),anyInt()))
+						.thenReturn(false);
+
+					ec = new EasyCinema();
+					Throwable exception = assertThrows(EccezioneDominio.class, () -> ec.nuovaPrenotazione("codiceProiezione"));
+				    assertEquals("Non è più possibile effettuare una prenotazione per la proiezione richiesta", exception.getMessage());
+				}
 			}
 		}
 	}
@@ -107,21 +132,27 @@ class EasyCinemaTest {
 						// Il totale della prenotazione è 5
 						when(mock.getTotale()).thenReturn(totalePrenotazione);
 					})) {
-				try (MockedConstruction<Catalogo> mockedCa = mockConstruction(Catalogo.class,
+				try (MockedConstruction<Catalogo> mockedCa_constructor = mockConstruction(Catalogo.class,
 						(mock, context) -> {
 							when(mock.getProiezione(anyString())).thenReturn(pr);
 						})) {
-					ec = new EasyCinema();
-					numPrenotazioni = ec.getPrenotazioni().size();
-					try {
-						ec.nuovaPrenotazione("codiceProiezione");	
-						ec.confermaPrenotazione();
-						if (totalePrenotazione != 15.0)
-							assertEquals(numPrenotazioni+1, ec.getPrenotazioni().size());
-						else
-							assertEquals(numPrenotazioni, ec.getPrenotazioni().size());
-					}
-					catch(EccezioneDominio e) {}
+					
+					try (MockedStatic<Catalogo> mockedCa_staticMethod = mockStatic(Catalogo.class)) {
+						mockedCa_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(any(),any(),anyInt()))
+							.thenReturn(true);
+					    
+					    ec = new EasyCinema();
+						numPrenotazioni = ec.getPrenotazioni().size();
+						try {
+							ec.nuovaPrenotazione("codiceProiezione");	
+							ec.confermaPrenotazione();
+							if (totalePrenotazione != 15.0)
+								assertEquals(numPrenotazioni+1, ec.getPrenotazioni().size());
+							else
+								assertEquals(numPrenotazioni, ec.getPrenotazioni().size());
+						}
+						catch(EccezioneDominio e) {}					    
+					  }
 				}
 			}				
 		}

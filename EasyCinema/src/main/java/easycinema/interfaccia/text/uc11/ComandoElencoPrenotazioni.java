@@ -1,8 +1,9 @@
 package easycinema.interfaccia.text.uc11;
 
+import java.util.List;
+
 import easycinema.dominio.EasyCinema;
 import easycinema.dominio.Prenotazione;
-import easycinema.dominio.Proiezione;
 import easycinema.interfaccia.text.Comando;
 
 
@@ -20,10 +21,18 @@ public class ComandoElencoPrenotazioni extends Comando {
 	}
 
 	public void esegui(EasyCinema easyCinema) {
-		System.out.println("\nElenco prenotazioni: ");
-		for (Prenotazione p : easyCinema.getPrenotazioni()) {
-			System.out.println(p);
+		List<Prenotazione> prenotazioni = easyCinema.getPrenotazioni();
+		
+		if (prenotazioni.size()!=0) {
+			System.out.println("\nElenco prenotazioni: ");			
+			for (Prenotazione p : prenotazioni) {
+				System.out.println(p);
+			}
 		}
+		else {
+			System.out.println("Nessuna prenotazione esistente.");		
+		}
+		
 	}
 	
 }

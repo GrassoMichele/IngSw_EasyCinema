@@ -1,9 +1,9 @@
 package easycinema.dominio;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import easycinema.interfaccia.text.Parser;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -90,19 +90,29 @@ public class Catalogo {
 		}
 	}
 	
-	public Proiezione getProiezione(String codice) throws EccezioneDominio {		
-		Proiezione pr = proiezioni.get(codice);
-		if (pr != null) {
-			// La prenotazione ad una proiezione è possibile entro i 15 minuti successivi all'inizio della proiezione.
-			boolean valida = controlloValiditaTemporaleProiezione(pr.getData(), pr.getOra(), 15); 
-			if (valida == false) {
-				throw new EccezioneDominio("Non è più possibile effettuare una prenotazione per la proiezione richiesta");
-			}
-		}		
-		return pr;
-		
-		
+	public String getNomeSalaProiezione(Proiezione pr) {
+		return pr.getNomeSala();
 	}
+	
+	
+	public Proiezione getProiezione(String codice) {		
+		Proiezione pr = proiezioni.get(codice);		
+		return pr;
+	}
+	
+	public List<Proiezione> getProiezioniPerData(LocalDate data) {
+		 List<Proiezione> proiezioniPerData = new ArrayList<Proiezione>();		 
+		 LocalDate dataPr;
+		 
+		 for (Proiezione p : proiezioni.values()) {
+			 dataPr = p.getData();
+			 if(dataPr.equals(data)) {
+				 proiezioniPerData.add(p);
+			 }				 
+		 }
+		 return proiezioniPerData;
+	}
+	
 	
 	private void caricaFilm() {
 		Film f1 = new Film("12345", "Le Ali della libertà", "Frank Darabont", "Tim Robbins, Morgan Freeman, Bob Gunton, ...", 135, 1994, "Ambientato nel Maine "

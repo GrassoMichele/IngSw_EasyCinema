@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import easycinema.interfaccia.text.Parser;
-
 
 public class Proiezione {
 	private String codice;

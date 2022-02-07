@@ -1,6 +1,5 @@
 package easycinema.dominio;
 
-import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 

@@ -4,9 +4,9 @@ import java.util.List;
 
 public class FunzioniComuni {
 	
-	public static void stampaPosti(List<Integer> postiDisponibili) {
-		for (int i=0 ; i<postiDisponibili.size(); i++) {
-			int postoD = postiDisponibili.get(i);
+	public static void stampaPosti(List<Integer> posti) {
+		for (int i=0 ; i<posti.size(); i++) {
+			int postoD = posti.get(i);
 			String posto;
 			if (postoD <= 9)
 				posto = "0"+postoD;

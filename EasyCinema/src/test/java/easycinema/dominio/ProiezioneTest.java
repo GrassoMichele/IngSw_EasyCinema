@@ -68,7 +68,6 @@ class ProiezioneTest {
 		double tariffa_expected = tariffaBase * 1.15 * 1.15;		 
 
 		assertDoesNotThrow(() -> pr = new Proiezione("abcd", f, s, LocalDate.now(), LocalTime.now(), _3D, tariffaBase));
-		System.out.println(pr.getTariffa());
 		assertEquals(tariffa_expected, pr.getTariffa(),0.01);
 	}
 	
