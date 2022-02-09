@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 
 public class Console {
 	private int tipologiaConsole;
@@ -11,7 +11,7 @@ public class Console {
 		 this.titolo = titolo;
 	}
 	
-	public void start(EasyCinema easyCinema) {
+	public void start(IEasyCinema easyCinema) {
 		Comando comando;
 		do {
 			stampaMenu();
@@ -20,8 +20,8 @@ public class Console {
 			System.out.println();
 		} while(!comando.getCodiceComando().equals("0") && !comando.exit);
 			
-		if (tipologiaConsole == ElencoComandi.HOME)  
-			System.out.println("   Arrivederci...");
+		if (tipologiaConsole == ElencoComandi.LOGIN)  
+			System.out.println("Arrivederci...");
 	}
 
     private void stampaMenu() {

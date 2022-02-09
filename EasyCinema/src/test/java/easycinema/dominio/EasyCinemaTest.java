@@ -4,10 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
+import java.lang.reflect.Field;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,6 +28,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class EasyCinemaTest {
 	private EasyCinema ec;
 	
+	@AfterEach
+	void tearDown() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		//uso la reflection per resettare l'oggetto singleton in modo da evitare che i test si influenzino tra loro.
+		Field istanza = EasyCinema.class.getDeclaredField("istanza");
+		istanza.setAccessible(true);
+		istanza.set(null,null);		
+	}
+	
 	// -- test: Controllo tecnologia sala
 	@Nested
 	class ControlloTecnologiaSala {
@@ -32,7 +44,7 @@ class EasyCinemaTest {
 		
 		@BeforeEach
 		void setUp() {
-			ec = new EasyCinema();
+			ec = EasyCinema.getIstanza();
 		}
 		
 		@Test
@@ -68,22 +80,30 @@ class EasyCinemaTest {
 	// -- test: Nuova prenotazione
 	@Nested
 	class NuovaPrenotazione {
+		@Mock private GestoreUtenti gestoreUtenti;
+		@Mock private Cliente c;
 		@Mock private Proiezione pr;	
 		
 		@Test
 		void testNuovaPrenotazioneProiezioneValida() {	
-			try (MockedConstruction<Catalogo> mocked = mockConstruction(Catalogo.class,
-					(mock, context) -> {
-						when(mock.getProiezione("codiceProiezione")).thenReturn(pr);
-					})) {
-				try (MockedStatic<Catalogo> mockedCa_staticMethod = mockStatic(Catalogo.class)) {
-					mockedCa_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(any(),any(),anyInt()))
+			try (MockedStatic<GestoreUtenti> mockedGestoreU_staticMethod = mockStatic(GestoreUtenti.class)) {
+				mockedGestoreU_staticMethod.when(() -> GestoreUtenti.getIstanza()).thenReturn(gestoreUtenti);
+				try (MockedConstruction<Catalogo> mocked = mockConstruction(Catalogo.class,
+						(mock, context) -> {
+							when(mock.getProiezione("codiceProiezione")).thenReturn(pr);
+						})) {
+					try (MockedStatic<Catalogo> mockedCa_staticMethod = mockStatic(Catalogo.class)) {
+						mockedCa_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(any(),any(),anyInt()))
 						.thenReturn(true);
-					
-					ec = new EasyCinema();
-					assertDoesNotThrow(() -> ec.nuovaPrenotazione("codiceProiezione"));	
+
+						when(gestoreUtenti.getClienteCorrente()).thenReturn(c);
+
+						ec = EasyCinema.getIstanza();
+						assertDoesNotThrow(() -> ec.nuovaPrenotazione("codiceProiezione"));	
+					}
 				}
 			}
+			
 		}
 		
 		@Test
@@ -92,7 +112,7 @@ class EasyCinemaTest {
 					(mock, context) -> {
 						when(mock.getProiezione(anyString())).thenReturn(null);
 					})) {
-				ec = new EasyCinema();
+				ec = EasyCinema.getIstanza();
 				Throwable exception = assertThrows(EccezioneDominio.class, () -> ec.nuovaPrenotazione("codiceProiezione"));
 			    assertEquals("Il codice della proiezione non è valido.", exception.getMessage());
 			}
@@ -108,7 +128,7 @@ class EasyCinemaTest {
 					mockedCa_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(any(),any(),anyInt()))
 						.thenReturn(false);
 
-					ec = new EasyCinema();
+					ec = EasyCinema.getIstanza();
 					Throwable exception = assertThrows(EccezioneDominio.class, () -> ec.nuovaPrenotazione("codiceProiezione"));
 				    assertEquals("Non è più possibile effettuare una prenotazione per la proiezione richiesta", exception.getMessage());
 				}
@@ -120,46 +140,61 @@ class EasyCinemaTest {
 	// -- test: Conferma prenotazione
 	@Nested
 	class ConfermaPrenotazione {
-		@Mock private Proiezione pr;		
+		@Mock private GestoreUtenti gestoreUtenti;
+		@Mock private Cliente c;
+		@Mock private Proiezione pr;	
 		private int numPrenotazioni;
 		
 		@ParameterizedTest
 		@ValueSource(doubles = { 5.0, 10.0, 15.0 })
 		void testConfermaPrenotazione_PrenotazioneInCorso(double totalePrenotazione) {
-			// il credito del cliente è pari a 10.
-			try (MockedConstruction<Prenotazione> mockedPr = mockConstruction(Prenotazione.class,
-					(mock, context) -> {
-						// Il totale della prenotazione è 5
-						when(mock.getTotale()).thenReturn(totalePrenotazione);
-					})) {
-				try (MockedConstruction<Catalogo> mockedCa_constructor = mockConstruction(Catalogo.class,
+			try (MockedStatic<GestoreUtenti> mockedGestoreU_staticMethod = mockStatic(GestoreUtenti.class)) {
+				mockedGestoreU_staticMethod.when(() -> GestoreUtenti.getIstanza()).thenReturn(gestoreUtenti);
+				// il credito del cliente è pari a 10.
+				try (MockedConstruction<Prenotazione> mockedPr = mockConstruction(Prenotazione.class,
 						(mock, context) -> {
-							when(mock.getProiezione(anyString())).thenReturn(pr);
+							// Il totale della prenotazione è 5
+							when(mock.getTotale()).thenReturn(totalePrenotazione);
 						})) {
-					
-					try (MockedStatic<Catalogo> mockedCa_staticMethod = mockStatic(Catalogo.class)) {
-						mockedCa_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(any(),any(),anyInt()))
+					try (MockedConstruction<Catalogo> mockedCa_constructor = mockConstruction(Catalogo.class,
+							(mock, context) -> {
+								when(mock.getProiezione(anyString())).thenReturn(pr);
+							})) {
+
+						try (MockedStatic<Catalogo> mockedCa_staticMethod = mockStatic(Catalogo.class)) {
+							mockedCa_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(any(),any(),anyInt()))
 							.thenReturn(true);
-					    
-					    ec = new EasyCinema();
-						numPrenotazioni = ec.getPrenotazioni().size();
-						try {
-							ec.nuovaPrenotazione("codiceProiezione");	
-							ec.confermaPrenotazione();
-							if (totalePrenotazione != 15.0)
-								assertEquals(numPrenotazioni+1, ec.getPrenotazioni().size());
-							else
-								assertEquals(numPrenotazioni, ec.getPrenotazioni().size());
+
+							when(gestoreUtenti.getClienteCorrente()).thenReturn(c);
+
+							ec = EasyCinema.getIstanza();
+							numPrenotazioni = ec.getPrenotazioni().size();
+
+							if (totalePrenotazione == 15.0) {
+								try {
+									doThrow(new EccezioneDominio("")).when(gestoreUtenti).modificaCreditoCliente(-15.0);
+									ec.nuovaPrenotazione("codiceProiezione");	
+									ec.confermaPrenotazione();
+
+								}
+								catch(EccezioneDominio e) {
+									assertEquals(numPrenotazioni, ec.getPrenotazioni().size());
+								}			
+							}
+							else {							
+								assertDoesNotThrow(() -> ec.nuovaPrenotazione("codiceProiezione"));	
+								assertDoesNotThrow(() -> ec.confermaPrenotazione());
+								assertEquals(numPrenotazioni+1, ec.getPrenotazioni().size());							
+							}		    
 						}
-						catch(EccezioneDominio e) {}					    
-					  }
-				}
-			}				
+					}
+				}				
+			}			
 		}
 		
 		@Test
 		void testConfermaPrenotazione_NessunaPrenotazioneInCorso() {
-			ec = new EasyCinema();
+			ec = EasyCinema.getIstanza();
 			Throwable exception = assertThrows(EccezioneDominio.class, () -> ec.confermaPrenotazione());
 		    assertEquals("Nessuna prenotazione in corso!", exception.getMessage());
 		}

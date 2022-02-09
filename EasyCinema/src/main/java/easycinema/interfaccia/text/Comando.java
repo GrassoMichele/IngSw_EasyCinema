@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 
 
 public abstract class Comando {
@@ -11,6 +11,6 @@ public abstract class Comando {
 	
 	public abstract String getDescrizioneComando();
 	
-	public abstract void esegui(EasyCinema easyCinema);
+	public abstract void esegui(IEasyCinema easyCinema);
 	
 }

@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Film;
 import easycinema.dominio.Sala;
@@ -28,7 +28,7 @@ public class ComandoNuovaProiezione extends Comando {
 	}
 
 	@Override
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		System.out.println("   Inserisci il codice della nuova proiezione: ");
 		String codiceProiezione = Parser.getInstance().read();
 		

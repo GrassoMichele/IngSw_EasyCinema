@@ -54,6 +54,9 @@ public class Prenotazione {
 	public double calcolaTotale() {
 		double tariffaProiezione = proiezione.getTariffa();
 		double totale = tariffaProiezione * biglietti.size();
+		
+		totale = (double) Math.round(totale * 100d) / 100d;
+		
 		this.totale = totale;
 		return totale;
 	}
@@ -71,7 +74,7 @@ public class Prenotazione {
 		StringBuffer result = new StringBuffer();
 		result.append("- ");
 		result.append("Codice: " + codice);
-		result.append(", Cliente: " + cliente);
+		result.append(", Cliente: (" + cliente + ")");
 		result.append(", Proiezione: " + proiezione.getCodice());
 		result.append(", Totale: " + totale);
 		result.append(", Biglietti: ");

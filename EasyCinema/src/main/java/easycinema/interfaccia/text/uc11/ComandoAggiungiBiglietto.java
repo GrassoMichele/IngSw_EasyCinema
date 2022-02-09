@@ -2,7 +2,7 @@ package easycinema.interfaccia.text.uc11;
 
 import java.util.List;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 import easycinema.dominio.EccezioneDominio;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
@@ -24,14 +24,14 @@ public class ComandoAggiungiBiglietto extends Comando {
 	}
 
 	@Override
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		System.out.println("\nInserisci il numero del posto da prenotare: ");
 		try {
 			int numPosto = Integer.parseInt(Parser.getInstance().read());
 			easyCinema.aggiungiBiglietto(numPosto);
 			System.out.println("Il posto " + numPosto + " è stato riservato con successo");
 		}
-		catch (EccezioneDominio e) {
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		finally {

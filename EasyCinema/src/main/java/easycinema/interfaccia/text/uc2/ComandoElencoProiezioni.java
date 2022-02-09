@@ -1,12 +1,12 @@
 package easycinema.interfaccia.text.uc2;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 import easycinema.dominio.Proiezione;
 import easycinema.interfaccia.text.Comando;
 
 public class ComandoElencoProiezioni extends Comando{
 
-	public static final String codiceComando="3";
+	public static final String codiceComando="2";
 	public static final String descrizioneComando="Visualizza le PROIEZIONI";
 
 	
@@ -21,7 +21,7 @@ public class ComandoElencoProiezioni extends Comando{
 	}
 
 	@Override
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		System.out.println("\nElenco proiezioni: ");
 		for (Proiezione pr : easyCinema.getProiezioni().values()) {
 			System.out.println(pr);

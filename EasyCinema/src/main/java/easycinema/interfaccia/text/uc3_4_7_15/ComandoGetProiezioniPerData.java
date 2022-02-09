@@ -1,18 +1,18 @@
-package easycinema.interfaccia.text.uc3_4;
+package easycinema.interfaccia.text.uc3_4_7_15;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 import easycinema.dominio.Proiezione;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 
 public class ComandoGetProiezioniPerData extends Comando{
 
-	public static final String codiceComando="6";
+	public static final String codiceComando="3";
 	public static final String descrizioneComando="Visualizza la programmazione per una data";
 
 	
@@ -27,7 +27,7 @@ public class ComandoGetProiezioniPerData extends Comando{
 	}
 
 	@Override
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		try {
 			System.out.println("   Inserisci la data (dd/mm/yyyy): ");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -37,7 +37,7 @@ public class ComandoGetProiezioniPerData extends Comando{
 			List<Proiezione> proiezioni = easyCinema.getProiezioniPerData(data);
 			if (proiezioni.size()!=0) {
 				System.out.println("   Elenco:");
-				for (Proiezione pr : easyCinema.getProiezioniPerData(data)) {
+				for (Proiezione pr : proiezioni) {
 					System.out.println(pr);
 				}
 			}

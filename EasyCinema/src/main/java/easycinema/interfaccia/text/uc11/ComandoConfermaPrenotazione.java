@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text.uc11;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 import easycinema.dominio.EccezioneDominio;
 import easycinema.interfaccia.text.Comando;
 
@@ -18,7 +18,7 @@ public class ComandoConfermaPrenotazione extends Comando {
 		return descrizioneComando;
 	}
 	@Override
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		String codicePrenotazione;
 		try {
 			codicePrenotazione = easyCinema.confermaPrenotazione();

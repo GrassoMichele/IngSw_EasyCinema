@@ -10,8 +10,10 @@ import easycinema.interfaccia.text.uc11.ComandoElencoPrenotazioni;
 import easycinema.interfaccia.text.uc11.ComandoNuovaPrenotazione;
 import easycinema.interfaccia.text.uc2.ComandoElencoProiezioni;
 import easycinema.interfaccia.text.uc2.ComandoNuovaProiezione;
-import easycinema.interfaccia.text.uc3_4.ComandoGetPrenotazioniProiezione;
-import easycinema.interfaccia.text.uc3_4.ComandoGetProiezioniPerData;
+import easycinema.interfaccia.text.uc3_4_7_15.ComandoAutenticaUtente;
+import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetPrenotazioniProiezione;
+import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetProiezioniPerData;
+import easycinema.interfaccia.text.uc3_4_7_15.ComandoNuovoCliente;
 
 public class Parser {
 	private ElencoComandi comandi;
@@ -46,20 +48,31 @@ public class Parser {
 		Comando comando = null;
 		
 		if(comandi.comandoValido(parola,console)) {
+			/* CONSOLE LOGIN */
+			if (console == ElencoComandi.LOGIN){
+				if (parola.equals("1"))
+					comando = new ComandoAutenticaUtente();
+			}
 			/* CONSOLE PRINCIPALE */
-			if (console == ElencoComandi.HOME){
+			if (console == ElencoComandi.HOME_TITOLARE){
 				if (parola.equals("1"))
 					comando = new ComandoNuovaProiezione();
 				if (parola.equals("2"))
-					comando = new ComandoNuovaPrenotazione();
-				if (parola.equals("3"))
 					comando = new ComandoElencoProiezioni();
-				if (parola.equals("4"))
+				if (parola.equals("3"))
 					comando = new ComandoElencoPrenotazioni();
+				if (parola.equals("4"))
+					comando = new ComandoGetPrenotazioniProiezione();	
 				if (parola.equals("5"))
-					comando = new ComandoGetPrenotazioniProiezione();
-				if (parola.equals("6"))
-					comando = new ComandoGetProiezioniPerData();
+					comando = new ComandoNuovoCliente();	
+			}
+			if (console == ElencoComandi.HOME_CLIENTE){
+				if (parola.equals("1"))
+					comando = new ComandoNuovaPrenotazione();
+				if (parola.equals("2"))
+					comando = new ComandoElencoProiezioni();
+				if (parola.equals("3"))
+					comando = new ComandoGetProiezioniPerData();		
 			}
 			/* CONSOLE NUOVA PRENOTAZIONE */
 			if (console == ElencoComandi.NUOVA_PRENOTAZIONE){

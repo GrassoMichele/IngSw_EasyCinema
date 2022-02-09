@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text.uc11;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 import easycinema.dominio.EccezioneDominio;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Console;
@@ -22,7 +22,7 @@ public class ComandoCalcolaTotalePrenotazione extends Comando {
 	}
 
 	@Override
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		try {
 			System.out.println("\nIl totale della prenotazione è: " + easyCinema.calcolaTotalePrenotazione() + "\n");
 			Console confermaPrenotazioneConsole = new Console(ElencoComandi.CONFERMA_PRENOTAZIONE, "CONFERMA PRENOTAZIONE");

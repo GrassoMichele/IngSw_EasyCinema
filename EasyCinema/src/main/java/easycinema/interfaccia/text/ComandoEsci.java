@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 
 
 public class ComandoEsci extends Comando {
@@ -16,7 +16,7 @@ public class ComandoEsci extends Comando {
 		return descrizioneComando;
 	}
 
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		//torna al menu precedente oppure esce se non ci sono menu precedenti
 	}
 	

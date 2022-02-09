@@ -1,10 +1,10 @@
-package easycinema.interfaccia.text.uc3_4;
+package easycinema.interfaccia.text.uc3_4_7_15;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Prenotazione;
 import easycinema.interfaccia.text.Comando;
@@ -13,7 +13,7 @@ import easycinema.interfaccia.text.uc11.FunzioniComuni;
 
 public class ComandoGetPrenotazioniProiezione extends Comando{
 
-	public static final String codiceComando="5";
+	public static final String codiceComando="4";
 	public static final String descrizioneComando="Visualizza le PRENOTAZIONI per una proiezione";
 
 	
@@ -28,7 +28,7 @@ public class ComandoGetPrenotazioniProiezione extends Comando{
 	}
 
 	@Override
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		System.out.println("   Inserisci il codice della proiezione di interesse: ");
 		String codiceProiezione = Parser.getInstance().read();
 		try {
@@ -37,7 +37,7 @@ public class ComandoGetPrenotazioniProiezione extends Comando{
 			
 			if (prenotazioniProiezione.size()!=0) {
 				System.out.println("\nElenco prenotazioni per la proiezione " + codiceProiezione + ":");
-				for (Prenotazione p : easyCinema.getPrenotazioniProiezione(codiceProiezione)) {
+				for (Prenotazione p : prenotazioniProiezione) {
 					System.out.println(p);
 				}
 			}
@@ -55,7 +55,7 @@ public class ComandoGetPrenotazioniProiezione extends Comando{
 				LinkedList<Integer> postiOccupati = statoSalaProiezione.get("Occupati");
 				
 				int postiTotali = postiDisponibili.size() + postiOccupati.size(); 
-				System.out.println("   Posti totali: " +  postiTotali);
+				System.out.println("   Posti totali: " +  postiTotali + "\n");
 				System.out.println("   Posti disponibili: " +  postiDisponibili.size());
 				FunzioniComuni.stampaPosti(postiDisponibili);
 				System.out.println("   Posti occupati: " +  postiOccupati.size());

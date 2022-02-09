@@ -2,14 +2,14 @@ package easycinema.interfaccia.text.uc11;
 
 import java.util.List;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 import easycinema.dominio.Prenotazione;
 import easycinema.interfaccia.text.Comando;
 
 
 public class ComandoElencoPrenotazioni extends Comando {
 	
-	public static final String codiceComando="4";
+	public static final String codiceComando="3";
 	public static final String descrizioneComando="Visualizza le PRENOTAZIONI";
 
    	public String getCodiceComando() {
@@ -20,7 +20,7 @@ public class ComandoElencoPrenotazioni extends Comando {
 		return descrizioneComando;
 	}
 
-	public void esegui(EasyCinema easyCinema) {
+	public void esegui(IEasyCinema easyCinema) {
 		List<Prenotazione> prenotazioni = easyCinema.getPrenotazioni();
 		
 		if (prenotazioni.size()!=0) {

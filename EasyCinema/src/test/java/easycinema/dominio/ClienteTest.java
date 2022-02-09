@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClienteTest {
-	private Cliente cliente = new Cliente(0);
+	private Cliente cliente = new Cliente("","","","");
 
 	// -- test: Credito
 	@Test
@@ -29,8 +29,8 @@ class ClienteTest {
 		double expected = cliente.getCredito();
 		
 		Throwable exception = assertThrows(EccezioneDominio.class, () -> cliente.setCredito(-10));
-	    assertEquals("Credito non sufficiente!", exception.getMessage());
-		assertEquals(expected, cliente.getCredito());
+	    assertEquals("Credito insufficiente!", exception.getMessage());
+	    assertEquals(expected, cliente.getCredito());
 	}
 	
 }

@@ -1,14 +1,15 @@
 package easycinema;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
+import easycinema.dominio.ProxyEasyCinema;
 import easycinema.interfaccia.text.Console;
 import easycinema.interfaccia.text.ElencoComandi;
 
 
 public class MainAppText {
 	public static void main(String[] args) {
-		EasyCinema easyCinema = new EasyCinema();
-		Console homeConsole = new Console(ElencoComandi.HOME, "HOME");
-		homeConsole.start(easyCinema);
+		IEasyCinema easyCinema = ProxyEasyCinema.getIstanza();
+		Console loginConsole = new Console(ElencoComandi.LOGIN, "EASY CINEMA");
+		loginConsole.start(easyCinema);
 	}
 }

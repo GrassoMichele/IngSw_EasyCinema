@@ -7,26 +7,43 @@ import easycinema.interfaccia.text.uc11.ComandoElencoPrenotazioni;
 import easycinema.interfaccia.text.uc11.ComandoNuovaPrenotazione;
 import easycinema.interfaccia.text.uc2.ComandoElencoProiezioni;
 import easycinema.interfaccia.text.uc2.ComandoNuovaProiezione;
-import easycinema.interfaccia.text.uc3_4.ComandoGetPrenotazioniProiezione;
-import easycinema.interfaccia.text.uc3_4.ComandoGetProiezioniPerData;
+import easycinema.interfaccia.text.uc3_4_7_15.ComandoAutenticaUtente;
+import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetPrenotazioniProiezione;
+import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetProiezioniPerData;
+import easycinema.interfaccia.text.uc3_4_7_15.ComandoNuovoCliente;
 
 public class ElencoComandi {
-	public static final int HOME = 0;
+	
+	public static final int LOGIN = 0;
+	public static final int HOME_TITOLARE = 1;
+	public static final int HOME_CLIENTE = 2;
 	/*UC 11*/
-	public static final int NUOVA_PRENOTAZIONE = 1;
-	public static final int CONFERMA_PRENOTAZIONE = 2;
+	public static final int NUOVA_PRENOTAZIONE = 3;
+	public static final int CONFERMA_PRENOTAZIONE = 4;
+	
+	/* LOGIN */
+	private static final String comandiValidiLogin[][] = {
+			{ComandoAutenticaUtente.codiceComando,ComandoAutenticaUtente.descrizioneComando},
+			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
+	    };
 	
 	/* MENU' PRINCIPALE */
-    private static final String comandiValidiHomeConsole[][] = {
-		{ComandoNuovaProiezione.codiceComando,ComandoNuovaProiezione.descrizioneComando},
-		{ComandoNuovaPrenotazione.codiceComando,ComandoNuovaPrenotazione.descrizioneComando},
-		{ComandoElencoProiezioni.codiceComando,ComandoElencoProiezioni.descrizioneComando},
-		{ComandoElencoPrenotazioni.codiceComando,ComandoElencoPrenotazioni.descrizioneComando},
-		{ComandoGetPrenotazioniProiezione.codiceComando,ComandoGetPrenotazioniProiezione.descrizioneComando},
-		{ComandoGetProiezioniPerData.codiceComando,ComandoGetProiezioniPerData.descrizioneComando},
-		{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
-    };
-    
+	private static final String comandiValidiHomeTitolareConsole[][] = {
+			{ComandoNuovaProiezione.codiceComando,ComandoNuovaProiezione.descrizioneComando},
+			{ComandoElencoProiezioni.codiceComando,ComandoElencoProiezioni.descrizioneComando},
+			{ComandoElencoPrenotazioni.codiceComando,ComandoElencoPrenotazioni.descrizioneComando},
+			{ComandoGetPrenotazioniProiezione.codiceComando,ComandoGetPrenotazioniProiezione.descrizioneComando},
+			{ComandoNuovoCliente.codiceComando,ComandoNuovoCliente.descrizioneComando},
+			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
+	};
+
+	private static final String comandiValidiHomeClienteConsole[][] = {
+			{ComandoNuovaPrenotazione.codiceComando,ComandoNuovaPrenotazione.descrizioneComando},
+			{ComandoElencoProiezioni.codiceComando,ComandoElencoProiezioni.descrizioneComando},
+			{ComandoGetProiezioniPerData.codiceComando,ComandoGetProiezioniPerData.descrizioneComando},
+			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
+	};
+
     /* USE CASE 11 : Effettua Prenotazione */
     private static final String comandiValidiNuovaPrenotazioneConsole[][] = {
     		{ComandoAggiungiBiglietto.codiceComando,ComandoAggiungiBiglietto.descrizioneComando},
@@ -64,7 +81,9 @@ public class ElencoComandi {
 		String comandi[][]=null;
 		
 		switch (console){
-			case HOME: comandi = comandiValidiHomeConsole; break;
+			case LOGIN: comandi = comandiValidiLogin; break;
+			case HOME_TITOLARE: comandi = comandiValidiHomeTitolareConsole; break;
+			case HOME_CLIENTE: comandi = comandiValidiHomeClienteConsole; break;
 			case NUOVA_PRENOTAZIONE: comandi = comandiValidiNuovaPrenotazioneConsole; break;
 			case CONFERMA_PRENOTAZIONE: comandi = comandiValidiConfermaPrenotazioneConsole; break;
 		};

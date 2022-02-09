@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text;
 
-import easycinema.dominio.EasyCinema;
+import easycinema.dominio.IEasyCinema;
 
 
 public class ComandoNonValido extends Comando {
@@ -16,7 +16,7 @@ public class ComandoNonValido extends Comando {
 		return descrizioneComando;
 	}
 
-    public void esegui(EasyCinema easyCinema) {
+    public void esegui(IEasyCinema easyCinema) {
 		System.out.println("   COMANDO INESISTENTE");
 	}
 }
