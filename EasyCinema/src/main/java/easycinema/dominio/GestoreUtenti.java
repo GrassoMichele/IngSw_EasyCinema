@@ -21,7 +21,7 @@ public class GestoreUtenti {
 		return istanza;
 	}	
 	
-	
+	// identificazione utente: accerto l'identità
 	public String autenticaUtente(String username, String password) {
 		String risultatoAutenticazione = "Fallita";
 		setUtenteCorrente(null);
@@ -36,6 +36,7 @@ public class GestoreUtenti {
 		return risultatoAutenticazione;
 	}
 	
+	// autenticazione utente: accerto i permessi
 	@SuppressWarnings("rawtypes")
 	public boolean controlloAutorizzazione(Class categoriaUtenteAbilitata) {
 		if (utenteCorrente!= null && categoriaUtenteAbilitata.isInstance(utenteCorrente)) {
@@ -75,6 +76,10 @@ public class GestoreUtenti {
 		return (Cliente) utenteCorrente;
 	}
 		
+	public int getNumeroUtenti() {
+		return utenti.size();
+	}
+	
 	private void caricaUtenti() {
 		utenti.add(new Titolare("admin","admin"));
 		utenti.add(new Cliente("cliente","Mario","Rossi", "via Doria"));

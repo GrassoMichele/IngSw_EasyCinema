@@ -4,6 +4,7 @@ public class Cliente extends Utente {
 	private String codiceFiscale;
 	private String nome;
 	private String cognome;
+	@SuppressWarnings("unused")
 	private String indirizzo;
 	private double credito;
 	

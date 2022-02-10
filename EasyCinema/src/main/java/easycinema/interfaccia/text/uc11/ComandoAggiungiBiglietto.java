@@ -3,7 +3,6 @@ package easycinema.interfaccia.text.uc11;
 import java.util.List;
 
 import easycinema.dominio.IEasyCinema;
-import easycinema.dominio.EccezioneDominio;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 
