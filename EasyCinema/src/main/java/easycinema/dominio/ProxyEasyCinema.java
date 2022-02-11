@@ -123,6 +123,12 @@ public class ProxyEasyCinema implements IEasyCinema{
 		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
 			easyCinema.nuovoCliente(codiceFiscale, nome, cognome, indirizzo);
 	}
+
+	@Override
+	public void nuovoFilm(String codice, String titolo, String regia, String cast, int durata, int anno, String trama, String genere, boolean topFilm) throws EccezioneDominio {
+		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
+			easyCinema.nuovoFilm(codice, titolo, regia, cast, durata, anno, trama, genere, topFilm);
+	}
 	
 
 }

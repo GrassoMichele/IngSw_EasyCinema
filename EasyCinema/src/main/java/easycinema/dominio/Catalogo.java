@@ -113,6 +113,16 @@ public class Catalogo {
 		 return proiezioniPerData;
 	}
 	
+	public void nuovoFilm(String codice, String titolo, String regia, String cast, int durata, int anno, String trama, String genere, boolean topFilm) throws EccezioneDominio {
+		//controllo esistenza film con lo stesso codice		
+		if (film.get(codice) == null) {
+			Film f = new Film(codice, titolo, regia, cast, durata, anno, trama, genere, topFilm);
+			film.put(codice, f);
+		}
+		else {
+			throw new EccezioneDominio("Il codice indicato fa riferimento ad un film già esistente.");
+		}		
+	}	
 	
 	private void caricaFilm() {
 		Film f1 = new Film("12345", "Le Ali della libertà", "Frank Darabont", "Tim Robbins, Morgan Freeman, Bob Gunton, ...", 135, 1994, "Ambientato nel Maine "

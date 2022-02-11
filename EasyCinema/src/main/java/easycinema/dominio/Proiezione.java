@@ -28,8 +28,7 @@ public class Proiezione {
 	
 	private void setTariffa(double tariffaBase) throws EccezioneDominio {
 		if (tariffaBase > 0) {
-			tariffa = tariffaBase;
-			calcolaTariffa();	
+			calcolaTariffa(tariffaBase);	
 		}
 		else {
 			throw new EccezioneDominio("La tariffa deve essere maggiore di 0.");
@@ -69,15 +68,18 @@ public class Proiezione {
 	}
 	
 	// La tariffa della proiezione è funzione della tariffa base, del tipo di proiezione (2d/3d), se il film a cui fa riferimento è un topFilm e dal tipo di sala. 
-	private void calcolaTariffa() {	
+	private void calcolaTariffa(double tariffa_base) {	
+		double maggiorazione_3d = 0;		// tariffa base
+		double maggiorazione_topFilm = 0;
+		
 		if (_3D == true) {
-			tariffa *= 1.15;		// Una proiezione 3D costa il 15% in più rispetto ad una 2D.
+			maggiorazione_3d = tariffa_base * 0.15;		// Una proiezione 3D costa il 15% in più rispetto ad una 2D.
 		}
 		if (film.isTopFilm() == true) {
-			tariffa *= 1.15;		// Un film Top Film ha una maggiorazione del prezzo del 15%.
+			maggiorazione_topFilm = tariffa_base * 0.15;		// Un film Top Film ha una maggiorazione del prezzo del 15%.
 		}
 		// resta da considerare la tipologia di sala
-		
+		tariffa = tariffa_base + maggiorazione_3d + maggiorazione_topFilm;
 		tariffa = (double) Math.round(tariffa * 100d) / 100d;		// 2 cifre decimali
 	}	
 	

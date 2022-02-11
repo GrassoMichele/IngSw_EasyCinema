@@ -28,5 +28,7 @@ public interface IEasyCinema {
 	
 	void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo) throws EccezioneDominio;
 	
+	void nuovoFilm(String codice, String titolo, String regia, String cast, int durata, int anno, String trama, String genere, boolean topFilm) throws EccezioneDominio;
+	
 	
 }

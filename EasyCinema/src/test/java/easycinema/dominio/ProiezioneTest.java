@@ -65,7 +65,7 @@ class ProiezioneTest {
 		when(f.isTopFilm()).thenReturn(true);
 		double tariffaBase = 10;
 		
-		double tariffa_expected = tariffaBase * 1.15 * 1.15;		 
+		double tariffa_expected = tariffaBase + (tariffaBase * 0.15) + (tariffaBase * 0.15);		 
 
 		assertDoesNotThrow(() -> pr = new Proiezione("abcd", f, s, LocalDate.now(), LocalTime.now(), _3D, tariffaBase));
 		assertEquals(tariffa_expected, pr.getTariffa(),0.01);
