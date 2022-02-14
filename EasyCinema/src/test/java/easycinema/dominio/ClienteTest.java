@@ -1,10 +1,13 @@
 package easycinema.dominio;
 
 import org.junit.jupiter.api.Test;
+
+import easycinema.EccezioneDominio;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClienteTest {
-	private Cliente cliente = new Cliente("","","","");
+	private Cliente cliente = new Cliente("","","","",false);
 
 	// -- test: Credito
 	@Test

@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text.uc3_4_7_15;
 
-import easycinema.dominio.IEasyCinema;
+import easycinema.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Console;
 import easycinema.interfaccia.text.ElencoComandi;

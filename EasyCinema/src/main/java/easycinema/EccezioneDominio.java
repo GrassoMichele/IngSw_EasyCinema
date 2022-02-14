@@ -1,4 +1,4 @@
-package easycinema.dominio;
+package easycinema;
 
 @SuppressWarnings("serial")
 public class EccezioneDominio extends Exception {

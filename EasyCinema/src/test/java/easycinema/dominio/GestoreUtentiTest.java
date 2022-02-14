@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import easycinema.EccezioneDominio;
+
 class GestoreUtentiTest {
 	private GestoreUtenti gestoreUtenti;
 
@@ -32,7 +34,7 @@ class GestoreUtentiTest {
 			int num_utenti = gestoreUtenti.getNumeroUtenti();
 			int expected = num_utenti + 1;
 			
-			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Mario", "Rossi", "Corso Italia"));
+			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Mario", "Rossi", "Corso Italia", false));
 			
 			assertEquals(expected, gestoreUtenti.getNumeroUtenti());
 		}
@@ -42,18 +44,18 @@ class GestoreUtentiTest {
 			int num_utenti = gestoreUtenti.getNumeroUtenti();
 			int expected = num_utenti + 2;
 			
-			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF1", "Mario", "Rossi", "Corso Italia"));
-			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF2", "Eugenio", "Bianchi", "Via delle Ginestre"));
+			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF1", "Mario", "Rossi", "Corso Italia", false));
+			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF2", "Eugenio", "Bianchi", "Via delle Ginestre", true));
 		
 			assertEquals(expected, gestoreUtenti.getNumeroUtenti());
 		}
 		
 		@Test
 		void testCFDoppione() {
-			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Mario", "Rossi", "Corso Italia"));
+			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Mario", "Rossi", "Corso Italia", true));
 			int num_utenti = gestoreUtenti.getNumeroUtenti();
 			
-			Throwable exception = assertThrows(EccezioneDominio.class, () -> gestoreUtenti.nuovoCliente("CF", "Giuseppe", "Verdi", "Viale Libertà"));
+			Throwable exception = assertThrows(EccezioneDominio.class, () -> gestoreUtenti.nuovoCliente("CF", "Giuseppe", "Verdi", "Viale Libertà", true));
 		    assertEquals("Il codice fiscale inserito appartiene già ad un utente!", exception.getMessage());
 			assertEquals(num_utenti, gestoreUtenti.getNumeroUtenti());
 		}		
@@ -63,7 +65,7 @@ class GestoreUtentiTest {
 	class AutenticaUtente {			
 		@BeforeEach
 		void setUp() {
-			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Nome", "Cognome", "Via"));	
+			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Nome", "Cognome", "Via", false));	
 		}
 		
 		@Test
@@ -88,7 +90,7 @@ class GestoreUtentiTest {
 		@Test
 		void testClienteRichiedePrivilegiTitolare() {
 			//occorre settare l'utente corrente
-			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Nome", "Cognome", "Via"));	
+			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Nome", "Cognome", "Via", false));	
 			gestoreUtenti.autenticaUtente("CF", "CF");
 			assertFalse(gestoreUtenti.controlloAutorizzazione(Titolare.class));
 		}	
@@ -101,7 +103,7 @@ class GestoreUtentiTest {
 		
 		@Test
 		void testClienteRichiedePrivilegiCliente() {
-			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Nome", "Cognome", "Via"));	
+			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Nome", "Cognome", "Via", true));	
 			gestoreUtenti.autenticaUtente("CF", "CF");
 			assertTrue(gestoreUtenti.controlloAutorizzazione(Cliente.class));
 		}

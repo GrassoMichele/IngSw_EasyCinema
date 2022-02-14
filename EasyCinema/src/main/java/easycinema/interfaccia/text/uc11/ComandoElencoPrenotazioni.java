@@ -2,7 +2,7 @@ package easycinema.interfaccia.text.uc11;
 
 import java.util.List;
 
-import easycinema.dominio.IEasyCinema;
+import easycinema.IEasyCinema;
 import easycinema.dominio.Prenotazione;
 import easycinema.interfaccia.text.Comando;
 

@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text.uc2;
 
-import easycinema.dominio.IEasyCinema;
+import easycinema.IEasyCinema;
 import easycinema.dominio.Proiezione;
 import easycinema.interfaccia.text.Comando;
 

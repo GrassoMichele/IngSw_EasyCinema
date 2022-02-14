@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import easycinema.EccezioneDominio;
+
 
 public class Proiezione {
 	private String codice;
@@ -71,6 +73,7 @@ public class Proiezione {
 	private void calcolaTariffa(double tariffa_base) {	
 		double maggiorazione_3d = 0;		// tariffa base
 		double maggiorazione_topFilm = 0;
+		double maggiorazione_tipologiaSala = 0;
 		
 		if (_3D == true) {
 			maggiorazione_3d = tariffa_base * 0.15;		// Una proiezione 3D costa il 15% in più rispetto ad una 2D.
@@ -78,8 +81,10 @@ public class Proiezione {
 		if (film.isTopFilm() == true) {
 			maggiorazione_topFilm = tariffa_base * 0.15;		// Un film Top Film ha una maggiorazione del prezzo del 15%.
 		}
-		// resta da considerare la tipologia di sala
-		tariffa = tariffa_base + maggiorazione_3d + maggiorazione_topFilm;
+		
+		maggiorazione_tipologiaSala = sala.getMaggiorazioneTariffa();	// Ciascuna tipologia di sala offre servizi diversi a prezzi diversi.
+		
+		tariffa = tariffa_base + maggiorazione_3d + maggiorazione_topFilm + maggiorazione_tipologiaSala;
 		tariffa = (double) Math.round(tariffa * 100d) / 100d;		// 2 cifre decimali
 	}	
 	
@@ -88,7 +93,7 @@ public class Proiezione {
 		result.append("- ");
 		result.append("Codice: " + codice);
 		result.append(", Film: (" + film.getCodice() + ") " + film.getTitolo());
-		result.append(", Sala: (" + sala.getNome() + ")");
+		result.append(", Sala: (" + sala.getNome() + " - " + sala.getTipologiaSala() + ")");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 		result.append(", Data e ora: " + data.format(formatter) + " " + ora.toString());
 		result.append(", 3D: " + _3D);

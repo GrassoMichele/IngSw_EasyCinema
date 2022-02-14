@@ -23,28 +23,28 @@ class PrenotazioneTest {
 	@BeforeEach 
 	void setUp() {
 		p = new Prenotazione(c,prAttuale);
-		p.aggiungiBiglietto(new PostoSala(2));
+		p.aggiungiBiglietto(new Poltrona(2));
 		postiOccupatiPrenotazione = new ArrayList<>(Arrays.asList(2));
 	}
 	
 	
 	@Test
 	void testOttieniPostiBiglietti_StessaProiezione1Biglietto() {
-		assertEquals(postiOccupatiPrenotazione, p.ottieniPostiBiglietti(prAttuale));
+		assertEquals(postiOccupatiPrenotazione, p.ottieniPostiBiglietti(prAttuale, Poltrona.class));
 	}
 	
 	@Test
 	void testOttieniPostiBiglietti_StessaProiezione3Biglietti() {
-		p.aggiungiBiglietto(new PostoSala(40));
-		p.aggiungiBiglietto(new PostoSala(17));
+		p.aggiungiBiglietto(new Poltrona(40));
+		p.aggiungiBiglietto(new Poltrona(17));
 		List<Integer> altriPosti=Arrays.asList(40,17);
 		postiOccupatiPrenotazione.addAll(altriPosti);
-		assertEquals(postiOccupatiPrenotazione, p.ottieniPostiBiglietti(prAttuale));
+		assertEquals(postiOccupatiPrenotazione, p.ottieniPostiBiglietti(prAttuale, Poltrona.class));
 	}
 	
 	@Test
 	void testOttieniPostiBiglietti_DiversaProiezione() {
-		assertEquals(new ArrayList<Integer>() , p.ottieniPostiBiglietti(prInteressata));
+		assertEquals(new ArrayList<Integer>() , p.ottieniPostiBiglietti(prInteressata, Poltrona.class));
 	}
 
 }

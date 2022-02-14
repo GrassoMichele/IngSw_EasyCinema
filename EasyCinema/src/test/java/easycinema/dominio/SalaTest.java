@@ -3,6 +3,9 @@ package easycinema.dominio;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import easycinema.EccezioneDominio;
+import easycinema.SaleFactory;
+
 
 class SalaTest {
 	private Sala s;
@@ -11,45 +14,69 @@ class SalaTest {
 	@Test
 	void testSetNumPostiTotaliPositivo() {
 		int numPostiTotali = 1;
-		assertDoesNotThrow(() -> s = new Sala("Sala", numPostiTotali, false, false));
+		assertDoesNotThrow(() -> s = SaleFactory.creaSala("Basic", "Sala", 1, 0, true, false));
 
-		int expected = 1;
-
-		assertEquals(expected, s.getNumPostiTotali());
+		assertEquals(numPostiTotali, s.getNumPostiTotali());
 	}
 
 	@Test
 	void testSetNumPostiTotaliNullo() {
-		int numPostiTotali = 0;
+		int numPoltrone = 0;
+		int numPostazioniDisabili = 0;
 		Throwable exception = assertThrows(EccezioneDominio.class,
-				() -> s = new Sala("Sala", numPostiTotali, true, false));
+				() -> s = SaleFactory.creaSala("Luxe", "Sala", numPoltrone, numPostazioniDisabili, true, false));
 		assertEquals("Deve essere presente almeno un posto in sala!", exception.getMessage());
 		assertNull(s);
 	}
 
 	@Test
 	void testSetNumPostiTotaliNegativo() {
-		int numPostiTotali = -1;
+		int numPoltrone = -1;
+		int numPostazioniDisabili = -1;
 		Throwable exception = assertThrows(EccezioneDominio.class,
-				() -> s = new Sala("Sala", numPostiTotali, false, true));
-		assertEquals("Deve essere presente almeno un posto in sala!", exception.getMessage());
+				() -> s = SaleFactory.creaSala("Basic", "Sala", numPoltrone, numPostazioniDisabili, false, true));
+		assertEquals("Non è possibile avere un numero negativo di poltrone o postazioni disabili.", exception.getMessage());
+		assertNull(s);
+	}
+	
+	@Test
+	void testSetNumPoltroneNegativo() {
+		int numPoltrone = -1;
+		int numPostazioniDisabili = 3;
+		Throwable exception = assertThrows(EccezioneDominio.class,
+				() -> s = SaleFactory.creaSala("Luxe", "Sala", numPoltrone, numPostazioniDisabili, false, true));
+		assertEquals("Non è possibile avere un numero negativo di poltrone o postazioni disabili.", exception.getMessage());
+		assertNull(s);
+	}
+	
+	@Test
+	void testSetNumPostazioniDisabiliNegativo() {
+		int numPoltrone = 10;
+		int numPostazioniDisabili = -1;
+		Throwable exception = assertThrows(EccezioneDominio.class,
+				() -> s = SaleFactory.creaSala("Basic", "Sala", numPoltrone, numPostazioniDisabili, false, true));
+		assertEquals("Non è possibile avere un numero negativo di poltrone o postazioni disabili.", exception.getMessage());
 		assertNull(s);
 	}
 
+	
 	// -- test: Numero di istanze di PostoSala create
 	@Test
 	void testCreaPostiSalaNumPostiTotaliPositivo() {
-		int numPostiTotali = 1;
+		int numPostiTotali = 2;
+		int numPoltrone = 1;
+		int numPostazioniDisabili = 1;
 
-		assertDoesNotThrow(() -> s = new Sala("La sala", numPostiTotali, true, true));
+		assertDoesNotThrow(() -> s = SaleFactory.creaSala("Basic", "La sala", numPoltrone, numPostazioniDisabili, true, true));
 		assertEquals(numPostiTotali, s.getSizePostiSala());
 	}
 
 	@Test
 	void testCreaPostiSalaNumPostiTotaliNullo() {
-		int numPostiTotali = 0;
+		int numPoltrone = 0;
+		int numPostazioniDisabili = 0;
 
-		assertThrows(EccezioneDominio.class, () -> s = new Sala("La sala", numPostiTotali, true, false));
+		assertThrows(EccezioneDominio.class, () -> s = SaleFactory.creaSala("Basic", "La sala", numPoltrone, numPostazioniDisabili, true, false));
 		// l'istanza s di Sala non potrà essere creata per via del numero di posti totali non valido.
 		// Di conseguenza il riferimento ad s deve essere nullo.
 		assertNull(s);
@@ -57,9 +84,10 @@ class SalaTest {
 
 	@Test
 	void testCreaPostiSalaNumPostiTotaliNegativo() {
-		int numPostiTotali = -1;
+		int numPoltrone = 0;
+		int numPostazioniDisabili = -1;
 
-		assertThrows(EccezioneDominio.class, () -> s = new Sala("La sala", numPostiTotali, false, true));
+		assertThrows(EccezioneDominio.class, () -> s = SaleFactory.creaSala("Luxe", "La sala", numPoltrone, numPostazioniDisabili, false, true));
 		// l'istanza s di Sala non potrà essere creata per via del numero di posti totali non valido.
 		// Di conseguenza il riferimento ad s deve essere nullo.
 		assertNull(s);

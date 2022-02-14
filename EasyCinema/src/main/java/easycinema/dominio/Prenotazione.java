@@ -29,12 +29,14 @@ public class Prenotazione {
 		return proiezione.getNumPostiSala();
 	}
 	
-	public List<Integer> ottieniPostiBiglietti(Proiezione proiezione) {
+	public List<Integer> ottieniPostiBiglietti(Proiezione proiezione, Class tipologiaPosto) {
 		List<Integer> postiOccupatiPrenotazione = new LinkedList<Integer>();
 		if(this.proiezione == proiezione) {
 			int numeroPosto;
 			for (Biglietto b : biglietti) {
-				numeroPosto = b.otteniPostoSala();
+				numeroPosto = b.otteniNumeroPostoSala(tipologiaPosto);
+				if(numeroPosto == 0)		// il biglietto non fa riferimento alla tipologia di posto di interesse
+					continue;
 				postiOccupatiPrenotazione.add(numeroPosto);
 			}
 		}
@@ -79,7 +81,7 @@ public class Prenotazione {
 		result.append(", Totale: " + totale);
 		result.append(", Biglietti: ");
 		for (Biglietto biglietto : biglietti) {
-			result.append("(id: " + biglietto.getId() + ", posto: " + biglietto.otteniPostoSala() + ") ");
+			result.append("(id: " + biglietto.getId() + ", posto: " + biglietto.otteniNumeroPostoSala() + ") ");
 		}		
 		return result.toString();
 	}

@@ -1,10 +1,15 @@
-package easycinema.dominio;
+package easycinema;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import easycinema.dominio.Film;
+import easycinema.dominio.Prenotazione;
+import easycinema.dominio.Proiezione;
+import easycinema.dominio.Sala;
 
 public interface IEasyCinema {
 	Map<String, Film> getFilm();
@@ -14,7 +19,7 @@ public interface IEasyCinema {
 	Map<String, Proiezione> getProiezioni();
 	List<Prenotazione> getPrenotazioni();
 	void nuovaPrenotazione(String codiceProiezione) throws EccezioneDominio;
-	List<Integer> ottieniPostiDisponibili();
+	Map<String, LinkedList<Integer>> ottieniPostiDisponibili(Proiezione pr);
 	void aggiungiBiglietto(int numPosto) throws EccezioneDominio;
 	double calcolaTotalePrenotazione() throws EccezioneDominio;
 	String confermaPrenotazione() throws EccezioneDominio;
@@ -26,9 +31,11 @@ public interface IEasyCinema {
 	
 	String autenticaUtente(String username, String password);	
 	
-	void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo) throws EccezioneDominio;
+	void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile) throws EccezioneDominio;
 	
 	void nuovoFilm(String codice, String titolo, String regia, String cast, int durata, int anno, String trama, String genere, boolean topFilm) throws EccezioneDominio;
+	
+	void nuovaSala(String tipologiaSala, String nome, int numPoltrone, int numPostazioniDisabili, boolean _2D, boolean _3D) throws EccezioneDominio;
 	
 	
 }

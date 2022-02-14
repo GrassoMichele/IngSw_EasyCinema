@@ -1,6 +1,8 @@
 package easycinema.dominio;
 
-public class PostoSala {
+import easycinema.EccezioneDominio;
+
+public abstract class PostoSala {
 	private int numero;
 
 	
@@ -11,5 +13,7 @@ public class PostoSala {
 	public int getNumero() {
 		return numero;
 	}
+	
+	public abstract void verificaCompatibilit‡Cliente(boolean disabile) throws EccezioneDominio;
 	
 }

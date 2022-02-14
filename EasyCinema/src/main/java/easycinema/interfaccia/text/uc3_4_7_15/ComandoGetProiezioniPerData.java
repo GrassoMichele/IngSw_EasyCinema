@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-import easycinema.dominio.IEasyCinema;
+import easycinema.IEasyCinema;
 import easycinema.dominio.Proiezione;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;

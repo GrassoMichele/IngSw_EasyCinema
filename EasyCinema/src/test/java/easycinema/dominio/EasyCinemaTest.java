@@ -23,6 +23,8 @@ import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import easycinema.EccezioneDominio;
+
 
 @ExtendWith(MockitoExtension.class)
 class EasyCinemaTest {

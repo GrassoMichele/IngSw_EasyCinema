@@ -3,6 +3,8 @@ package easycinema.dominio;
 import java.util.ArrayList;
 import java.util.List;
 
+import easycinema.EccezioneDominio;
+
 public class GestoreUtenti {
 	private static GestoreUtenti istanza;
 	private List<Utente> utenti;
@@ -54,14 +56,14 @@ public class GestoreUtenti {
 		}		
 	}	
 		
-	public void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo) throws EccezioneDominio {
+	public void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile) throws EccezioneDominio {
 		boolean trovato = false;
 		for (Utente u : utenti) {
 			if (u instanceof Cliente && ((Cliente) u).getCodiceFiscale().equals(codiceFiscale))
 				trovato = true;
 		}
 		if (!trovato) {
-			Cliente c = new Cliente(codiceFiscale,nome,cognome,indirizzo);	
+			Cliente c = new Cliente(codiceFiscale,nome,cognome,indirizzo, disabile);	
 			utenti.add(c);			
 		}			
 		else 
@@ -82,7 +84,7 @@ public class GestoreUtenti {
 	
 	private void caricaUtenti() {
 		utenti.add(new Titolare("admin","admin"));
-		utenti.add(new Cliente("cliente","Mario","Rossi", "via Doria"));
+		utenti.add(new Cliente("cliente","Mario","Rossi", "via Doria", false));
 	}
 
 }

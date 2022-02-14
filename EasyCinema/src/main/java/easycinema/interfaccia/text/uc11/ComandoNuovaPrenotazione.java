@@ -1,9 +1,11 @@
 package easycinema.interfaccia.text.uc11;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-import easycinema.dominio.IEasyCinema;
-import easycinema.dominio.EccezioneDominio;
+import easycinema.EccezioneDominio;
+import easycinema.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Console;
 import easycinema.interfaccia.text.ElencoComandi;
@@ -35,8 +37,11 @@ public class ComandoNuovaPrenotazione extends Comando {
 			easyCinema.nuovaPrenotazione(codiceProiezione);
 			
 			System.out.println("\nPosti disponibili in sala: ");
-			List<Integer> postiDisponibili = easyCinema.ottieniPostiDisponibili();
-			FunzioniComuni.stampaPosti(postiDisponibili);
+			Map<String, LinkedList<Integer>> postiDisponibili = easyCinema.ottieniPostiDisponibili(null);
+			System.out.println("- Poltrone: ");
+			FunzioniComuni.stampaPosti(postiDisponibili.get("Poltrone Disponibili"));
+			System.out.println("- Postazioni Disabili: ");
+			FunzioniComuni.stampaPosti(postiDisponibili.get("PostazioniDisabili Disponibili"));
 			
 			Console nuovaPrenotazioneConsole = new Console(ElencoComandi.NUOVA_PRENOTAZIONE, "NUOVA PRENOTAZIONE");
 			nuovaPrenotazioneConsole.start(easyCinema);

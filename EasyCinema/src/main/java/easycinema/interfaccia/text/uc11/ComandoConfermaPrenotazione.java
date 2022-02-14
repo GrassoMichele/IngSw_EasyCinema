@@ -1,7 +1,7 @@
 package easycinema.interfaccia.text.uc11;
 
-import easycinema.dominio.IEasyCinema;
-import easycinema.dominio.EccezioneDominio;
+import easycinema.EccezioneDominio;
+import easycinema.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 
 public class ComandoConfermaPrenotazione extends Comando {

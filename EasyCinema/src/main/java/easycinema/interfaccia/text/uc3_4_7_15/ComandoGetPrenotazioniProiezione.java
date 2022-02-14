@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import easycinema.dominio.IEasyCinema;
-import easycinema.dominio.EccezioneDominio;
+import easycinema.EccezioneDominio;
+import easycinema.IEasyCinema;
 import easycinema.dominio.Prenotazione;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
@@ -51,15 +51,31 @@ public class ComandoGetPrenotazioniProiezione extends Comando{
 				Map<String, LinkedList<Integer>> statoSalaProiezione;
 				
 				statoSalaProiezione = easyCinema.getStatoSalaProiezione(codiceProiezione);
-				LinkedList<Integer> postiDisponibili = statoSalaProiezione.get("Disponibili");
-				LinkedList<Integer> postiOccupati = statoSalaProiezione.get("Occupati");
+				LinkedList<Integer> poltroneDisponibili = statoSalaProiezione.get("Poltrone Disponibili");
+				LinkedList<Integer> postazioniDisabiliDisponibili = statoSalaProiezione.get("PostazioniDisabili Disponibili");
 				
-				int postiTotali = postiDisponibili.size() + postiOccupati.size(); 
-				System.out.println("   Posti totali: " +  postiTotali + "\n");
-				System.out.println("   Posti disponibili: " +  postiDisponibili.size());
-				FunzioniComuni.stampaPosti(postiDisponibili);
-				System.out.println("   Posti occupati: " +  postiOccupati.size());
-				FunzioniComuni.stampaPosti(postiOccupati);							
+				LinkedList<Integer> poltroneOccupate = statoSalaProiezione.get("Poltrone Occupate");
+				LinkedList<Integer> postazioniDisabiliOccupate = statoSalaProiezione.get("PostazioniDisabili Occupate");
+				
+				int numPostiDisponibili = poltroneDisponibili.size() + postazioniDisabiliDisponibili.size();			
+				int numPostiOccupati = poltroneOccupate.size() + postazioniDisabiliOccupate.size(); 
+				int numPostiTotali = numPostiDisponibili + numPostiOccupati;
+				
+				System.out.println("\n----------------------");
+				System.out.println("RIEPILOGO STATO SALA:");
+				System.out.println("----------------------");
+				System.out.println("Posti totali: " +  numPostiTotali + "\n");
+				System.out.println("* Posti disponibili: " +  numPostiDisponibili + " *");
+				System.out.println(" - Poltrone (" + poltroneDisponibili.size() + "):");
+				FunzioniComuni.stampaPosti(poltroneDisponibili);
+				System.out.println(" - Postazioni Disabili (" + postazioniDisabiliDisponibili.size() + "):");
+				FunzioniComuni.stampaPosti(postazioniDisabiliDisponibili);
+				System.out.println("\n* Posti occupati: " +  numPostiOccupati + " *");
+				System.out.println(" - Poltrone (" + poltroneOccupate.size() + "):");
+				FunzioniComuni.stampaPosti(poltroneOccupate);
+				System.out.println(" - Postazioni Disabili (" + postazioniDisabiliOccupate.size() + "):");
+				FunzioniComuni.stampaPosti(postazioniDisabiliOccupate);			
+				System.out.println("----------------------");
 			}
 			else if(!scelta.equals("n")) {
 				System.out.println("Scelta non valida!");

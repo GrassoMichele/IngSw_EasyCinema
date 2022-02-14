@@ -1,8 +1,10 @@
 package easycinema.interfaccia.text.uc11;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-import easycinema.dominio.IEasyCinema;
+import easycinema.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 
@@ -35,8 +37,11 @@ public class ComandoAggiungiBiglietto extends Comando {
 		}
 		finally {
 			System.out.println("\nPosti disponibili in sala: ");
-			List<Integer> postiDisponibili = easyCinema.ottieniPostiDisponibili();
-			FunzioniComuni.stampaPosti(postiDisponibili);
+			Map<String, LinkedList<Integer>> postiDisponibili = easyCinema.ottieniPostiDisponibili(null);
+			System.out.println("- Poltrone: ");
+			FunzioniComuni.stampaPosti(postiDisponibili.get("Poltrone Disponibili"));
+			System.out.println("- PostazioniDisabili: ");
+			FunzioniComuni.stampaPosti(postiDisponibili.get("PostazioniDisabili Disponibili"));
 		}
 				
 	}

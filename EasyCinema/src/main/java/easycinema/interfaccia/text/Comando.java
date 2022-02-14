@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text;
 
-import easycinema.dominio.IEasyCinema;
+import easycinema.IEasyCinema;
 
 
 public abstract class Comando {

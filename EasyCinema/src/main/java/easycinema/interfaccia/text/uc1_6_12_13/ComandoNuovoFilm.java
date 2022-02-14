@@ -1,14 +1,14 @@
 package easycinema.interfaccia.text.uc1_6_12_13;
 
-import easycinema.dominio.EccezioneDominio;
-import easycinema.dominio.IEasyCinema;
+import easycinema.EccezioneDominio;
+import easycinema.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 
 public class ComandoNuovoFilm extends Comando {
 
 	public static final String codiceComando="6";
-	public static final String descrizioneComando="Aggiungi un nuovo film";
+	public static final String descrizioneComando="Aggiungi un nuovo FILM";
 
 	
 	@Override

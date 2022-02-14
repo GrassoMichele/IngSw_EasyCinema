@@ -1,7 +1,5 @@
 package easycinema;
 
-import easycinema.dominio.IEasyCinema;
-import easycinema.dominio.ProxyEasyCinema;
 import easycinema.interfaccia.text.Console;
 import easycinema.interfaccia.text.ElencoComandi;
 

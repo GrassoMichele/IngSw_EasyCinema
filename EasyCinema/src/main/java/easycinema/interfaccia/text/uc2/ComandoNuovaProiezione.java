@@ -5,8 +5,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import easycinema.dominio.IEasyCinema;
-import easycinema.dominio.EccezioneDominio;
+import easycinema.EccezioneDominio;
+import easycinema.IEasyCinema;
 import easycinema.dominio.Film;
 import easycinema.dominio.Sala;
 import easycinema.interfaccia.text.Comando;
