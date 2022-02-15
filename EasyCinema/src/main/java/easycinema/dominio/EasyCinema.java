@@ -328,5 +328,18 @@ public class EasyCinema implements IEasyCinema {
 			throw new EccezioneDominio("Il codice inserito non corrisponde ad alcuna prenotazione.");
 		}		
 	}
+
+	@Override
+	public List<Prenotazione> visualizzaPrenotazioni() {
+		List<Prenotazione> prenotazioniCliente = new ArrayList<Prenotazione>();
+		Cliente clienteCorrente  = gestoreUtenti.getClienteCorrente();
+		
+		for(Prenotazione p : prenotazioni) {
+			Cliente clientePrenotazione = p.getCliente();
+			if (clientePrenotazione.equals(clienteCorrente))
+				prenotazioniCliente.add(p);				
+		}
+		return prenotazioniCliente;		
+	}
 	
 }

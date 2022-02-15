@@ -39,4 +39,6 @@ public interface IEasyCinema {
 	
 	void disdiciPrenotazione(String codice) throws EccezioneDominio;
 	
+	List<Prenotazione> visualizzaPrenotazioni();
+	
 }

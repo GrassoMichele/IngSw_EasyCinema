@@ -11,6 +11,7 @@ import easycinema.interfaccia.text.uc11.ComandoNuovaPrenotazione;
 import easycinema.interfaccia.text.uc1_6_12_13.ComandoDisdiciPrenotazione;
 import easycinema.interfaccia.text.uc1_6_12_13.ComandoNuovaSala;
 import easycinema.interfaccia.text.uc1_6_12_13.ComandoNuovoFilm;
+import easycinema.interfaccia.text.uc1_6_12_13.ComandoVisualizzaPrenotazioni;
 import easycinema.interfaccia.text.uc2.ComandoElencoProiezioni;
 import easycinema.interfaccia.text.uc2.ComandoNuovaProiezione;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoAutenticaUtente;
@@ -82,6 +83,8 @@ public class Parser {
 					comando = new ComandoGetProiezioniPerData();		
 				if (parola.equals("4"))
 					comando = new ComandoDisdiciPrenotazione();
+				if (parola.equals("5"))
+					comando = new ComandoVisualizzaPrenotazioni();
 			}
 			/* CONSOLE NUOVA PRENOTAZIONE */
 			if (console == ElencoComandi.NUOVA_PRENOTAZIONE){

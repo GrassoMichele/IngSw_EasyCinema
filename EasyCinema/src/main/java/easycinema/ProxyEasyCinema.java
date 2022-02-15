@@ -151,6 +151,13 @@ public class ProxyEasyCinema implements IEasyCinema{
 	public void disdiciPrenotazione(String codice) throws EccezioneDominio {
 		if (gestoreUtenti.controlloAutorizzazione(Cliente.class))
 			easyCinema.disdiciPrenotazione(codice);
+	}
+
+	@Override
+	public List<Prenotazione> visualizzaPrenotazioni() {
+		if (gestoreUtenti.controlloAutorizzazione(Cliente.class))
+			return easyCinema.visualizzaPrenotazioni();
+		return null;
 	}	
 
 }
