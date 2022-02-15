@@ -19,7 +19,7 @@ public class SalaBasic extends Sala {
 	}
 
 	@Override
-	protected Double getMaggiorazioneTariffa() {
+	protected double getMaggiorazioneTariffa() {
 		return 0.0;
 	}
 	

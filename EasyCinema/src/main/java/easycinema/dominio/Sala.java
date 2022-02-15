@@ -29,7 +29,7 @@ public abstract class Sala {
 	
 	protected abstract String getTipologiaSala();
 	protected abstract String getDescrizioneServizi();
-	protected abstract Double getMaggiorazioneTariffa();
+	protected abstract double getMaggiorazioneTariffa();
 	
 	private void creaPostiSala() {
 		PostoSala postoSala; 

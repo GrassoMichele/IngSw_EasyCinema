@@ -14,6 +14,7 @@ public class Biglietto {
 		return postoSala.getNumero();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public int otteniNumeroPostoSala(Class tipologiaPosto) {
 		if (postoSala.getClass().equals(tipologiaPosto))
 			return postoSala.getNumero();

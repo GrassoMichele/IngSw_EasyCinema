@@ -53,8 +53,10 @@ public class Catalogo {
 		}
 	}
 
+	
 	static boolean controlloValiditaTemporaleProiezione(LocalDate data, LocalTime ora, int margine) {
 		LocalDateTime data_ora_proiezione = LocalDateTime.of(data,ora);
+		// valore negativo di margine corrisponde ad un anticipo, valore positivo ad un posticipo della proiezione
 	    LocalDateTime data_ora_proiezione_con_margine = data_ora_proiezione.plusMinutes(margine);
 		return data_ora_proiezione_con_margine.isAfter(LocalDateTime.now());
 	}

@@ -146,6 +146,11 @@ public class ProxyEasyCinema implements IEasyCinema{
 		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
 			easyCinema.nuovaSala(tipologiaSala, nome, numPoltrone, numPostazioniDisabili, _2d, _3d);
 	}
-	
+
+	@Override
+	public void disdiciPrenotazione(String codice) throws EccezioneDominio {
+		if (gestoreUtenti.controlloAutorizzazione(Cliente.class))
+			easyCinema.disdiciPrenotazione(codice);
+	}	
 
 }

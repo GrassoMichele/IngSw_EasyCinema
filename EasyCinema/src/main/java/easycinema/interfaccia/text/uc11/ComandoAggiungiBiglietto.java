@@ -1,7 +1,6 @@
 package easycinema.interfaccia.text.uc11;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import easycinema.IEasyCinema;

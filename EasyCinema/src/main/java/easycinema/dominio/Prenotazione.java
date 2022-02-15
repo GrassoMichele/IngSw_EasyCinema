@@ -29,6 +29,7 @@ public class Prenotazione {
 		return proiezione.getNumPostiSala();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<Integer> ottieniPostiBiglietti(Proiezione proiezione, Class tipologiaPosto) {
 		List<Integer> postiOccupatiPrenotazione = new LinkedList<Integer>();
 		if(this.proiezione == proiezione) {
@@ -69,6 +70,10 @@ public class Prenotazione {
 
 	public String getCodice() {
 		return codice;
+	}	
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
 
 	@Override

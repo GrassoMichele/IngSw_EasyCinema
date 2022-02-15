@@ -289,5 +289,44 @@ public class EasyCinema implements IEasyCinema {
 		Sala s = SaleFactory.creaSala(tipologiaSala, nome, numPoltrone, numPostazioniDisabili, _2d, _3d);
 		sale.put(s.getNome(), s);
 	}
+
+	@Override
+	public void disdiciPrenotazione(String codice) throws EccezioneDominio {
+		// ricerca prenotazione avente per codice quello inserito
+		Prenotazione prenotazione = null;
+		for (Prenotazione p : prenotazioni) {
+			if (p.getCodice().equals(codice)) {
+				prenotazione = p;
+			}
+		}
+		
+		if (prenotazione != null) {
+			// controllo se è stata effettuata da colui che ne richiede l'annullamento
+			Cliente clienteCorrente = gestoreUtenti.getClienteCorrente();
+			Cliente clientePrenotazione = prenotazione.getCliente();
+			if (clienteCorrente.equals(clientePrenotazione)) {
+				// controllo sul margine temporale di preavviso: 2 ore.
+				Proiezione proiezione = prenotazione.getProiezione();
+				boolean valida = Catalogo.controlloValiditaTemporaleProiezione(proiezione.getData(), proiezione.getOra(), -120); 
+				if (valida) {
+					// rimborso cliente
+					double totalePrenotazione = prenotazione.getTotale();
+					gestoreUtenti.modificaCreditoCliente(totalePrenotazione);
+					// eliminazione prenotazione
+					prenotazioni.remove(prenotazione);
+				}
+				else {
+					throw new EccezioneDominio("Non è più possibile disdire la prenotazione richiesta (sono richieste 2 ore di preavviso).");
+				}
+			}
+			else {
+				throw new EccezioneDominio("La prenotazione può essere annullata solamente dal cliente che l'ha effettuata!");
+			}		
+			
+		}
+		else {
+			throw new EccezioneDominio("Il codice inserito non corrisponde ad alcuna prenotazione.");
+		}		
+	}
 	
 }

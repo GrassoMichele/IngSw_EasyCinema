@@ -1,8 +1,5 @@
 package easycinema.interfaccia.text.uc3_4_7_15;
 
-import java.util.LinkedList;
-import java.util.Map;
-
 import easycinema.EccezioneDominio;
 import easycinema.IEasyCinema;
 import easycinema.interfaccia.text.Comando;

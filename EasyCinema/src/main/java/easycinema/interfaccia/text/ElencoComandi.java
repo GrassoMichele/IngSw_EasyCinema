@@ -5,6 +5,7 @@ import easycinema.interfaccia.text.uc11.ComandoCalcolaTotalePrenotazione;
 import easycinema.interfaccia.text.uc11.ComandoConfermaPrenotazione;
 import easycinema.interfaccia.text.uc11.ComandoElencoPrenotazioni;
 import easycinema.interfaccia.text.uc11.ComandoNuovaPrenotazione;
+import easycinema.interfaccia.text.uc1_6_12_13.ComandoDisdiciPrenotazione;
 import easycinema.interfaccia.text.uc1_6_12_13.ComandoNuovaSala;
 import easycinema.interfaccia.text.uc1_6_12_13.ComandoNuovoFilm;
 import easycinema.interfaccia.text.uc2.ComandoElencoProiezioni;
@@ -45,6 +46,7 @@ public class ElencoComandi {
 			{ComandoNuovaPrenotazione.codiceComando,ComandoNuovaPrenotazione.descrizioneComando},
 			{ComandoElencoProiezioni.codiceComando,ComandoElencoProiezioni.descrizioneComando},
 			{ComandoGetProiezioniPerData.codiceComando,ComandoGetProiezioniPerData.descrizioneComando},
+			{ComandoDisdiciPrenotazione.codiceComando,ComandoDisdiciPrenotazione.descrizioneComando},
 			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
 	};
 

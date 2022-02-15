@@ -37,5 +37,6 @@ public interface IEasyCinema {
 	
 	void nuovaSala(String tipologiaSala, String nome, int numPoltrone, int numPostazioniDisabili, boolean _2D, boolean _3D) throws EccezioneDominio;
 	
+	void disdiciPrenotazione(String codice) throws EccezioneDominio;
 	
 }
