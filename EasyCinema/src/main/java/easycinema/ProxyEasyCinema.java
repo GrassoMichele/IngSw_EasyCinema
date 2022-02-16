@@ -9,7 +9,6 @@ import java.util.Map;
 import easycinema.dominio.Cliente;
 import easycinema.dominio.EasyCinema;
 import easycinema.dominio.Film;
-import easycinema.dominio.GestoreUtenti;
 import easycinema.dominio.Prenotazione;
 import easycinema.dominio.Proiezione;
 import easycinema.dominio.Sala;

@@ -16,7 +16,7 @@ public class SaleFactory {
 			case "Basic": return new SalaBasic(nome, numPoltrone, numPostazioniDisabili, _2D, _3D);
 			case "Luxe": return new SalaLuxe(nome, numPoltrone, numPostazioniDisabili, _2D, _3D);				
 			default:
-				throw new EccezioneDominio("Tipologia di sala errata!");				
+				throw new EccezioneDominio("Tipologia di sala non esistente!");				
 		}
 	}
 }

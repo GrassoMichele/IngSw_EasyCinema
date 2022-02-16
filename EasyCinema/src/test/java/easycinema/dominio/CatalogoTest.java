@@ -13,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import easycinema.EccezioneDominio;
+
 
 @ExtendWith(MockitoExtension.class)
 class CatalogoTest {
@@ -195,6 +197,19 @@ class CatalogoTest {
 		int durataFilm = 110;						
 		
 		assertFalse(Catalogo.controlloSovrapposizioneProiezione(dataProiezioneNuova, oraProiezioneNuova, durataFilm, pr));
+	}
+	
+	
+	// -- test: nuovoFilm
+	@Test
+	void testNuovoFilmCodiceDoppione() {
+		Catalogo catalogo = new Catalogo(null);
+		assertDoesNotThrow(() -> catalogo.nuovoFilm("Film1", "Film1", null, null, 0, 0, null, null, false));
+		int expected_size = catalogo.getFilm().size();
+				
+		Throwable exception = assertThrows(EccezioneDominio.class, () -> catalogo.nuovoFilm("Film1", "Film2", null, null, 0, 0, null, null, false));
+	    assertEquals("Il codice indicato fa riferimento ad un film già esistente.", exception.getMessage());
+	    assertEquals(expected_size, catalogo.getFilm().size());
 	}
 
 	

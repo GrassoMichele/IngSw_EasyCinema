@@ -10,6 +10,8 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +26,7 @@ import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import easycinema.EccezioneDominio;
+import easycinema.GestoreUtenti;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -201,4 +204,80 @@ class EasyCinemaTest {
 		    assertEquals("Nessuna prenotazione in corso!", exception.getMessage());
 		}
 	} 
+
+	@Nested
+	class DisdiciPrenotazione {
+		@Mock Cliente clienteCorrente;
+		@Mock Cliente altroCliente;
+		@Mock Proiezione proiezione;
+		@Mock Prenotazione prenotazione;
+		@Mock GestoreUtenti gestoreUtentiTest;
+		
+		List<Prenotazione> prenotazioniTest = new ArrayList<Prenotazione>(); 
+		int numPrenotazioni;
+		
+		@BeforeEach
+		void setUp() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+			ec = EasyCinema.getIstanza();
+			
+			when(prenotazione.getCodice()).thenReturn("abcd");
+			prenotazioniTest.add(prenotazione);
+			numPrenotazioni = prenotazioniTest.size();
+						
+			Field prenotazioni = EasyCinema.class.getDeclaredField("prenotazioni");
+			prenotazioni.setAccessible(true);
+			prenotazioni.set(ec, prenotazioniTest);	
+
+			Field gestoreUtenti = EasyCinema.class.getDeclaredField("gestoreUtenti");
+			gestoreUtenti.setAccessible(true);
+			gestoreUtenti.set(ec, gestoreUtentiTest);	
+		}
+		
+		@Test
+		void testPrenotazioneInesistente() {
+			Throwable exception = assertThrows(EccezioneDominio.class, () -> ec.disdiciPrenotazione("pr123"));
+		    assertEquals("Il codice inserito non corrisponde ad alcuna prenotazione.", exception.getMessage());
+		    assertEquals(numPrenotazioni, ec.getPrenotazioni().size());
+		}
+		
+		@Test
+		void testPrenotazioneAltroUtente() {
+			when(gestoreUtentiTest.getClienteCorrente()).thenReturn(clienteCorrente);	
+			when(prenotazione.getCliente()).thenReturn(altroCliente);			
+
+			Throwable exception = assertThrows(EccezioneDominio.class, () -> ec.disdiciPrenotazione("abcd"));
+		    assertEquals("La prenotazione può essere annullata solamente dal cliente che l'ha effettuata!", exception.getMessage());
+		    assertEquals(numPrenotazioni, ec.getPrenotazioni().size());
+		}
+		
+		@Test
+		void testMargineTemporaleNonRispettato() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+			when(gestoreUtentiTest.getClienteCorrente()).thenReturn(clienteCorrente);	
+			when(prenotazione.getCliente()).thenReturn(clienteCorrente);
+			when(prenotazione.getProiezione()).thenReturn(proiezione);
+						
+			try (MockedStatic<Catalogo> mockedCatalogo_staticMethod = mockStatic(Catalogo.class)) {
+				mockedCatalogo_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(proiezione.getData(),proiezione.getOra(),-120)).thenReturn(false);
+			
+				Throwable exception = assertThrows(EccezioneDominio.class, () -> ec.disdiciPrenotazione("abcd"));
+			    assertEquals("Non è più possibile disdire la prenotazione richiesta (sono richieste 2 ore di preavviso).", exception.getMessage());
+				assertEquals(numPrenotazioni, ec.getPrenotazioni().size());
+			}			
+		}
+		
+		@Test
+		void testAnnullamentoValido() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+			when(gestoreUtentiTest.getClienteCorrente()).thenReturn(clienteCorrente);	
+			when(prenotazione.getCliente()).thenReturn(clienteCorrente);
+			when(prenotazione.getProiezione()).thenReturn(proiezione);
+			
+			try (MockedStatic<Catalogo> mockedCatalogo_staticMethod = mockStatic(Catalogo.class)) {
+				mockedCatalogo_staticMethod.when(() -> Catalogo.controlloValiditaTemporaleProiezione(proiezione.getData(),proiezione.getOra(),-120)).thenReturn(true);
+			
+				assertDoesNotThrow(() -> ec.disdiciPrenotazione("abcd"));
+			    assertEquals(numPrenotazioni-1, ec.getPrenotazioni().size());
+			}			
+		}
+	}
+	
 }

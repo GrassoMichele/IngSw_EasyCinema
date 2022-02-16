@@ -1,9 +1,11 @@
-package easycinema.dominio;
+package easycinema;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import easycinema.EccezioneDominio;
+import easycinema.dominio.Cliente;
+import easycinema.dominio.Titolare;
+import easycinema.dominio.Utente;
 
 public class GestoreUtenti {
 	private static GestoreUtenti istanza;
@@ -48,7 +50,7 @@ public class GestoreUtenti {
 	}
 	
 	
-	void modificaCreditoCliente(double importo) throws EccezioneDominio {
+	public void modificaCreditoCliente(double importo) throws EccezioneDominio {
 		if (utenteCorrente instanceof Cliente) {
 			Cliente c = (Cliente) utenteCorrente;
 			double credito = c.getCredito();		
@@ -74,7 +76,7 @@ public class GestoreUtenti {
 		utenteCorrente = u;
 	}
 	
-	Cliente getClienteCorrente() {
+	public Cliente getClienteCorrente() {
 		return (Cliente) utenteCorrente;
 	}
 		

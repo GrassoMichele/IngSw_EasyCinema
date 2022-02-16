@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import easycinema.EccezioneDominio;
+import easycinema.GestoreUtenti;
 import easycinema.IEasyCinema;
 import easycinema.SaleFactory;
 

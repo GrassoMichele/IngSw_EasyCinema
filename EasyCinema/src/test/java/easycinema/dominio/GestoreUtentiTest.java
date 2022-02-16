@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import easycinema.EccezioneDominio;
+import easycinema.GestoreUtenti;
 
 class GestoreUtentiTest {
 	private GestoreUtenti gestoreUtenti;
