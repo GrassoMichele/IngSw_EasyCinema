@@ -1,6 +1,8 @@
 package easycinema.dominio;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +118,42 @@ public class Catalogo {
 		 }
 		 return proiezioniPerData;
 	}
+	
+	public Proiezione getProiezioneSala(Sala s) {
+		List<Proiezione> proiezioniSala = new ArrayList<Proiezione>();		
+		
+		// filtraggio sulla sala delle proiezioni 
+		for (Proiezione pr : proiezioni.values()) {
+			Sala salaProiezione = pr.getSala();
+			if(salaProiezione.equals(s)) {
+				proiezioniSala.add(pr);
+			}
+		}
+		
+		// ordinamento temporale delle proiezioni filtrate
+		Collections.sort(proiezioniSala, new Comparator<Proiezione>() {
+			public int compare(Proiezione pr1, Proiezione pr2) {
+				LocalDateTime dataOraPr1 = LocalDateTime.of(pr1.getData(),pr1.getOra());
+				LocalDateTime dataOraPr2 = LocalDateTime.of(pr2.getData(),pr2.getOra());
+				return dataOraPr1.compareTo(dataOraPr2);
+			}
+		});
+		
+		// ricerca prenotazione in corso o prossima in sala
+		for (Proiezione pr : proiezioniSala) {
+			LocalDateTime dataOraInizioPr = LocalDateTime.of(pr.getData(),pr.getOra());
+			int durataFilm = pr.getDurataFilm();
+		    LocalDateTime dataOraFinePr = dataOraInizioPr.plusMinutes(durataFilm);
+		    
+		    // la prima proiezione (poiché sono state ordinate temporalmente) a finire dopo l'istante 
+		    // attuale è quella in corso o la prossima in programma
+		    if(dataOraFinePr.isAfter(LocalDateTime.now())) {
+		    	return pr;
+		    }
+		}				
+		return null;		
+	}
+	
 	
 	public void nuovoFilm(String codice, String titolo, String regia, String cast, int durata, int anno, String trama, String genere, boolean topFilm) throws EccezioneDominio {
 		//controllo esistenza film con lo stesso codice		

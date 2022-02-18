@@ -26,7 +26,7 @@ public class Console {
 
     private void stampaMenu() {
     	String separatore = new String(new char[30]).replace("\0", "*");
-    	System.out.println(separatore);
+    	System.out.println("\n" + separatore);
         System.out.println(titolo);
         System.out.println(separatore);
 		System.out.println(ElencoComandi.elencoTuttiComandi(tipologiaConsole));

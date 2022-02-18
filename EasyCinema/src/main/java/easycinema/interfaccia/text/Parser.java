@@ -18,6 +18,8 @@ import easycinema.interfaccia.text.uc3_4_7_15.ComandoAutenticaUtente;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetPrenotazioniProiezione;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetProiezioniPerData;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoNuovoCliente;
+import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoRicaricaCreditoCliente;
+import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoVisualizzaProiezioniSale;
 
 public class Parser {
 	private ElencoComandi comandi;
@@ -73,6 +75,10 @@ public class Parser {
 					comando = new ComandoNuovoFilm();
 				if (parola.equals("7"))
 					comando = new ComandoNuovaSala();
+				if (parola.equals("8"))
+					comando = new ComandoVisualizzaProiezioniSale();
+				if (parola.equals("9"))
+					comando = new ComandoRicaricaCreditoCliente();
 			}
 			if (console == ElencoComandi.HOME_CLIENTE){
 				if (parola.equals("1"))

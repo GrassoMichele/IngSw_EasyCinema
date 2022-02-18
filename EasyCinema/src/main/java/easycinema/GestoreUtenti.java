@@ -57,6 +57,25 @@ public class GestoreUtenti {
 			c.setCredito(credito + importo);
 		}		
 	}	
+	
+	public void modificaCreditoCliente(String codiceFiscale, double importo) throws EccezioneDominio {
+		Cliente c = null;		
+		for(Utente u : utenti) {
+			if (u instanceof Cliente) {
+				if (((Cliente) u).getCodiceFiscale().equals(codiceFiscale)) {
+					c = (Cliente) u;
+					break;
+				}					
+			}			
+		}		
+		if (c != null) {
+			double credito = c.getCredito();		
+			c.setCredito(credito + importo);
+		}
+		else {
+			throw new EccezioneDominio("ERRORE: Il codice fiscale non corrisponde ad alcun cliente.");
+		}
+	}
 		
 	public void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile) throws EccezioneDominio {
 		boolean trovato = false;

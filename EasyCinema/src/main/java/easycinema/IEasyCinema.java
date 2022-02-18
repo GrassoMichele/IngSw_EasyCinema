@@ -41,4 +41,8 @@ public interface IEasyCinema {
 	
 	List<Prenotazione> visualizzaPrenotazioni();
 	
+	Map<String, Proiezione> visualizzaProiezioniSale();
+	
+	void ricaricaCreditoCliente(String codiceFiscale, double importo) throws EccezioneDominio;
+	
 }

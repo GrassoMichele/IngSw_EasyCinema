@@ -342,5 +342,22 @@ public class EasyCinema implements IEasyCinema {
 		}
 		return prenotazioniCliente;		
 	}
+
+	@Override
+	public Map<String, Proiezione> visualizzaProiezioniSale() {
+		Map<String, Proiezione> proiezioniSale = new HashMap<String, Proiezione>();
+		Proiezione pr;
+		for (Sala s : sale.values()) {
+			pr = catalogo.getProiezioneSala(s);
+			proiezioniSale.put(s.getNome(), pr);
+		}
+		return proiezioniSale;
+	}
+
+	@Override
+	public void ricaricaCreditoCliente(String codiceFiscale, double importo) throws EccezioneDominio {
+		gestoreUtenti.modificaCreditoCliente(codiceFiscale, importo);		
+	}	
+	
 	
 }

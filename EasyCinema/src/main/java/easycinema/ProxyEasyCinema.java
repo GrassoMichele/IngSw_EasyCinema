@@ -157,6 +157,20 @@ public class ProxyEasyCinema implements IEasyCinema{
 		if (gestoreUtenti.controlloAutorizzazione(Cliente.class))
 			return easyCinema.visualizzaPrenotazioni();
 		return null;
+	}
+
+	@Override
+	public Map<String, Proiezione> visualizzaProiezioniSale() {
+		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
+			return easyCinema.visualizzaProiezioniSale();
+		return null;
+	}
+
+	@Override
+	public void ricaricaCreditoCliente(String codiceFiscale, double importo) throws EccezioneDominio {
+		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
+			easyCinema.ricaricaCreditoCliente(codiceFiscale, importo);
+		
 	}	
 
 }
