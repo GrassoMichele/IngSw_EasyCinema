@@ -1,7 +1,5 @@
 package easycinema.dominio;
 
-import easycinema.EccezioneDominio;
-
 public class Cliente extends Utente {
 	private String codiceFiscale;
 	private String nome;
@@ -10,8 +8,11 @@ public class Cliente extends Utente {
 	private String indirizzo;
 	private double credito;
 	private boolean disabile;
+	private char sesso;
+	private int annoNascita;
 	
-	public Cliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile) {
+	
+	public Cliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile, char sesso, int annoNascita) {
 		super(codiceFiscale, codiceFiscale);
 		this.codiceFiscale = codiceFiscale;
 		this.nome = nome;
@@ -19,6 +20,8 @@ public class Cliente extends Utente {
 		this.indirizzo = indirizzo;
 		this.credito = 10;
 		this.disabile = disabile;
+		this.sesso = sesso;
+		this.annoNascita = annoNascita;
 	}
 	
 	public String getCodiceFiscale() {
@@ -47,6 +50,14 @@ public class Cliente extends Utente {
 		return "cliente";
 	}
 	
+	public char getSesso() {
+		return sesso;
+	}
+
+	public int getAnnoNascita() {
+		return annoNascita;
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer();

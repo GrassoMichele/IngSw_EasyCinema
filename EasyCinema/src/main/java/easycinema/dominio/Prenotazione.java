@@ -9,6 +9,7 @@ public class Prenotazione {
 	private Proiezione proiezione;
 	private double totale; 
 	private List<Biglietto> biglietti;
+	private Promozione promozione;
 	
 	public Prenotazione(Cliente cliente, Proiezione proiezione) {
 		this.cliente = cliente;
@@ -19,6 +20,10 @@ public class Prenotazione {
 	
 	private void setCodice() {
 		codice = proiezione.getCodice() + System.currentTimeMillis();
+	}
+	
+	public void setPromozione(Promozione promozione) {
+		this.promozione = promozione; 
 	}
 	
 	public Proiezione getProiezione() {
@@ -54,16 +59,23 @@ public class Prenotazione {
 		biglietti.add(biglietto);
 	}
 	
-	public double calcolaTotale() {
-		double tariffaProiezione = proiezione.getTariffa();
-		double totale = tariffaProiezione * biglietti.size();
-		
-		totale = (double) Math.round(totale * 100d) / 100d;
-		
-		this.totale = totale;
-		return totale;
+	public double calcolaTotale() throws EccezioneDominio {
+		if (biglietti.size() != 0) {
+			double tariffaProiezione = proiezione.getTariffa();
+			double totaleNoPromo = tariffaProiezione * biglietti.size();		
+			totaleNoPromo = (double) Math.round(totaleNoPromo * 100d) / 100d;		
+			totale = totaleNoPromo;
+			
+			if (promozione != null) {
+				double sconto = promozione.calcolaSconto(this);
+				totale -= sconto;	
+			}			
+			return totale;
+		}
+		else
+			throw new EccezioneDominio("Nessun biglietto acquistato!");	
 	}
-
+	
 	public double getTotale() {
 		return totale;
 	}

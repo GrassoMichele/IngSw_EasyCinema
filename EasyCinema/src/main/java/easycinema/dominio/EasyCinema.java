@@ -10,10 +10,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import easycinema.EccezioneDominio;
-import easycinema.GestoreUtenti;
-import easycinema.IEasyCinema;
-import easycinema.SaleFactory;
+import easycinema.fabrication.GestorePromozioni;
+import easycinema.fabrication.GestoreUtenti;
+import easycinema.fabrication.IEasyCinema;
+import easycinema.fabrication.SaleFactory;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -28,10 +28,12 @@ public class EasyCinema implements IEasyCinema {
 	private Prenotazione prenotazioneCorrente;
 	private Catalogo catalogo;
 	private GestoreUtenti gestoreUtenti;
+	private GestorePromozioni gestorePromozioni;
 	
 	
 	private EasyCinema() {
-		this.gestoreUtenti = GestoreUtenti.getIstanza();
+		gestoreUtenti = GestoreUtenti.getIstanza();
+		gestorePromozioni = GestorePromozioni.getIstanza();
 		prenotazioni = new LinkedList<Prenotazione>();
 		sale = new HashMap<String, Sala>();
 		caricaSale();		
@@ -81,7 +83,12 @@ public class EasyCinema implements IEasyCinema {
 			
 			Cliente clienteCorrente = gestoreUtenti.getClienteCorrente();
 			if(clienteCorrente != null) {
-				this.prenotazioneCorrente = new Prenotazione(clienteCorrente, pr);	
+				prenotazioneCorrente = new Prenotazione(clienteCorrente, pr);
+				// associazione promozione per prenotazione. Le promozioni non si applicano ai topFilm.
+				if (!pr.isTopFilm()) {
+					Promozione promozione = gestorePromozioni.associaPromozione(prenotazioneCorrente);
+					prenotazioneCorrente.setPromozione(promozione);
+				}				
 			}
 		}
 		else {
@@ -169,11 +176,7 @@ public class EasyCinema implements IEasyCinema {
 	}
 	
 	public double calcolaTotalePrenotazione() throws EccezioneDominio {
-		double totalePrenotazione = prenotazioneCorrente.calcolaTotale();
-		
-		if (totalePrenotazione == 0) 	// nessun biglietto acquistato
-			throw new EccezioneDominio("Nessun biglietto acquistato!");
-		
+		double totalePrenotazione = prenotazioneCorrente.calcolaTotale();		
 		return totalePrenotazione;
 	}
 	
@@ -272,8 +275,8 @@ public class EasyCinema implements IEasyCinema {
 	}
 
 	@Override
-	public void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile) throws EccezioneDominio {
-		gestoreUtenti.nuovoCliente(codiceFiscale, nome, cognome, indirizzo, disabile);
+	public void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile, char sesso, int annoNascita) throws EccezioneDominio {
+		gestoreUtenti.nuovoCliente(codiceFiscale, nome, cognome, indirizzo, disabile, sesso, annoNascita);
 	}
 	
 	@Override
@@ -357,7 +360,10 @@ public class EasyCinema implements IEasyCinema {
 	@Override
 	public void ricaricaCreditoCliente(String codiceFiscale, double importo) throws EccezioneDominio {
 		gestoreUtenti.modificaCreditoCliente(codiceFiscale, importo);		
-	}	
-	
-	
+	}
+
+	@Override
+	public void nuovaPromozione(String tipologia, List<String> condizione, int percentualeSconto) throws EccezioneDominio {
+		gestorePromozioni.creaPromozione(tipologia, condizione, percentualeSconto);	
+	}
 }

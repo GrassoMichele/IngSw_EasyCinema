@@ -3,8 +3,6 @@ package easycinema.dominio;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import easycinema.EccezioneDominio;
-
 
 class SalaTest {
 	private Sala s;

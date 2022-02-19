@@ -1,7 +1,5 @@
 package easycinema.dominio;
 
-import easycinema.EccezioneDominio;
-
 public class PostazioneDisabile extends PostoSala{
 
 	public PostazioneDisabile(int numero) {

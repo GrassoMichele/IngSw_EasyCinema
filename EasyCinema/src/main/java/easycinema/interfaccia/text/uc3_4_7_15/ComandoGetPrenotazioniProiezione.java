@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import easycinema.EccezioneDominio;
-import easycinema.IEasyCinema;
+import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Prenotazione;
+import easycinema.fabrication.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 import easycinema.interfaccia.text.uc11.FunzioniComuni;

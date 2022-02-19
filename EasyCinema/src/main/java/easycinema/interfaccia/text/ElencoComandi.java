@@ -15,6 +15,7 @@ import easycinema.interfaccia.text.uc3_4_7_15.ComandoAutenticaUtente;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetPrenotazioniProiezione;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetProiezioniPerData;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoNuovoCliente;
+import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoNuovaPromozione;
 import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoRicaricaCreditoCliente;
 import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoVisualizzaProiezioniSale;
 
@@ -44,6 +45,7 @@ public class ElencoComandi {
 			{ComandoNuovaSala.codiceComando,ComandoNuovaSala.descrizioneComando},
 			{ComandoVisualizzaProiezioniSale.codiceComando,ComandoVisualizzaProiezioniSale.descrizioneComando},
 			{ComandoRicaricaCreditoCliente.codiceComando,ComandoRicaricaCreditoCliente.descrizioneComando},
+			{ComandoNuovaPromozione.codiceComando,ComandoNuovaPromozione.descrizioneComando},
 			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
 	};
 

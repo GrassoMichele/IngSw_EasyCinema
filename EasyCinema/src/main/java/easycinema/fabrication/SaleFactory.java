@@ -1,5 +1,6 @@
-package easycinema;
+package easycinema.fabrication;
 
+import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Sala;
 import easycinema.dominio.SalaBasic;
 import easycinema.dominio.SalaLuxe;

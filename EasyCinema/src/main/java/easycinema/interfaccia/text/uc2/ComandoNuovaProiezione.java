@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
-import easycinema.EccezioneDominio;
-import easycinema.IEasyCinema;
+import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Film;
 import easycinema.dominio.Sala;
+import easycinema.fabrication.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 
@@ -50,7 +51,7 @@ public class ComandoNuovaProiezione extends Comando {
 		
 		try {
 			System.out.println("   Inserisci la data (dd/mm/yyyy): ");
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 			//convert String to LocalDate
 			LocalDate data = LocalDate.parse(Parser.getInstance().read(), formatter);
 			

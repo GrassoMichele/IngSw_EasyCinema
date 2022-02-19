@@ -1,7 +1,7 @@
 package easycinema.interfaccia.text.uc5_8_9_10_14;
 
-import easycinema.EccezioneDominio;
-import easycinema.IEasyCinema;
+import easycinema.dominio.EccezioneDominio;
+import easycinema.fabrication.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 

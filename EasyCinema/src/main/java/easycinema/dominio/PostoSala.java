@@ -1,7 +1,5 @@
 package easycinema.dominio;
 
-import easycinema.EccezioneDominio;
-
 public abstract class PostoSala {
 	private int numero;
 

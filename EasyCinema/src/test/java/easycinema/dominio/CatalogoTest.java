@@ -7,13 +7,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import easycinema.EccezioneDominio;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -57,7 +56,7 @@ class CatalogoTest {
 		// La nuova potenziale proiezione è contenuta temporalmente da una proiezione esistente.
 		// Sono da considerare nel calcolo dei tempi anche i 15 minuti di pubblicità iniziale per proiezione.
 		
-		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		DateTimeFormatter oraFormatter = DateTimeFormatter.ofPattern("H:mm");
 		
 		LocalDate dataProiezioneEsistente = LocalDate.parse("12/02/2022",dataFormatter);
@@ -78,7 +77,7 @@ class CatalogoTest {
 		// La nuova potenziale proiezione è contenuta parzialmente da una proiezione esistente.
 		// Sono da considerare nel calcolo dei tempi anche i 15 minuti di pubblicità iniziale per proiezione.
 		
-		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		DateTimeFormatter oraFormatter = DateTimeFormatter.ofPattern("H:mm");
 		
 		LocalDate dataProiezioneEsistente = LocalDate.parse("12/02/2022",dataFormatter);
@@ -99,7 +98,7 @@ class CatalogoTest {
 		// La nuova potenziale proiezione contiene temporalmente una proiezione esistente.
 		// Sono da considerare nel calcolo dei tempi anche i 15 minuti di pubblicità iniziale per proiezione.
 		
-		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		DateTimeFormatter oraFormatter = DateTimeFormatter.ofPattern("H:mm");
 		
 		LocalDate dataProiezioneEsistente = LocalDate.parse("01/01/2022",dataFormatter);
@@ -120,7 +119,7 @@ class CatalogoTest {
 		// La nuova potenziale proiezione contiene parzialmente una proiezione esistente.
 		// Sono da considerare nel calcolo dei tempi anche i 15 minuti di pubblicità iniziale per proiezione.
 		
-		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		DateTimeFormatter oraFormatter = DateTimeFormatter.ofPattern("H:mm");
 		
 		LocalDate dataProiezioneEsistente = LocalDate.parse("14/02/2022",dataFormatter);
@@ -141,7 +140,7 @@ class CatalogoTest {
 		// La nuova potenziale proiezione coincide esattamente con una proiezione esistente.
 		// Sono da considerare nel calcolo dei tempi anche i 15 minuti di pubblicità iniziale per proiezione.
 		
-		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		DateTimeFormatter oraFormatter = DateTimeFormatter.ofPattern("H:mm");
 		
 		LocalDate dataProiezioneEsistente = LocalDate.parse("05/05/1990",dataFormatter);
@@ -162,7 +161,7 @@ class CatalogoTest {
 		// La nuova potenziale proiezione termina immediatamente prima dell'inizio di una proiezione esistente.
 		// Sono da considerare nel calcolo dei tempi anche i 15 minuti di pubblicità iniziale per proiezione.
 		
-		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		DateTimeFormatter oraFormatter = DateTimeFormatter.ofPattern("H:mm");
 		
 		LocalDate dataProiezioneEsistente = LocalDate.parse("03/03/1986",dataFormatter);
@@ -183,7 +182,7 @@ class CatalogoTest {
 		// La nuova potenziale proiezione inizia immediatamente dopo la fine di una proiezione esistente.
 		// Sono da considerare nel calcolo dei tempi anche i 15 minuti di pubblicità iniziale per proiezione.
 		
-		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		DateTimeFormatter oraFormatter = DateTimeFormatter.ofPattern("H:mm");
 		
 		LocalDate dataProiezioneEsistente = LocalDate.parse("27/09/2002",dataFormatter);

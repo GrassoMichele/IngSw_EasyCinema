@@ -6,12 +6,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import easycinema.EccezioneDominio;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.time.LocalDateTime;
 
 
@@ -185,7 +183,7 @@ public class Catalogo {
 	
 	private void caricaProiezioni(Map<String, Sala> sale) {
 		try {
-			DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("d/MM/yyyy");
+			DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 			DateTimeFormatter formatterH = DateTimeFormatter.ofPattern("H:mm");
 		
 			LocalDate data = LocalDate.parse("17/03/2022", formatterD);		

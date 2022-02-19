@@ -1,7 +1,7 @@
 package easycinema.interfaccia.text.uc2;
 
-import easycinema.IEasyCinema;
 import easycinema.dominio.Proiezione;
+import easycinema.fabrication.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 
 public class ComandoElencoProiezioni extends Comando{

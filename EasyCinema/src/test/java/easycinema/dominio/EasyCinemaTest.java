@@ -25,8 +25,7 @@ import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import easycinema.EccezioneDominio;
-import easycinema.GestoreUtenti;
+import easycinema.fabrication.GestoreUtenti;
 
 
 @ExtendWith(MockitoExtension.class)

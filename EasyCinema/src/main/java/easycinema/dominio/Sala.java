@@ -3,8 +3,6 @@ package easycinema.dominio;
 import java.util.HashMap;
 import java.util.Map;
 
-import easycinema.EccezioneDominio;
-
 public abstract class Sala {
 	private String nome;
 	private int numPostiTotali;

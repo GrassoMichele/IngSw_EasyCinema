@@ -1,6 +1,6 @@
 package easycinema.interfaccia.text;
 
-import easycinema.IEasyCinema;
+import easycinema.fabrication.IEasyCinema;
 
 
 public class ComandoNonValido extends Comando {

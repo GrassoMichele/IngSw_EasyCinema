@@ -1,4 +1,4 @@
-package easycinema;
+package easycinema.fabrication;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -8,6 +8,7 @@ import java.util.Map;
 
 import easycinema.dominio.Cliente;
 import easycinema.dominio.EasyCinema;
+import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Film;
 import easycinema.dominio.Prenotazione;
 import easycinema.dominio.Proiezione;
@@ -128,9 +129,9 @@ public class ProxyEasyCinema implements IEasyCinema{
 	}
 	
 	@Override
-	public void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile) throws EccezioneDominio {
+	public void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile, char sesso, int annoNascita) throws EccezioneDominio {
 		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
-			easyCinema.nuovoCliente(codiceFiscale, nome, cognome, indirizzo, disabile);
+			easyCinema.nuovoCliente(codiceFiscale, nome, cognome, indirizzo, disabile, sesso, annoNascita);
 	}
 
 	@Override
@@ -170,7 +171,13 @@ public class ProxyEasyCinema implements IEasyCinema{
 	public void ricaricaCreditoCliente(String codiceFiscale, double importo) throws EccezioneDominio {
 		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
 			easyCinema.ricaricaCreditoCliente(codiceFiscale, importo);
-		
+	}	
+	
+
+	@Override
+	public void nuovaPromozione(String tipologia, List<String> condizione, int percentualeSconto) throws EccezioneDominio {
+		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
+			easyCinema.nuovaPromozione(tipologia, condizione, percentualeSconto);			
 	}	
 
 }

@@ -1,7 +1,5 @@
 package easycinema.dominio;
 
-import easycinema.EccezioneDominio;
-
 public class SalaBasic extends Sala {
 
 	public SalaBasic(String nome, int numPoltrone, int numPostazioniDisabili, boolean _2d, boolean _3d) throws EccezioneDominio {

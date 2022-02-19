@@ -3,10 +3,11 @@ package easycinema.interfaccia.text.uc3_4_7_15;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.List;
 
-import easycinema.IEasyCinema;
 import easycinema.dominio.Proiezione;
+import easycinema.fabrication.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 
@@ -30,7 +31,7 @@ public class ComandoGetProiezioniPerData extends Comando{
 	public void esegui(IEasyCinema easyCinema) {
 		try {
 			System.out.println("   Inserisci la data (dd/mm/yyyy): ");
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 			String dataS = Parser.getInstance().read();
 			LocalDate data = LocalDate.parse(dataS, formatter);
 			

@@ -3,8 +3,7 @@ package easycinema.dominio;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-
-import easycinema.EccezioneDominio;
+import java.time.format.ResolverStyle;
 
 
 public class Proiezione {
@@ -69,7 +68,13 @@ public class Proiezione {
 		return film.getDurata();
 	}
 	
+	public boolean isTopFilm() {
+		return film.isTopFilm();
+	}
+	
+	
 	// La tariffa della proiezione è funzione della tariffa base, del tipo di proiezione (2d/3d), se il film a cui fa riferimento è un topFilm e dal tipo di sala. 
+	// Ciascuna maggiorazione viene calcolata a partire dalla tariffa base.
 	private void calcolaTariffa(double tariffa_base) {	
 		double maggiorazione_3d = 0;		// tariffa base
 		double maggiorazione_topFilm = 0;
@@ -92,10 +97,12 @@ public class Proiezione {
 		StringBuffer result = new StringBuffer();
 		result.append("- ");
 		result.append("Codice: " + codice);
-		result.append(", Film: (" + film.getCodice() + ") " + film.getTitolo());
+		result.append(", Film " + film.getCodice() + ": " + film.getTitolo());
+		if(film.isTopFilm())
+			result.append(" (top Film)");
 		result.append(", Sala: (" + sala.getNome() + " - " + sala.getTipologiaSala() + ")");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-		result.append(", Data e ora: " + data.format(formatter) + " " + ora.toString());
+		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
+		result.append(", Data e ora: " + data.format(dataFormatter) + " " + ora.toString());
 		result.append(", 3D: " + _3D);
 		result.append(", tariffa: " + tariffa);
 		return result.toString();

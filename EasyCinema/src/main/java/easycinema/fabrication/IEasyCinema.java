@@ -1,4 +1,4 @@
-package easycinema;
+package easycinema.fabrication;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Film;
 import easycinema.dominio.Prenotazione;
 import easycinema.dominio.Proiezione;
@@ -31,7 +32,7 @@ public interface IEasyCinema {
 	
 	String autenticaUtente(String username, String password);	
 	
-	void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile) throws EccezioneDominio;
+	void nuovoCliente(String codiceFiscale, String nome, String cognome, String indirizzo, boolean disabile, char sesso, int annoNascita) throws EccezioneDominio;
 	
 	void nuovoFilm(String codice, String titolo, String regia, String cast, int durata, int anno, String trama, String genere, boolean topFilm) throws EccezioneDominio;
 	
@@ -44,5 +45,7 @@ public interface IEasyCinema {
 	Map<String, Proiezione> visualizzaProiezioniSale();
 	
 	void ricaricaCreditoCliente(String codiceFiscale, double importo) throws EccezioneDominio;
+	
+	void nuovaPromozione(String tipologia, List<String> condizione, int percentualeSconto) throws EccezioneDominio;
 	
 }

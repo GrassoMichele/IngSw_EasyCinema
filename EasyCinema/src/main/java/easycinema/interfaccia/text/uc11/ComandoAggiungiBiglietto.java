@@ -3,7 +3,8 @@ package easycinema.interfaccia.text.uc11;
 import java.util.LinkedList;
 import java.util.Map;
 
-import easycinema.IEasyCinema;
+import easycinema.dominio.EccezioneDominio;
+import easycinema.fabrication.IEasyCinema;
 import easycinema.interfaccia.text.Comando;
 import easycinema.interfaccia.text.Parser;
 
@@ -31,7 +32,10 @@ public class ComandoAggiungiBiglietto extends Comando {
 			easyCinema.aggiungiBiglietto(numPosto);
 			System.out.println("Il posto " + numPosto + " è stato riservato con successo");
 		}
-		catch (Exception e) {
+		catch (NumberFormatException e) {
+			System.out.println("Inserisci un numero intero!");
+		}
+		catch (EccezioneDominio e) {
 			System.out.println(e.getMessage());
 		}
 		finally {
