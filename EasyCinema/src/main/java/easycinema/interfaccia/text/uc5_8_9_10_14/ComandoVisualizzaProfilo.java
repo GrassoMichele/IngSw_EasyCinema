@@ -5,8 +5,8 @@ import easycinema.interfaccia.text.Comando;
 
 public class ComandoVisualizzaProfilo extends Comando{
 
-	public static final String codiceComando="11";
-	public static final String descrizioneComando="Visualizza profilo";
+	public static final String codiceComando="7";
+	public static final String descrizioneComando="Visualizza PROFILO";
 
 	
 	@Override

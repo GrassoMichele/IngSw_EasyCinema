@@ -75,9 +75,9 @@ public class Parser {
 				if (parola.equals("5"))
 					comando = new ComandoNuovoCliente();
 				if (parola.equals("6"))
-					comando = new ComandoNuovoFilm();
+					comando = new ComandoVisualizzaPromozioni();
 				if (parola.equals("7"))
-					comando = new ComandoNuovaSala();
+					comando = new ComandoVisualizzaProfilo();
 				if (parola.equals("8"))
 					comando = new ComandoVisualizzaProiezioniSale();
 				if (parola.equals("9"))
@@ -85,9 +85,9 @@ public class Parser {
 				if (parola.equals("10"))
 					comando = new ComandoNuovaPromozione();
 				if (parola.equals("11"))
-					comando = new ComandoVisualizzaProfilo();
+					comando = new ComandoNuovoFilm();
 				if (parola.equals("12"))
-					comando = new ComandoVisualizzaPromozioni();
+					comando = new ComandoNuovaSala();
 			}
 			if (console == ElencoComandi.HOME_CLIENTE){
 				if (parola.equals("1"))
@@ -100,10 +100,10 @@ public class Parser {
 					comando = new ComandoDisdiciPrenotazione();
 				if (parola.equals("5"))
 					comando = new ComandoVisualizzaPrenotazioni();
-				if (parola.equals("11"))
-					comando = new ComandoVisualizzaProfilo();
-				if (parola.equals("12"))
+				if (parola.equals("6"))
 					comando = new ComandoVisualizzaPromozioni();
+				if (parola.equals("7"))
+					comando = new ComandoVisualizzaProfilo();
 			}
 			/* CONSOLE NUOVA PRENOTAZIONE */
 			if (console == ElencoComandi.NUOVA_PRENOTAZIONE){

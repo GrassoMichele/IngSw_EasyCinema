@@ -7,7 +7,7 @@ import easycinema.interfaccia.text.Parser;
 
 public class ComandoNuovoFilm extends Comando {
 
-	public static final String codiceComando="6";
+	public static final String codiceComando="11";
 	public static final String descrizioneComando="Aggiungi un nuovo FILM";
 
 	

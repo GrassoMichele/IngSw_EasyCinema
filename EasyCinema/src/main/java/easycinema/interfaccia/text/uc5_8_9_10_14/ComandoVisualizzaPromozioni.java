@@ -8,7 +8,7 @@ import easycinema.interfaccia.text.Comando;
 
 public class ComandoVisualizzaPromozioni extends Comando{
 
-	public static final String codiceComando="12";
+	public static final String codiceComando="6";
 	public static final String descrizioneComando="Visualizza le PROMOZIONI";
 
 	

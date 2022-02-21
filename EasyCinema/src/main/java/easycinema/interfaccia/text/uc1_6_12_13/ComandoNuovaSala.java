@@ -7,7 +7,7 @@ import easycinema.interfaccia.text.Parser;
 
 public class ComandoNuovaSala extends Comando {
 
-	public static final String codiceComando="7";
+	public static final String codiceComando="12";
 	public static final String descrizioneComando="Aggiungi una nuova SALA";
 
 	

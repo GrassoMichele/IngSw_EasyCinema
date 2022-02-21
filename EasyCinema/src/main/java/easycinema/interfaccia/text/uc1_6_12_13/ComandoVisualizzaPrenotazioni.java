@@ -9,7 +9,7 @@ import easycinema.interfaccia.text.Comando;
 public class ComandoVisualizzaPrenotazioni extends Comando {
 
 	public static final String codiceComando="5";
-	public static final String descrizioneComando="Visualizza Prenotazioni";
+	public static final String descrizioneComando="Visualizza le PRENOTAZIONI effettuate";
 
 	
 	@Override

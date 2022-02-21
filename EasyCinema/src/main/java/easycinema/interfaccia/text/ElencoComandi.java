@@ -43,13 +43,13 @@ public class ElencoComandi {
 			{ComandoElencoPrenotazioni.codiceComando,ComandoElencoPrenotazioni.descrizioneComando},
 			{ComandoGetPrenotazioniProiezione.codiceComando,ComandoGetPrenotazioniProiezione.descrizioneComando},
 			{ComandoNuovoCliente.codiceComando,ComandoNuovoCliente.descrizioneComando},
-			{ComandoNuovoFilm.codiceComando,ComandoNuovoFilm.descrizioneComando},
-			{ComandoNuovaSala.codiceComando,ComandoNuovaSala.descrizioneComando},
+			{ComandoVisualizzaPromozioni.codiceComando,ComandoVisualizzaPromozioni.descrizioneComando},
+			{ComandoVisualizzaProfilo.codiceComando,ComandoVisualizzaProfilo.descrizioneComando},
 			{ComandoVisualizzaProiezioniSale.codiceComando,ComandoVisualizzaProiezioniSale.descrizioneComando},
 			{ComandoRicaricaCreditoCliente.codiceComando,ComandoRicaricaCreditoCliente.descrizioneComando},
 			{ComandoNuovaPromozione.codiceComando,ComandoNuovaPromozione.descrizioneComando},
-			{ComandoVisualizzaProfilo.codiceComando,ComandoVisualizzaProfilo.descrizioneComando},
-			{ComandoVisualizzaPromozioni.codiceComando,ComandoVisualizzaPromozioni.descrizioneComando},
+			{ComandoNuovoFilm.codiceComando,ComandoNuovoFilm.descrizioneComando},
+			{ComandoNuovaSala.codiceComando,ComandoNuovaSala.descrizioneComando},
 			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
 	};
 
@@ -59,8 +59,8 @@ public class ElencoComandi {
 			{ComandoGetProiezioniPerData.codiceComando,ComandoGetProiezioniPerData.descrizioneComando},
 			{ComandoDisdiciPrenotazione.codiceComando,ComandoDisdiciPrenotazione.descrizioneComando},
 			{ComandoVisualizzaPrenotazioni.codiceComando,ComandoVisualizzaPrenotazioni.descrizioneComando},
-			{ComandoVisualizzaProfilo.codiceComando,ComandoVisualizzaProfilo.descrizioneComando},
 			{ComandoVisualizzaPromozioni.codiceComando,ComandoVisualizzaPromozioni.descrizioneComando},
+			{ComandoVisualizzaProfilo.codiceComando,ComandoVisualizzaProfilo.descrizioneComando},
 			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
 	};
 

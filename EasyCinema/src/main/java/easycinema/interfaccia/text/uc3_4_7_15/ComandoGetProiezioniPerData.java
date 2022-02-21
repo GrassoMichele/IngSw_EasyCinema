@@ -14,7 +14,7 @@ import easycinema.interfaccia.text.Parser;
 public class ComandoGetProiezioniPerData extends Comando{
 
 	public static final String codiceComando="3";
-	public static final String descrizioneComando="Visualizza la programmazione per una data";
+	public static final String descrizioneComando="Visualizza la PROGRAMMAZIONE per una data";
 
 	
 	@Override
