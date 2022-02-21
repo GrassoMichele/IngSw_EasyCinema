@@ -17,7 +17,9 @@ import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetProiezioniPerData;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoNuovoCliente;
 import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoNuovaPromozione;
 import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoRicaricaCreditoCliente;
+import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoVisualizzaProfilo;
 import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoVisualizzaProiezioniSale;
+import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoVisualizzaPromozioni;
 
 public class ElencoComandi {
 	
@@ -46,6 +48,8 @@ public class ElencoComandi {
 			{ComandoVisualizzaProiezioniSale.codiceComando,ComandoVisualizzaProiezioniSale.descrizioneComando},
 			{ComandoRicaricaCreditoCliente.codiceComando,ComandoRicaricaCreditoCliente.descrizioneComando},
 			{ComandoNuovaPromozione.codiceComando,ComandoNuovaPromozione.descrizioneComando},
+			{ComandoVisualizzaProfilo.codiceComando,ComandoVisualizzaProfilo.descrizioneComando},
+			{ComandoVisualizzaPromozioni.codiceComando,ComandoVisualizzaPromozioni.descrizioneComando},
 			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
 	};
 
@@ -55,6 +59,8 @@ public class ElencoComandi {
 			{ComandoGetProiezioniPerData.codiceComando,ComandoGetProiezioniPerData.descrizioneComando},
 			{ComandoDisdiciPrenotazione.codiceComando,ComandoDisdiciPrenotazione.descrizioneComando},
 			{ComandoVisualizzaPrenotazioni.codiceComando,ComandoVisualizzaPrenotazioni.descrizioneComando},
+			{ComandoVisualizzaProfilo.codiceComando,ComandoVisualizzaProfilo.descrizioneComando},
+			{ComandoVisualizzaPromozioni.codiceComando,ComandoVisualizzaPromozioni.descrizioneComando},
 			{ComandoEsci.codiceComando, ComandoEsci.descrizioneComando}
 	};
 

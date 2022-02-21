@@ -10,6 +10,7 @@ import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Film;
 import easycinema.dominio.Prenotazione;
 import easycinema.dominio.Proiezione;
+import easycinema.dominio.Promo;
 import easycinema.dominio.Sala;
 
 public interface IEasyCinema {
@@ -48,4 +49,7 @@ public interface IEasyCinema {
 	
 	void nuovaPromozione(String tipologia, List<String> condizione, int percentualeSconto) throws EccezioneDominio;
 	
+	String visualizzaProfilo();
+	
+	List<Promo> visualizzaPromozioni();
 }

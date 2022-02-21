@@ -33,4 +33,15 @@ public class PromoFasciaOraria extends Promo {
 		
 		return (proiezioneDopoInizioFasciaOraria && proiezionePrimaFineFasciaOraria);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("- Promozione Fascia oraria (");
+		result.append("inizio fascia oraria: " + inizioFasciaOraria);
+		result.append(", fine fascia oraria: " + fineFasciaOraria);
+		result.append(", " + super.toString());
+		result.append(")");
+		return result.toString();
+	}
 }

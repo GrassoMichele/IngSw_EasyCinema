@@ -49,5 +49,16 @@ public class PromoGiorno extends Promo {
 		}
 		return false;		
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("- Promozione Giorno (");
+		result.append("giorno: " + giorno);
+		result.append(", filtro sul sesso: " + sesso);
+		result.append(", " + super.toString());
+		result.append(")");
+		return result.toString();
+	}
 
 }

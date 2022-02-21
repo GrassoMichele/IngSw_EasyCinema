@@ -4,7 +4,6 @@ public class Cliente extends Utente {
 	private String codiceFiscale;
 	private String nome;
 	private String cognome;
-	@SuppressWarnings("unused")
 	private String indirizzo;
 	private double credito;
 	private boolean disabile;
@@ -61,11 +60,16 @@ public class Cliente extends Utente {
 	@Override
 	public String toString() {
 		StringBuffer result = new StringBuffer();
-		result.append("Codice fiscale: " + codiceFiscale);
-		result.append(", Nome: " + nome);
-		result.append(", Cognome: " + cognome);		
+		result.append(super.toString());
+		result.append("\n- Codice fiscale: " + codiceFiscale);
+		result.append("\n- Nome: " + nome);
+		result.append("\n- Cognome: " + cognome);		
+		result.append("\n- Indirizzo: " + indirizzo);	
+		result.append("\n- Credito: " + credito);
+		result.append("\n- Disabile: " + disabile);
+		result.append("\n- Sesso: " + sesso);
+		result.append("\n- Anno di nascita: " + annoNascita);	
 		return result.toString();
-	}
-	
+	}	
 	
 }

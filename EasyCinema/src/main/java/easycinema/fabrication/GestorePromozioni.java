@@ -33,6 +33,10 @@ public class GestorePromozioni {
 		return istanza;
 	}	
 	
+	public List<Promo> getPromozioni() {
+		return promozioni;
+	}
+
 	public void creaPromozione(String tipologia, List<String> condizione, int percentualeSconto) throws EccezioneDominio {
 		DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		DateTimeFormatter oraFormatter = DateTimeFormatter.ofPattern("H:mm");

@@ -20,7 +20,9 @@ import easycinema.interfaccia.text.uc3_4_7_15.ComandoGetProiezioniPerData;
 import easycinema.interfaccia.text.uc3_4_7_15.ComandoNuovoCliente;
 import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoNuovaPromozione;
 import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoRicaricaCreditoCliente;
+import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoVisualizzaProfilo;
 import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoVisualizzaProiezioniSale;
+import easycinema.interfaccia.text.uc5_8_9_10_14.ComandoVisualizzaPromozioni;
 
 public class Parser {
 	private ElencoComandi comandi;
@@ -82,6 +84,10 @@ public class Parser {
 					comando = new ComandoRicaricaCreditoCliente();
 				if (parola.equals("10"))
 					comando = new ComandoNuovaPromozione();
+				if (parola.equals("11"))
+					comando = new ComandoVisualizzaProfilo();
+				if (parola.equals("12"))
+					comando = new ComandoVisualizzaPromozioni();
 			}
 			if (console == ElencoComandi.HOME_CLIENTE){
 				if (parola.equals("1"))
@@ -94,6 +100,10 @@ public class Parser {
 					comando = new ComandoDisdiciPrenotazione();
 				if (parola.equals("5"))
 					comando = new ComandoVisualizzaPrenotazioni();
+				if (parola.equals("11"))
+					comando = new ComandoVisualizzaProfilo();
+				if (parola.equals("12"))
+					comando = new ComandoVisualizzaPromozioni();
 			}
 			/* CONSOLE NUOVA PRENOTAZIONE */
 			if (console == ElencoComandi.NUOVA_PRENOTAZIONE){

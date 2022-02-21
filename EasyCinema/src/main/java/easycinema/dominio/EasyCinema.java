@@ -366,4 +366,14 @@ public class EasyCinema implements IEasyCinema {
 	public void nuovaPromozione(String tipologia, List<String> condizione, int percentualeSconto) throws EccezioneDominio {
 		gestorePromozioni.creaPromozione(tipologia, condizione, percentualeSconto);	
 	}
+
+	@Override
+	public String visualizzaProfilo() {
+		return gestoreUtenti.getProfiloUtente();
+	}
+
+	@Override
+	public List<Promo> visualizzaPromozioni() {
+		return gestorePromozioni.getPromozioni();
+	}
 }

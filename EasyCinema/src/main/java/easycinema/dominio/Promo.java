@@ -37,4 +37,9 @@ public abstract class Promo implements Promozione {
 	public List<Promozione> getPromozioni() {
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "Sconto percentuale: " + scontoPercentuale;
+	}
 }

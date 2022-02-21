@@ -12,6 +12,7 @@ import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Film;
 import easycinema.dominio.Prenotazione;
 import easycinema.dominio.Proiezione;
+import easycinema.dominio.Promo;
 import easycinema.dominio.Sala;
 import easycinema.dominio.Titolare;
 import easycinema.dominio.Utente;
@@ -178,6 +179,20 @@ public class ProxyEasyCinema implements IEasyCinema{
 	public void nuovaPromozione(String tipologia, List<String> condizione, int percentualeSconto) throws EccezioneDominio {
 		if (gestoreUtenti.controlloAutorizzazione(Titolare.class))
 			easyCinema.nuovaPromozione(tipologia, condizione, percentualeSconto);			
+	}
+
+	@Override
+	public String visualizzaProfilo() {
+		if (gestoreUtenti.controlloAutorizzazione(Utente.class))
+			return easyCinema.visualizzaProfilo();
+		return null;
+	}
+
+	@Override
+	public List<Promo> visualizzaPromozioni() {
+		if (gestoreUtenti.controlloAutorizzazione(Utente.class))
+			return easyCinema.visualizzaPromozioni();
+		return null;
 	}	
 
 }

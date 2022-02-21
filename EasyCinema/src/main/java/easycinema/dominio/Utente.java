@@ -18,5 +18,10 @@ public abstract class Utente {
 	}
 	
 	public abstract String getDescrizioneTipologia();
+
+	@Override
+	public String toString() {
+		return "Username: " + username + ", password: " + password;
+	}
 	
 }

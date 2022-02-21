@@ -28,5 +28,16 @@ public class PromoEtà extends Promo {
 	
 		return (età >= etàMinima && età <= etàMassima);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("- Promozione Età (");
+		result.append("età minima: " + etàMinima);
+		result.append(", età massima: " + etàMassima);
+		result.append(", " + super.toString());
+		result.append(")");
+		return result.toString();
+	}
 
 }

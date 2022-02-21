@@ -103,6 +103,13 @@ public class GestoreUtenti {
 			throw new EccezioneDominio("Il codice fiscale inserito appartiene già ad un utente!");
 	}
 	
+	public String getProfiloUtente() {
+		if (utenteCorrente != null)
+			return utenteCorrente.toString();
+		else
+			return "L'utente non è stato identificato. Effettua prima il login.";
+	}
+	
 	private void setUtenteCorrente(Utente u) {
 		utenteCorrente = u;
 	}

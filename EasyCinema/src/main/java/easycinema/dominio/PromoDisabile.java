@@ -14,4 +14,13 @@ public class PromoDisabile extends Promo {
 		return disabile;
 	}
 
+	@Override
+	public String toString() {
+		StringBuffer result = new StringBuffer();
+		result.append("- Promozione Disabilità (");
+		result.append(super.toString());
+		result.append(")");
+		return result.toString();
+	}
+
 }
