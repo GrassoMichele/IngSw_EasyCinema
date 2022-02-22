@@ -1,4 +1,4 @@
-package easycinema.dominio;
+package easycinema.fabrication;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import easycinema.fabrication.GestoreUtenti;
+import easycinema.dominio.Cliente;
+import easycinema.dominio.EccezioneDominio;
+import easycinema.dominio.Titolare;
 
 class GestoreUtentiTest {
 	private GestoreUtenti gestoreUtenti;
@@ -122,6 +124,50 @@ class GestoreUtentiTest {
 		@Test
 		void testUtenteNonAutenticatoRichiedePrivilegiCliente() {
 			assertFalse(gestoreUtenti.controlloAutorizzazione(Cliente.class));
+		}
+	}
+	
+	@Nested
+	class ModificaCreditoCliente {			
+		@BeforeEach
+		void setUp() {
+			assertDoesNotThrow(() -> gestoreUtenti.nuovoCliente("CF", "Nome", "Cognome", "Via", false, 'F', 1950));	
+		}
+		
+		@Test
+		void testClienteInesistente() {
+			Throwable exception = assertThrows(EccezioneDominio.class, () -> gestoreUtenti.modificaCreditoCliente("prova", 20));
+		    assertEquals("ERRORE: Il codice fiscale non corrisponde ad alcun cliente.", exception.getMessage());
+		}	
+		
+		@Test
+		void testImportoNullo() {
+			double importo = 0;
+			assertDoesNotThrow(() -> gestoreUtenti.modificaCreditoCliente("CF", importo));
+			
+			gestoreUtenti.autenticaUtente("CF", "CF");
+			Cliente c = gestoreUtenti.getClienteCorrente();
+			assertEquals(10, c.getCredito());
+		}
+		
+		@Test
+		void testImportoNegativo() {
+			double importo = -10;
+			assertDoesNotThrow(() -> gestoreUtenti.modificaCreditoCliente("CF", importo));
+			
+			gestoreUtenti.autenticaUtente("CF", "CF");
+			Cliente c = gestoreUtenti.getClienteCorrente();
+			assertEquals(10 + importo, c.getCredito());		
+		}
+		
+		@Test
+		void testImportoPositivo() {
+			double importo = 10;
+			assertDoesNotThrow(() -> gestoreUtenti.modificaCreditoCliente("CF", importo));
+			
+			gestoreUtenti.autenticaUtente("CF", "CF");
+			Cliente c = gestoreUtenti.getClienteCorrente();
+			assertEquals(10 + importo, c.getCredito());				
 		}
 	}
 

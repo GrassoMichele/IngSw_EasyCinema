@@ -1,4 +1,4 @@
-package easycinema;
+package easycinema.fabrication;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import easycinema.dominio.EccezioneDominio;
 import easycinema.dominio.Sala;
-import easycinema.fabrication.SaleFactory;
 
 class SaleFactoryTest {
 	private Sala s;
