@@ -203,7 +203,7 @@ class CatalogoTest {
 	@Test
 	void testNuovoFilmCodiceDoppione() {
 		Catalogo catalogo = new Catalogo(null);
-		assertDoesNotThrow(() -> catalogo.nuovoFilm("Film1", "Film1", null, null, 0, 0, null, null, false));
+		assertDoesNotThrow(() -> catalogo.nuovoFilm("Film1", "Film1", null, null, 10, 1960, null, null, false));
 		int expected_size = catalogo.getFilm().size();
 				
 		Throwable exception = assertThrows(EccezioneDominio.class, () -> catalogo.nuovoFilm("Film1", "Film2", null, null, 0, 0, null, null, false));
