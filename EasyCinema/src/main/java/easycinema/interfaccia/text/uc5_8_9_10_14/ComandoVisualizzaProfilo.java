@@ -21,9 +21,8 @@ public class ComandoVisualizzaProfilo extends Comando{
 
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
-		System.out.println("\n*** Profilo utente ***");
+		System.out.println("*** PROFILO utente ***");
 		System.out.println(easyCinema.visualizzaProfilo());
-		System.out.println("\n");
 	}
 
 }

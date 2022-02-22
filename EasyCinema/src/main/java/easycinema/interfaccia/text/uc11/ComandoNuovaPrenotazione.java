@@ -30,12 +30,12 @@ public class ComandoNuovaPrenotazione extends Comando {
 	public void esegui(IEasyCinema easyCinema) {
 		ComandoElencoProiezioni cep = new ComandoElencoProiezioni();
 		cep.esegui(easyCinema);
-		System.out.println("\n   Inserisci il codice della proiezione a cui vuoi assistere: ");
+		System.out.println("\nInserisci il codice della proiezione a cui vuoi assistere: ");
 		String codiceProiezione = Parser.getInstance().read();
 		try {
 			easyCinema.nuovaPrenotazione(codiceProiezione);
 			
-			System.out.println("\nPosti disponibili in sala: ");
+			System.out.println("\n*** POSTI disponibili in sala ***");
 			Map<String, LinkedList<Integer>> postiDisponibili = easyCinema.ottieniPostiDisponibili(null);
 			System.out.println("- Poltrone: ");
 			FunzioniComuni.stampaPosti(postiDisponibili.get("Poltrone Disponibili"));
@@ -46,7 +46,7 @@ public class ComandoNuovaPrenotazione extends Comando {
 			nuovaPrenotazioneConsole.start(easyCinema);
 			
 		} catch (EccezioneDominio e) {
-			System.out.println(e.getMessage());
+			System.out.println("\n" + e.getMessage());
 		}		
 	}
 

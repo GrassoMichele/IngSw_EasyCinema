@@ -24,35 +24,45 @@ public class ComandoNuovoFilm extends Comando {
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
 		try {
-			System.out.println("\nCodice: ");
+			System.out.println("Codice film: ");
 			String codice = Parser.getInstance().read();
-			if (codice.length()==0)
-				throw new EccezioneDominio("Inserisci un codice valido!");
+			EccezioneDominio.controlloInserimentoNullo(codice, "Codice");
+			
 			System.out.println("Titolo: ");
 			String titolo = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(titolo, "Titolo");
+			
 			System.out.println("Regia: ");
 			String regia = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(regia, "Regia");
+			
 			System.out.println("Cast: ");
-			String cast = Parser.getInstance().read();			
+			String cast = Parser.getInstance().read();		
+			EccezioneDominio.controlloInserimentoNullo(cast, "Cast");
 		
 			System.out.println("Durata: ");
 			int durata = Integer.parseInt(Parser.getInstance().read());
+			
 			System.out.println("Anno: ");
 			int anno = Integer.parseInt(Parser.getInstance().read());
 			
 			System.out.println("Trama: ");
 			String trama = Parser.getInstance().read();	
+			EccezioneDominio.controlloInserimentoNullo(trama, "Trama");
+			
 			System.out.println("Genere: ");
-			String genere = Parser.getInstance().read();	
-			System.out.println("Top film: ");
+			String genere = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(genere, "Genere");
+			
+			System.out.println("Top film (true/false): ");
 			boolean topFilm = Boolean.parseBoolean(Parser.getInstance().read());		
 			
 			easyCinema.nuovoFilm(codice, titolo, regia, cast, durata, anno, trama, genere, topFilm);
 			
-			System.out.println("Film aggiunto con successo!");
+			System.out.println("\nFILM AGGIUNTO CON SUCCESSO!");
 		}
 		catch(NumberFormatException e) {
-			System.out.println("La durata e l'anno devono essere valori interi!");
+			System.out.println("\nLa durata e l'anno devono essere valori interi!");
 		}
 		catch(EccezioneDominio e) {
 			System.out.println(e.getMessage());

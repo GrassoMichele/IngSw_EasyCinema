@@ -24,31 +24,36 @@ public class ComandoNuovaSala extends Comando {
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
 		try {
-			System.out.println("\nTipologia Sala (Basic/Luxe): ");
+			System.out.println("Tipologia Sala (Basic/Luxe): ");
 			String tipologiaSala = Parser.getInstance().read();
 			if (!(tipologiaSala.equals("Basic") || tipologiaSala.equals("Luxe")))
-				throw new EccezioneDominio("Tipologia di sala non valida!");
+				throw new EccezioneDominio("\nTipologia di sala non valida!");
 			
 			System.out.println("Nome: ");
-			String nome = Parser.getInstance().read();			
+			String nome = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(nome, "Nome");
+			
 			System.out.println("Numero poltrone: ");
 			int numPoltrone = Integer.parseInt(Parser.getInstance().read());			
+			
 			System.out.println("Numero postazioni disabili: ");
 			int numPostazioniDisabili = Integer.parseInt(Parser.getInstance().read());			
+			
 			System.out.println("Tecnologia 2D supportata (true/false): ");
 			boolean _2D = Boolean.parseBoolean(Parser.getInstance().read());	
+			
 			System.out.println("Tecnologia 3D supportata (true/false): ");
 			boolean _3D = Boolean.parseBoolean(Parser.getInstance().read());		
 			
 			easyCinema.nuovaSala(tipologiaSala, nome, numPoltrone, numPostazioniDisabili, _2D, _3D);
 			
-			System.out.println("Sala aggiunta con successo!");
+			System.out.println("\nSALA AGGIUNTA CON SUCCESSO!");
 		}
 		catch(NumberFormatException e) {
-			System.out.println("Il numero delle poltrone e delle postazioni disabili deve essere un valore intero!");
+			System.out.println("\nIl numero delle poltrone e delle postazioni disabili deve essere un valore intero!");
 		}
 		catch(EccezioneDominio e) {
-			System.out.println(e.getMessage());
+			System.out.println("\n" + e.getMessage());
 		}
 		
 	}

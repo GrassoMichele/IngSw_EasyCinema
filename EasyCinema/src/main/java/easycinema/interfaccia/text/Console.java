@@ -16,6 +16,7 @@ public class Console {
 		do {
 			stampaMenu();
 			comando = Parser.getInstance().getComando(tipologiaConsole);
+			System.out.println();
 			comando.esegui(easyCinema);
 			System.out.println();
 		} while(!comando.getCodiceComando().equals("0") && !comando.exit);
@@ -26,7 +27,7 @@ public class Console {
 
     private void stampaMenu() {
     	String separatore = new String(new char[30]).replace("\0", "*");
-    	System.out.println("\n" + separatore);
+    	System.out.println("\n\n" + separatore);
         System.out.println(titolo);
         System.out.println(separatore);
 		System.out.println(ElencoComandi.elencoTuttiComandi(tipologiaConsole));

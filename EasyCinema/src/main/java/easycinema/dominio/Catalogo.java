@@ -165,16 +165,19 @@ public class Catalogo {
 	}	
 	
 	private void caricaFilm() {
-		Film f1 = new Film("12345", "Le Ali della libertà", "Frank Darabont", "Tim Robbins, Morgan Freeman, Bob Gunton, ...", 135, 1994, "Ambientato nel Maine "
-				+ "del 1947...", "Drammatico", true);
-		Film f2 = new Film("54321", "Batman Begins", "Christopher Nolan", "Christian Bale, Michael Caine, Morgan Freeman, ...", 140, 2005, " Il protagonista "
-				+ "della vicenda è Bruce Wayne...", "Azione", false);
-		Film f3 = new Film("19283", "Il Signore degli Anelli: La Compagnia dell'Anello", "Peter Jackson", "Elijah Wood, Sean Astin, Billy Boyd, ...", 178, 2002,
-				"La storia ha inizio quando l'Unico Anello, forgiato da Sauron ...", "Avventura", false);
-		
-		film.put(f1.getCodice(), f1);
-		film.put(f2.getCodice(), f2);
-		film.put(f3.getCodice(), f3);
+		try {
+			Film f1 = new Film("12345", "Le Ali della libertà", "Frank Darabont", "Tim Robbins, Morgan Freeman, Bob Gunton, ...", 135, 1994, "Ambientato nel Maine "
+					+ "del 1947...", "Drammatico", true);
+			Film f2 = new Film("54321", "Batman Begins", "Christopher Nolan", "Christian Bale, Michael Caine, Morgan Freeman, ...", 140, 2005, " Il protagonista "
+					+ "della vicenda è Bruce Wayne...", "Azione", false);
+			Film f3 = new Film("19283", "Il Signore degli Anelli: La Compagnia dell'Anello", "Peter Jackson", "Elijah Wood, Sean Astin, Billy Boyd, ...", 178, 2002,
+					"La storia ha inizio quando l'Unico Anello, forgiato da Sauron ...", "Avventura", false);
+
+			film.put(f1.getCodice(), f1);
+			film.put(f2.getCodice(), f2);
+			film.put(f3.getCodice(), f3);
+		}
+		catch (EccezioneDominio e) {}
 	}
 
 	public Map<String, Film> getFilm() {
@@ -186,7 +189,7 @@ public class Catalogo {
 			DateTimeFormatter formatterD = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 			DateTimeFormatter formatterH = DateTimeFormatter.ofPattern("H:mm");
 		
-			LocalDate data = LocalDate.parse("17/03/2022", formatterD);		
+			LocalDate data = LocalDate.parse("17/04/2022", formatterD);		
 			LocalTime ora = LocalTime.parse("10:10", formatterH);
 			Proiezione pr1 = new Proiezione("pr1", film.get("12345"), sale.get("Indaco"), data, ora, false, 4.00);
 			data = LocalDate.parse("07/12/2021", formatterD);		

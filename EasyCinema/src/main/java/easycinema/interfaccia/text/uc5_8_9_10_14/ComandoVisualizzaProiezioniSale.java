@@ -28,7 +28,7 @@ public class ComandoVisualizzaProiezioniSale extends Comando{
 		Map<String, Sala> sale = easyCinema.getSale();
 		Map<String, Proiezione> proiezioniSale = easyCinema.visualizzaProiezioniSale();
 		
-		System.out.println("\nProiezioni in corso (o prossime) in sala: ");
+		System.out.println("*** PROIEZIONI in corso (o prossime) in sala ***");
 		for (String nomeSala : sale.keySet()) {
 			System.out.println("-------------------------------------------");
 			System.out.println("Sala: " + sale.get(nomeSala));

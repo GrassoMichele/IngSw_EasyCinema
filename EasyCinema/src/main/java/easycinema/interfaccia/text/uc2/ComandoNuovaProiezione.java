@@ -30,52 +30,57 @@ public class ComandoNuovaProiezione extends Comando {
 
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
-		System.out.println("   Inserisci il codice della nuova proiezione: ");
-		String codiceProiezione = Parser.getInstance().read();
-		
-		// visualizzare i film esistenti
-		System.out.println("   Elenco dei film:");
-		for (Film film: easyCinema.getFilm().values()) {			
-			System.out.println("   " + film.toString());
-		}
-		System.out.println("   Inserisci il codice del film: ");
-		String codiceFilm = Parser.getInstance().read();
-		
-		// visualizzare le sale esistenti
-		System.out.println("   Elenco delle sale:");
-		for (Sala sala: easyCinema.getSale().values()) {			
-			System.out.println("   " + sala.toString());
-		}		
-		System.out.println("   Inserisci il nome della sala: ");
-		String nomeSala = Parser.getInstance().read();		
-		
 		try {
-			System.out.println("   Inserisci la data (dd/mm/yyyy): ");
+			System.out.println("Inserisci il codice della nuova proiezione: ");
+			String codiceProiezione = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(codiceProiezione, "Codice proiezione");
+			
+			// visualizzare i film esistenti
+			System.out.println("\n*** Elenco dei FILM ***");
+			for (Film film: easyCinema.getFilm().values()) {			
+				System.out.println("   " + film.toString());
+			}
+			
+			System.out.println("\nInserisci il codice del film: ");
+			String codiceFilm = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(codiceFilm, "Codice film");
+
+			// visualizzare le sale esistenti
+			System.out.println("\n*** Elenco delle SALE ***");
+			for (Sala sala: easyCinema.getSale().values()) {			
+				System.out.println("   " + sala.toString());
+			}		
+			System.out.println("\nInserisci il nome della sala: ");
+			String nomeSala = Parser.getInstance().read();		
+			EccezioneDominio.controlloInserimentoNullo(nomeSala, "Nome sala");
+		
+		
+			System.out.println("\nInserisci la data (dd/mm/yyyy): ");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 			//convert String to LocalDate
 			LocalDate data = LocalDate.parse(Parser.getInstance().read(), formatter);
 			
-			System.out.println("   Inserisci l'orario (hh:mm): ");
+			System.out.println("\nInserisci l'orario (hh:mm): ");
 			formatter = DateTimeFormatter.ofPattern("H:mm");
 			LocalTime ora = LocalTime.parse(Parser.getInstance().read(), formatter);
 			
-			System.out.println("   E' una proiezione 3D? (true/false): ");
+			System.out.println("\nE' una proiezione 3D? (true/false): ");
 			boolean _3D = Boolean.parseBoolean(Parser.getInstance().read());
 			
-			System.out.println("   Inserisci la tariffa base: ");
+			System.out.println("\nInserisci la tariffa base: ");
 			double tariffaBase = Double.parseDouble(Parser.getInstance().read());
 			
 			easyCinema.nuovaProiezione(codiceProiezione, codiceFilm, nomeSala, data, ora, _3D, tariffaBase);
-			System.out.println("Proiezione creata con successo!");
+			System.out.println("\nPROIEZIONE CREATA CON SUCCESSO!");
 		}
 		catch (DateTimeParseException e) {
-			System.out.println("Formato della data o dell'ora non corretto.");
+			System.out.println("\nFormato della data o dell'ora non corretto.");
 		}
 		catch (NumberFormatException e) {
-			System.out.println("Formato della tariffa base non corretto.");
+			System.out.println("\nFormato della tariffa base non corretto.");
 		} 
 		catch (EccezioneDominio e) {
-			System.out.println(e.getMessage());
+			System.out.println("\n" + e.getMessage());
 		}
 		
 	}

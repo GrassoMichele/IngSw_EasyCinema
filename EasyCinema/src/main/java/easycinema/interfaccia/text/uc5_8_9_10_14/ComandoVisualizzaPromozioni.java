@@ -27,13 +27,12 @@ public class ComandoVisualizzaPromozioni extends Comando{
 		List<Promo> promozioni = easyCinema.visualizzaPromozioni();
 		
 		if(promozioni.size() != 0) {
-			System.out.println("\n*** Elenco PROMOZIONI ***");
+			System.out.println("*** Elenco PROMOZIONI ***");
 			for (Promo promozione : promozioni)
-				System.out.println(promozione);
-			System.out.println("\n");
+				System.out.println("   " + promozione);
 		}
 		else
-			System.out.println("\nNessuna promozione presente.");
+			System.out.println("Nessuna promozione presente.");
 	}
 
 }

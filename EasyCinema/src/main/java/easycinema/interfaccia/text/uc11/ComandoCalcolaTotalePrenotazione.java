@@ -24,7 +24,7 @@ public class ComandoCalcolaTotalePrenotazione extends Comando {
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
 		try {
-			System.out.println("\nIl totale della prenotazione è: " + easyCinema.calcolaTotalePrenotazione() + "\n");
+			System.out.println("Il totale della prenotazione è: " + easyCinema.calcolaTotalePrenotazione() + "\n");
 			Console confermaPrenotazioneConsole = new Console(ElencoComandi.CONFERMA_PRENOTAZIONE, "CONFERMA PRENOTAZIONE");
 			confermaPrenotazioneConsole.start(easyCinema);
 			exit = true;

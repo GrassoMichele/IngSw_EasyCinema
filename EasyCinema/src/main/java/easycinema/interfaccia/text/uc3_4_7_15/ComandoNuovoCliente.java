@@ -24,14 +24,21 @@ public class ComandoNuovoCliente extends Comando {
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
 		try {
-			System.out.println("\nCodice fiscale: ");
+			System.out.println("Codice fiscale: ");
 			String codiceFiscale = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(codiceFiscale, "Codice fiscale");
+			
 			System.out.println("Nome: ");
 			String nome = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(nome, "Nome");
+			
 			System.out.println("Cognome: ");
 			String cognome = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(cognome, "Cognome");
+			
 			System.out.println("Indirizzo: ");
 			String indirizzo = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(indirizzo, "Indirizzo");
 
 			System.out.println("Disabile (y/altro tasto): ");
 			String scelta = Parser.getInstance().read();
@@ -45,17 +52,21 @@ public class ComandoNuovoCliente extends Comando {
 			if (sessoStringa.equals("M") || sessoStringa.equals("F"))
 				sesso = sessoStringa.charAt(0);
 			else {
-				throw new EccezioneDominio("Sesso non valido.");
+				throw new EccezioneDominio("\nSesso non valido.");
 			}
 
 			System.out.println("Anno di nascita: ");
 			int annoNascita = Integer.parseInt(Parser.getInstance().read());
 
-
 			easyCinema.nuovoCliente(codiceFiscale, nome, cognome, indirizzo, disabile, sesso, annoNascita);
-			System.out.println("Cliente aggiunto correttamente al sistema.");
-		} catch (EccezioneDominio e) {
-			System.out.println(e.getMessage());
+			
+			System.out.println("\nCLIENTE AGGIUNTO CORRETTAMENTE AL SISTEMA.");
+			
+		} catch (NumberFormatException e) {
+			System.out.println("\nAnno di nascita non valido!");
+		}
+		catch (EccezioneDominio e) {
+			System.out.println("\n" + e.getMessage());
 		}
 	}
 

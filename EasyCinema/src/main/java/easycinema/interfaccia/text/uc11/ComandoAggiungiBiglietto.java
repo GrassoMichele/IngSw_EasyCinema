@@ -26,20 +26,20 @@ public class ComandoAggiungiBiglietto extends Comando {
 
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
-		System.out.println("\nInserisci il numero del posto da prenotare: ");
+		System.out.println("Inserisci il numero del posto da prenotare: ");
 		try {
 			int numPosto = Integer.parseInt(Parser.getInstance().read());
 			easyCinema.aggiungiBiglietto(numPosto);
-			System.out.println("Il posto " + numPosto + " è stato riservato con successo");
+			System.out.println("\nIl posto " + numPosto + " è stato riservato con successo");
 		}
 		catch (NumberFormatException e) {
-			System.out.println("Inserisci un numero intero!");
+			System.out.println("\nInserisci un numero intero!");
 		}
 		catch (EccezioneDominio e) {
-			System.out.println(e.getMessage());
+			System.out.println("\n" + e.getMessage());
 		}
 		finally {
-			System.out.println("\nPosti disponibili in sala: ");
+			System.out.println("\n*** POSTI disponibili in sala ***");
 			Map<String, LinkedList<Integer>> postiDisponibili = easyCinema.ottieniPostiDisponibili(null);
 			System.out.println("- Poltrone: ");
 			FunzioniComuni.stampaPosti(postiDisponibili.get("Poltrone Disponibili"));

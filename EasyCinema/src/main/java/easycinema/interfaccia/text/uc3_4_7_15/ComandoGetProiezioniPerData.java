@@ -30,16 +30,18 @@ public class ComandoGetProiezioniPerData extends Comando{
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
 		try {
-			System.out.println("   Inserisci la data (dd/mm/yyyy): ");
+			System.out.println("Inserisci la data (dd/mm/yyyy): ");
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 			String dataS = Parser.getInstance().read();
 			LocalDate data = LocalDate.parse(dataS, formatter);
 			
+			System.out.println();
+			
 			List<Proiezione> proiezioni = easyCinema.getProiezioniPerData(data);
 			if (proiezioni.size()!=0) {
-				System.out.println("   Elenco:");
+				System.out.println("*** Elenco PROIEZIONI ***");
 				for (Proiezione pr : proiezioni) {
-					System.out.println(pr);
+					System.out.println("   " + pr);
 				}
 			}
 			else {

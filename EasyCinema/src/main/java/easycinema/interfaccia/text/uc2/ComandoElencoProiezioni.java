@@ -22,9 +22,9 @@ public class ComandoElencoProiezioni extends Comando{
 
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
-		System.out.println("\n*** Elenco proiezioni ***");
+		System.out.println("*** ELENCO PROIEZIONI ***");
 		for (Proiezione pr : easyCinema.getProiezioni().values()) {
-			System.out.println(pr);
+			System.out.println("   " + pr);
 		}
 	}
 	

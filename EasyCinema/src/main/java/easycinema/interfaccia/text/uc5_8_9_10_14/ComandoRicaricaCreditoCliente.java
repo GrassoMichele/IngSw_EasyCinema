@@ -26,12 +26,16 @@ public class ComandoRicaricaCreditoCliente extends Comando{
 		try {
 			System.out.println("Codice fiscale del cliente: ");
 			String codiceFiscale = Parser.getInstance().read();
+			EccezioneDominio.controlloInserimentoNullo(codiceFiscale, "Codice fiscale");
+			
 			System.out.println("Importo della ricarica: ");
 			double importo = Double.parseDouble(Parser.getInstance().read());
 			
+			System.out.println();
+			
 			if(importo > 0) {
 				easyCinema.ricaricaCreditoCliente(codiceFiscale, importo);				
-				System.out.println("Ricarica del conto effettuata!");
+				System.out.println("RICARICA DEL CONTO EFFETTUATA!");
 			}
 			else
 				throw new EccezioneDominio("ERRORE: L'importo della ricarica deve essere un valore positivo.");

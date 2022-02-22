@@ -29,23 +29,23 @@ public class ComandoGetPrenotazioniProiezione extends Comando{
 
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
-		System.out.println("   Inserisci il codice della proiezione di interesse: ");
+		System.out.println("Inserisci il codice della proiezione di interesse: ");
 		String codiceProiezione = Parser.getInstance().read();
 		try {
 			
 			List<Prenotazione> prenotazioniProiezione = easyCinema.getPrenotazioniProiezione(codiceProiezione);
 			
 			if (prenotazioniProiezione.size()!=0) {
-				System.out.println("\nElenco prenotazioni per la proiezione " + codiceProiezione + ":");
+				System.out.println("\n*** Elenco prenotazioni per la proiezione " + codiceProiezione + " ***");
 				for (Prenotazione p : prenotazioniProiezione) {
-					System.out.println(p);
+					System.out.println("   " + p);
 				}
 			}
 			else {
 				System.out.println("\nNessuna prenotazione per la proiezione " + codiceProiezione + ".");	
 			}
 			
-			System.out.println("\n   Vuoi conoscere lo stato della sala? (y/n)");
+			System.out.println("\nVuoi conoscere lo stato della sala? (y/n)");
 			String scelta = Parser.getInstance().read();
 			if (scelta.equals("y")) {
 				Map<String, LinkedList<Integer>> statoSalaProiezione;
@@ -78,7 +78,7 @@ public class ComandoGetPrenotazioniProiezione extends Comando{
 				System.out.println("----------------------");
 			}
 			else if(!scelta.equals("n")) {
-				System.out.println("Scelta non valida!");
+				System.out.println("\nScelta non valida!");
 			}		
 		}
 		catch(EccezioneDominio e) {

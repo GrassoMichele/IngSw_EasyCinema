@@ -13,17 +13,32 @@ public class Film {
 	
 
 	public Film(String codice, String titolo, String regia, String cast, int durata, int anno, String trama,
-			String genere, boolean topFilm) {
+			String genere, boolean topFilm) throws EccezioneDominio {
 		this.codice = codice;
 		this.titolo = titolo;
 		this.regia = regia;
 		this.cast = cast;
-		this.durata = durata;
-		this.anno = anno;
+		setDurata(durata);
+		setAnno(anno);
 		this.trama = trama;
 		this.genere = genere;
 		this.topFilm = topFilm;
 	}	
+	
+	private void setDurata(int durata) throws EccezioneDominio {
+		if(durata > 0)
+			this.durata = durata;
+		else
+			throw new EccezioneDominio("La durata deve avere valore positivo!");
+		
+	}
+	
+	private void setAnno(int anno) throws EccezioneDominio {
+		if (anno >= 1895)
+			this.anno = anno;
+		else
+			throw new EccezioneDominio("L'anno deve essere superiore al 1895!");
+	}
 	
 	public String getCodice() {
 		return codice;

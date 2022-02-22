@@ -93,7 +93,7 @@ public class Prenotazione {
 		StringBuffer result = new StringBuffer();
 		result.append("- ");
 		result.append("Codice: " + codice);
-		result.append(", Cliente: (" + cliente + ")");
+		result.append(", Cliente: " + cliente.getCodiceFiscale());
 		result.append(", Proiezione: " + proiezione.getCodice());
 		result.append(", Totale: " + totale);
 		result.append(", Biglietti: ");

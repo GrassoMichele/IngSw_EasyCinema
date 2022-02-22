@@ -27,12 +27,12 @@ public class ComandoVisualizzaPrenotazioni extends Comando {
 		List<Prenotazione> prenotazioni = easyCinema.visualizzaPrenotazioni();
 		
 		if(prenotazioni.size() != 0) {
-			System.out.println("\nElenco prenotazioni: ");		
+			System.out.println("*** Elenco PRENOTAZIONI ***");		
 			for (Prenotazione p : prenotazioni) {
-				System.out.println(p);
+				System.out.println("   " + p);
 			}	
 		}
 		else
-			System.out.println("\nNessuna prenotazione presente.\n");
+			System.out.println("Nessuna prenotazione presente.");
 	}
 }

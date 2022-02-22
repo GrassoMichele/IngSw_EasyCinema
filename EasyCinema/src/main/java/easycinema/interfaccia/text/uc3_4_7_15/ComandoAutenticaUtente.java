@@ -24,7 +24,7 @@ public class ComandoAutenticaUtente extends Comando{
 
 	@Override
 	public void esegui(IEasyCinema easyCinema) {
-		System.out.println("\nUsername: ");
+		System.out.println("Username: ");
 		String username = Parser.getInstance().read();
 		System.out.println("Password: ");
 		String password = Parser.getInstance().read();
@@ -32,7 +32,7 @@ public class ComandoAutenticaUtente extends Comando{
 		String accesso = easyCinema.autenticaUtente(username, password);
 		
 		if(accesso!="Fallita") {
-			System.out.println("\nAccesso effettuato in qualità di " + accesso + "\n");
+			System.out.println("\nAccesso effettuato in qualità di " + accesso);
 			
 			Console home;			
 			int tipologiaConsole = accesso.equals("titolare")? ElencoComandi.HOME_TITOLARE : ElencoComandi.HOME_CLIENTE; 

@@ -29,13 +29,13 @@ public class ComandoNuovaPromozione extends Comando{
 		
 		String[] tipologiePromozioni = {"Disabile", "Giorno", "Età", "FasciaOraria"} ;
 		
-		System.out.println("\n\nTipologie promozioni: ");
+		System.out.println("*** Tipologie PROMOZIONI ***");
 		for (int i = 0; i < tipologiePromozioni.length; i++) {
 			System.out.println(i+1 + ") " + tipologiePromozioni[i]);
 		}
 		System.out.println("Seleziona: ");
-		String selezione = Parser.getInstance().read();
-		System.out.println("\n");
+		String selezione = Parser.getInstance().read();		
+		System.out.println();
 		
 		try {
 			int numeroPromo = Integer.parseInt(selezione);
@@ -49,8 +49,12 @@ public class ComandoNuovaPromozione extends Comando{
 			case "Giorno":
 				System.out.println("Giorno (dd/mm/yyyy): ");
 				String giorno = Parser.getInstance().read();
+				EccezioneDominio.controlloInserimentoNullo(giorno, "Giorno");
+				
 				System.out.println("Filtro sul sesso (M/F/N(essuno)): ");
 				String sesso = Parser.getInstance().read();
+				EccezioneDominio.controlloInserimentoNullo(sesso, "Sesso");
+				
 				condizione.add(giorno);
 				condizione.add(sesso);				
 				break;
@@ -79,11 +83,11 @@ public class ComandoNuovaPromozione extends Comando{
 			
 			easyCinema.nuovaPromozione(tipologiaPromo, condizione, percentualeSconto);
 			
-			System.out.println("Promozione creata con successo!");
+			System.out.println("\nPROMOZIONE CREATA CON SUCCESSO!");
 			
 		}
 		catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-			System.out.println("ERRORE: Scelta non valida!");
+			System.out.println("\nERRORE: Scelta non valida!");
 		}
 		catch (EccezioneDominio e) {
 			System.out.println(e.getMessage());

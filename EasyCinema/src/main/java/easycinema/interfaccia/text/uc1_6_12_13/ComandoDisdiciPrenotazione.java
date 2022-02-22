@@ -25,11 +25,13 @@ public class ComandoDisdiciPrenotazione extends Comando {
 	public void esegui(IEasyCinema easyCinema) {
 		try {
 			System.out.println("Codice prenotazione: ");
-			String codice = Parser.getInstance().read();			
+			String codice = Parser.getInstance().read();
+			
+			System.out.println();
 						
 			easyCinema.disdiciPrenotazione(codice);
 			
-			System.out.println("La prenotazione è stata annullata. Rimborso effettuato!");
+			System.out.println("LA PRENOTAZIONE È STATA ANNULLATA. Rimborso effettuato!");
 		}
 		catch(EccezioneDominio e) {
 			System.out.println(e.getMessage());

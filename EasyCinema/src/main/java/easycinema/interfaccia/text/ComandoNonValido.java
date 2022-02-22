@@ -17,6 +17,6 @@ public class ComandoNonValido extends Comando {
 	}
 
     public void esegui(IEasyCinema easyCinema) {
-		System.out.println("   COMANDO INESISTENTE");
+		System.out.println("COMANDO INESISTENTE");
 	}
 }

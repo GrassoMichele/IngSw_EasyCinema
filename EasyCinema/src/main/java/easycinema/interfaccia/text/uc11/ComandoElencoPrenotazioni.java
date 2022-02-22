@@ -24,9 +24,9 @@ public class ComandoElencoPrenotazioni extends Comando {
 		List<Prenotazione> prenotazioni = easyCinema.getPrenotazioni();
 		
 		if (prenotazioni.size()!=0) {
-			System.out.println("\nElenco prenotazioni: ");			
+			System.out.println("*** ELENCO PRENOTAZIONI ***");			
 			for (Prenotazione p : prenotazioni) {
-				System.out.println(p);
+				System.out.println("   " + p);
 			}
 		}
 		else {

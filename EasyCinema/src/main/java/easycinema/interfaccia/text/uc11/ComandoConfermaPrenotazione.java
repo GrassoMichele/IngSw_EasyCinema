@@ -22,11 +22,11 @@ public class ComandoConfermaPrenotazione extends Comando {
 		String codicePrenotazione;
 		try {
 			codicePrenotazione = easyCinema.confermaPrenotazione();
-			System.out.println("\nPrenotazione effettuata con successo!"); 
+			System.out.println("PRENOTAZIONE EFFETTUATA CON SUCCESSO!"); 
 			System.out.println("Il codice della tua prenotazione è: " + codicePrenotazione);
 		} 
 		catch (EccezioneDominio e) {
-			System.out.println(e.getMessage());
+			System.out.println("\n" + e.getMessage());
 		} 
 		finally {
 			exit = true;
